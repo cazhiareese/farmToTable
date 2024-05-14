@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import add from '../icons/home_a_plus.png';
+import basket from '../icons/home_a_basket.png';
+import asc_a from '../icons/asc_active.png';
+import desc_a from '../icons/desc_active.png';
 
 function Home (props){
     const [ products, setProducts ] = useState([])
@@ -45,7 +48,7 @@ function Home (props){
 
     return(
         <div className='main-div'>
-            <div className='row'>
+            <div className='shop-welcome'>
                 <h1>Shop agri products with us.</h1>
                 <p>Shop for more agri deals now and make a difference. transactions between farmers and customers directly. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
 
@@ -59,10 +62,9 @@ function Home (props){
             </div>
 
             <div className='row'>
-            
                 <div className='col-sm-6 col-md-6 col-lg-6'></div>
-                <div className='col-sm-3 col-md-3 col-lg-3'>
-                <label>Sort by: </label>
+                <div className='col-sm-1 col-md-1 col-lg-3'>
+                <label>Sort by:</label>
                 <select name="filters" id="filters" value={selectedOption}
                                 onChange={e => {
                                     setSelectedOption(e.target.value)
@@ -79,12 +81,12 @@ function Home (props){
                                 var newSorter = {...sorter, orderBy:1}
                                 setSort(newSorter)
                                 handleFilter(newSorter)
-                        }}>ASC</button>
+                        }}><img src={asc_a}></img></button>
                     <button className='btn-sm' onClick={()=>{
                                 var newSorter = {...sorter, orderBy:-1}
                                 setSort(newSorter)
                                 handleFilter(newSorter)
-                    }}>DESC</button>
+                    }}><img src={desc_a}></img></button>
                 </div>
             </div>
             
@@ -92,13 +94,13 @@ function Home (props){
                 {
                 products.map((prod) =>{
                     return(
-                    <Link  key= {prod._id} className='col-sm-6 col-md-4 col-lg-3' to={`/products/${prod._id}`}>
+                    <Link  key= {prod._id} className='item' to={`/products/${prod._id}`}>
                         <div  id={prod._id}>
                             <img src = {prod.imageURL}></img>
-                            <h1> {prod.name}</h1>
-                            <h4> {handleType(prod.type)}</h4>
-                            <h3> {prod.price}</h3>
-                            <button>Add To Cart</button>  
+                            <h4> {prod.name}</h4>
+                            <h6> {handleType(prod.type)}</h6>
+                            <h3> PHP {prod.price}</h3>
+                            <button class="add_cart_button"><img class= "home_add_cart" src={add}></img><img class= "home_add_cart" src={basket}></img></button>  
                         </div>
                     </Link>
                     )
@@ -106,7 +108,7 @@ function Home (props){
                 }
             </div>
 
-        </div>
+     </div>
     )
 }
 

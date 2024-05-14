@@ -15,6 +15,7 @@ const site_desc = {
   name : "Farm-To-Table",
   Logo : "./images/logo",
 }
+
 const router = createBrowserRouter([
   { path: '/', element: <Root desc = {site_desc}/>, children: [
     { path: '/', element: <Home desc = {site_desc}/> },
