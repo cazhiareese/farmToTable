@@ -1,14 +1,22 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import add from '../icons/home_a_plus.png';
+import basket from '../icons/home_a_basket.png';
+import asc_a from '../icons/asc_active.png';
+import desc_a from '../icons/desc_active.png';
 
 function Home (props){
-    const [ products, setProducts ] = useState([])
+
+
     let filters = {
         orderBy : 1,
         sortBy: 'name'
     }
 
+    const [ products, setProducts ] = useState([])
+
+    const [pushCart, setCart] = useState([]);
+    
     const [sorter, setSort] = useState(filters)
     const [selectedOption, setSelectedOption] = useState(filters.sortBy);
 
@@ -42,6 +50,63 @@ function Home (props){
         setSort(newSorter)
         handleFilter(newSorter)
     }
+
+    function handleCartChange(cart){
+        fetch('http://localhost:3001/updateCart',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        //   add tayo dito ng authenticator token
+        },
+        body: JSON.stringify({ 
+                // authenticator dapat ang ipapasa ko ha
+                userId: '6638db055b73b79302282273',
+            cart : cart
+        })
+      }).then(response => response.text())
+            .then(body => {
+                console.log(body)
+      })
+    }
+
+    // If a user clicks add to cart append it to the pushCart array and add a qty field.
+    //If it's already in the array, incement the qty. 
+    function addToCart (prod)
+    {       
+        let i = 0;
+        let found = false;
+        for (let j = 0; j < pushCart.length; j++) {
+            if (pushCart[j].productId === prod.productId) {
+                found = true;
+                i= j;
+            break;
+        }
+        }       
+        if (!found)
+        {
+            setCart( (pushCart) =>{
+                const newCart = [...pushCart, {...prod, qty : 1}]
+                
+                handleCartChange(newCart)
+                return newCart
+            })
+
+        }else
+        {              
+            setCart((pushCart) =>{
+                const updateCart = [...pushCart];
+                updateCart[i]  =  { ...updateCart[i], qty: updateCart[i].qty + 1}
+                
+                handleCartChange(updateCart)
+                return updateCart
+            })
+        }
+
+        
+    }
+
+    
 
     return(
         <div className='main-div'>
@@ -79,12 +144,12 @@ function Home (props){
                                 var newSorter = {...sorter, orderBy:1}
                                 setSort(newSorter)
                                 handleFilter(newSorter)
-                        }}>ASC</button>
+                        }}><img src={asc_a}></img></button>
                     <button className='btn-sm' onClick={()=>{
                                 var newSorter = {...sorter, orderBy:-1}
                                 setSort(newSorter)
                                 handleFilter(newSorter)
-                    }}>DESC</button>
+                    }}><img src={desc_a}></img></button>
                 </div>
             </div>
             
@@ -92,15 +157,18 @@ function Home (props){
                 {
                 products.map((prod) =>{
                     return(
-                    <Link  key= {prod._id} className='col-sm-6 col-md-4 col-lg-3' to={`/products/${prod._id}`}>
-                        <div  id={prod._id}>
+                    
+                        <div  key= {prod._id} className='col-sm-6 col-md-4 col-lg-3' id={prod._id}>
+                            <Link  to={`/products/${prod._id}`}>
                             <img src = {prod.imageURL}></img>
-                            <h1> {prod.name}</h1>
-                            <h4> {handleType(prod.type)}</h4>
+                            <h4> {prod.name}</h4>
+                            </Link>
+                            <h6> {handleType(prod.type)}</h6>
                             <h3> {prod.price}</h3>
-                            <button>Add To Cart</button>  
+                           
+                            <button onClick={()=> addToCart({productId : prod._id})} class="add_cart_button"><img class= "home_add_cart" src={add}></img><img class= "home_add_cart" src={basket}></img></button> 
                         </div>
-                    </Link>
+                   
                     )
                 })
                 }

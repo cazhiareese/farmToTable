@@ -1,5 +1,4 @@
-import {getAllProducts} from './controller.js'
-
+import { getProduct, getAllProducts, getUser, addOrder, removeOrder, updateCart, getCart } from './controller/user_controller.js'
 
 const router = (app) =>{
 
@@ -11,6 +10,9 @@ const router = (app) =>{
         next();
       })
     app.get('/products', getAllProducts)
+    app.post('/updateCart', updateCart)
+    app.get('/getCart/:id', getCart)
+    app.get('/getProduct/:id', getProduct)
 }
 
 export default router

@@ -2,20 +2,39 @@ import mongoose from 'mongoose';
 import { User } from '../models/userSchema.js';
 import { Product } from '../models/productSchema.js';
 import { Order } from '../models/orderSchema.js';
+import {Cart} from '../models/cartSchema.js'
+await mongoose.connect( 'mongodb+srv://cazhia:E13UKHwTNcHF3PzJ@farm.kzqurki.mongodb.net/ftt?retryWrites=true&w=majority&appName=farm', {  
+ useNewUrlParser: true, useUnifiedTopology: true });
 
+ 
 // Retrieve a products by their ID
 const getProduct = async(req, res) => {
+  const {id} = req.params;
+  console.log(id)
   try {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(id);
     if (!product) {
+      
       return res.status(404).json({ message: 'Product not found' });
     }
+    console.log(product)
     res.json(product);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 }
 
+
+const getAllProducts = async(req,res) =>{
+  let sorter = req.query.sortBy;
+  let orderBy = parseInt(req.query.orderBy)
+  
+  let product_list = await Product.find().sort({
+      [sorter]: orderBy
+  })
+
+  res.send(product_list)
+}
 // Retrieve a products by their ID
 const getUser = async(req, res) => {
   try {
@@ -69,5 +88,43 @@ const removeOrder = async(req, res) => {
   }
 }
 
-export default { getProduct, getUser, addOrder, removeOrder };
+
+const updateCart = async(req,res) =>{
+  const flag = 
+    {
+        updatedOne : true
+    }
+    try
+    {
+        //update lname using fname
+        await Cart.updateOne(
+            { userId: req.body.userId },
+            {$set: {cart: req.body.cart}}
+        )
+
+        flag.updatedOne = true;
+    }catch (err)
+    {
+        console.log(err);
+        flag.updatedOne = false;
+    }
+    res.send(flag)
+}
+
+const getCart = async(req,res) =>{
+
+  try {
+    const cart = await Cart.findOne({userId: req.params.id});
+    if (!cart) {
+      return res.status(404).json({ message: 'Cart not found' });
+    }
+
+
+    res.json(cart);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+
+export { getProduct, getAllProducts, getUser, addOrder, removeOrder, updateCart, getCart };
 //------------------------------
