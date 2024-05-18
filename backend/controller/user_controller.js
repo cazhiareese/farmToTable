@@ -7,7 +7,7 @@ await mongoose.connect( 'mongodb+srv://miles:LSHCMg8iTPP9E55H@farm.kzqurki.mongo
  useNewUrlParser: true, useUnifiedTopology: true });
 
  
-// Retrieve a products by their ID
+// Retrieve a product by their ID
 const getProduct = async(req, res) => {
   const {id} = req.params;
   console.log(id)
@@ -17,7 +17,6 @@ const getProduct = async(req, res) => {
       
       return res.status(404).json({ message: 'Product not found' });
     }
-    console.log(product)
     res.json(product);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -41,14 +40,14 @@ const getAllProducts = async (req, res) => {
   }
 };
 
-// Retrieve a products by their ID
+// Retrieve a user by their ID
 const getUser = async(req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
-    if (!product) {
-      return res.status(404).json({ message: 'Product not found' });
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
     }
-    res.json(product);
+    res.json(user);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
