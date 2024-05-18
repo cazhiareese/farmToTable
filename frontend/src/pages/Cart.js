@@ -11,16 +11,18 @@ function Cart (){
   
     useEffect(() => {    
         let url = `http://localhost:3001/getCart/${userId.id}`
-        console.log(userId);
-        console.log(typeof userId)
+        // console.log(userId);
+        // console.log(typeof userId);
         fetch(url)
           .then(response => response.json())
           .then(body => {
             setCart(body.cart)
-            console.log(body.cart)
+            countItems(body.cart)
+            test(body.cart)
+            // console.log(body.cart)
         })
 
-        
+        // countItems(pushCart);111
     },[])
 
     function handleCartChange(cart){
@@ -38,7 +40,7 @@ function Cart (){
         })
       }).then(response => response.text())
             .then(body => {
-                console.log(body)
+                // console.log(body)
       })
     }
 
@@ -84,7 +86,7 @@ function Cart (){
 
 
     function countItems(cart){
-        console.log(cart)
+        // console.log(cart)
         let newTotal = 0;
         cart.map((prod) =>{
             newTotal += prod.qty;
@@ -97,19 +99,35 @@ function Cart (){
         let url = 'http://localhost:3001/getProduct/'+productId
         fetch(url).then(response => response.json())
         .then(body => {
-          setDetails((prodDeets) => 
-            {
-                const newDetails = [...prodDeets, {id: body._id, name: body.name, price: body.price}]
-                console.log(newDetails)
-                return newDetails
-            }
-          )
-          
+            console.log('body');
+            console.log(body);
+            const testjson = body
+            return testjson
       })
 
-      console.log(prodDeets)
+    //   console.log(prodDeets)
 
     }
+
+    function test(cart) {
+        console.log('cart');
+        console.log(cart);
+        // const newDetails = [...prodDeets, {id: body._id, name: body.name, price: body.price}]
+        const newDetails = [...prodDeets];
+        newDetails.length = 0;
+        // const productDetails = [];
+        for(let i = 0; i < cart.length; i++) {
+            console.log('currID');
+            console.log(cart[i]);
+            var tempDetails = getProduct(cart[i].productId);
+            console.log(tempDetails);
+            newDetails[i] = tempDetails;
+            console.log('newDetails');
+            console.log(newDetails);
+        }
+        console.log(newDetails);
+        setDetails(newDetails);
+      }
 
     return(
         <div className='cart-page'>

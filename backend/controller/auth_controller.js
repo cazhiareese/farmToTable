@@ -1,8 +1,11 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/userSchema.js';
+//temp
+// await mongoose.connect( 'mongodb+srv://cazhia:E13UKHwTNcHF3PzJ@farm.kzqurki.mongodb.net/ftt?retryWrites=true&w=majority&appName=farm', {  
+//  useNewUrlParser: true, useUnifiedTopology: true });
 
-SECRET_KEY = 'CMSC100FTT';
+const SECRET_KEY = 'CMSC100FTT';
 
 //sign up authentication
 const signUp = async (req, res) => {
@@ -45,7 +48,7 @@ const signIn = async (req, res) => {
 
                //pass token
                const token = jwt.sign({userID: user._id}, SECRET_KEY, {expiresIn: '1hr'});
-               res.status(200).send({ details: "Login successful", token: token });
+               res.status(200).send({ details: "Login successful" });
 
        }catch (error) {
               res.status(401).send({details: "Invalid credentials!"});
@@ -53,4 +56,4 @@ const signIn = async (req, res) => {
 }
 
 
-export default { signUp, signIn }
+export { signUp, signIn };

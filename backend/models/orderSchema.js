@@ -7,7 +7,7 @@ const orderSchema = new mongoose.Schema({
        status: {type: Number, required: true},
        dateTime: {type: Date, default: Date.now},
        price: {type: Number, required: true},
-});
+}, {versionKey: false});
 
 const Order = mongoose.model('Order', orderSchema);
 

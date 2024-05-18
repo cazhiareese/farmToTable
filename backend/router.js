@@ -1,4 +1,5 @@
-import { getProduct, getAllProducts, getUser, addOrder, removeOrder, updateCart, getCart } from './controller/user_controller.js'
+import { getProduct, getAllProducts, getUser, addOrder, removeOrder, updateCart, getCart } from './controller/user_controller.js';
+import { signUp, signIn } from './controller/auth_controller.js';
 
 const router = (app) =>{
 
@@ -9,10 +10,13 @@ const router = (app) =>{
         res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
         next();
       })
-    app.get('/products', getAllProducts)
-    app.post('/updateCart', updateCart)
-    app.get('/getCart/:id', getCart)
-    app.get('/getProduct/:id', getProduct)
+      app.get('/products', getAllProducts)
+      app.post('/updateCart', updateCart)
+      app.get('/getCart/:id', getCart)
+      app.get('/getProduct/:id', getProduct)
+      app.post('/sign-up', signUp)
+      app.post('/sign-in', signIn)
+
 }
 
 export default router

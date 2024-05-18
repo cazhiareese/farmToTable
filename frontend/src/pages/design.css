@@ -123,3 +123,95 @@ body{
     line-height: 10px; 
     margin-top: 10px;
   }
+
+.signIn-main, .signUp-main {
+    display: flex;
+    background-color: #074528;
+    min-height: 100vh;
+    width: 100vw;
+}
+
+.signIn-div-form, .signUp-div-form{
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.signIn-form, .signUp-form{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #FFFDF9;
+    min-height: 85vh;
+    width: 70%;
+    border-radius: 5em;
+    justify-content: center;
+    
+}
+
+.signIn-logo, .signUp-logo{
+    width: 40%;
+}
+
+.signIn-welcome{
+    color: #074528;
+    height: fit-content;
+    width: fit-content;
+    font-size: 60px;
+    font-family: 'Roboto';
+    font-weight: bolder;
+    margin: 6rem;
+}
+
+.signIn-textField-div, .signUp-textField-div{
+    display: flex;
+    align-items: start;
+    /* background-color: aqua; */
+    width: 70%;
+    max-height: fit-content;
+}
+
+.signIn-textField, .signUp-textField{
+    height: fit-content;
+    width: 100%;
+    margin-bottom: 10em;
+}
+
+.signIn-textDesc, .signUp-textDesc{
+    color: #074528;
+    font-size: 15px;
+    font-weight: 300;
+}
+
+#email, #password, #fname, #lname, #mname, #confirmPassword{
+    background-color: #EEEEEA;
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-bottom: 2px solid #074528;
+}
+
+#signIn, #signUp{
+    border: none;
+    border-radius: 7px;
+    width: 100%;
+    height: 50px;
+    color: #EEEEEA;
+    background-color: #074528;
+    font-weight: bolder;
+}
+
+.signUp-form{
+    width: 65%;
+}
+
+.signUp-createAcc{
+    color: #074528;
+    height: fit-content;
+    width: fit-content;
+    font-size: 50px;
+    font-family: 'Roboto';
+    font-weight: bolder;
+    margin: 6rem;
+}

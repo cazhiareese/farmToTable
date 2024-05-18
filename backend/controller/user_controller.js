@@ -2,22 +2,24 @@ import mongoose from 'mongoose';
 import { User } from '../models/userSchema.js';
 import { Product } from '../models/productSchema.js';
 import { Order } from '../models/orderSchema.js';
-import {Cart} from '../models/cartSchema.js'
-await mongoose.connect( 'mongodb+srv://cazhia:E13UKHwTNcHF3PzJ@farm.kzqurki.mongodb.net/ftt?retryWrites=true&w=majority&appName=farm', {  
- useNewUrlParser: true, useUnifiedTopology: true });
+import { Cart } from '../models/cartSchema.js'
+// await mongoose.connect( 'mongodb+srv://cazhia:E13UKHwTNcHF3PzJ@farm.kzqurki.mongodb.net/ftt?retryWrites=true&w=majority&appName=farm', {  
+//  useNewUrlParser: true, useUnifiedTopology: true });
 
  
 // Retrieve a products by their ID
 const getProduct = async(req, res) => {
   const {id} = req.params;
-  console.log(id)
+  // console.log(id)
   try {
     const product = await Product.findById(id);
+    console.log('inside getProduct');
+    console.log(product)
+
     if (!product) {
       
       return res.status(404).json({ message: 'Product not found' });
     }
-    console.log(product)
     res.json(product);
   } catch (err) {
     res.status(500).json({ message: err.message });
