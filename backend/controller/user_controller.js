@@ -2,6 +2,15 @@ import mongoose from 'mongoose';
 import { User } from '../models/userSchema.js';
 import { Product } from '../models/productSchema.js';
 import { Order } from '../models/orderSchema.js';
+import { Cart } from '../models/cartSchema.js'
+// await mongoose.connect( 'mongodb+srv://cazhia:E13UKHwTNcHF3PzJ@farm.kzqurki.mongodb.net/ftt?retryWrites=true&w=majority&appName=farm', {  
+//  useNewUrlParser: true, useUnifiedTopology: true });
+
+ 
+// Retrieve a products by their ID
+import { User } from '../models/userSchema.js';
+import { Product } from '../models/productSchema.js';
+import { Order } from '../models/orderSchema.js';
 import {Cart} from '../models/cartSchema.js'
 await mongoose.connect( 'mongodb+srv://cazhia:E13UKHwTNcHF3PzJ@farm.kzqurki.mongodb.net/ftt?retryWrites=true&w=majority&appName=farm', {  
  useNewUrlParser: true, useUnifiedTopology: true });
