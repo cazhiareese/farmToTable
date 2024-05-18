@@ -124,6 +124,7 @@ body{
     margin-top: 10px;
   }
 
+<<<<<<< HEAD:frontend/src/pages/design.css
 .signIn-main, .signUp-main {
     display: flex;
     background-color: #074528;
@@ -215,3 +216,10 @@ body{
     font-weight: bolder;
     margin: 6rem;
 }
+=======
+.cart-page{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+>>>>>>> f80b149361b9f42b595ef386ec9eded4d89ad0c9:frontend/src/Styling/design.css

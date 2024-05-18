@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const orderSchema = new mongoose.Schema({
-       productId: {type: String, required: true},
+       productCheckedOut: {type: Array, required: true},
        customerId: {type: String, required: true},
        status: {type: Number, required: true},
        dateTime: {type: Date, default: Date.now},
