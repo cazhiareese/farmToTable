@@ -1,5 +1,5 @@
 // import express from 'express';
-// import router from './router.js';   // import the router function
+import router from './router.js';   // import the router function
 // //Server configuration file
 // //runs the application
 // const app = express();
@@ -21,7 +21,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
+app.use(router);
 // Error handling middleware
 app.use((err, req, res, next) => {
        console.error(err.stack);

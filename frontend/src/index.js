@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import './index.css'
-import Root from './pages/Root';
-import Home from './pages/Home';
-import Cart from './pages/Cart';
-import Order from './pages/Orders';
-import ProductDetails from './pages/ProductDetails'
+import './Styling/index.css'
+import Root from './pages/UserPages/Root';
+import Home from './pages/UserPages/Home';
+import Cart from './pages/UserPages/Cart';
+import Order from './pages/UserPages/Orders';
+import ProductDetails from './pages/UserPages/ProductDetails'
 import SignIn from './pages/AuthPages/SignIn.js';
 import SignUp from './pages/AuthPages/SignUp.js';
 

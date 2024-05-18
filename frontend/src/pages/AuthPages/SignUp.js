@@ -45,7 +45,7 @@ function SignUp(){
       setEmail('')
       setPassword('')
       setConfirmPassword('')
-      navigate('/signin')
+      navigate('/sign-in')
     })
     .catch((error) => {
       console.log('Register unsuccessful')

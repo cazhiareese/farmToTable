@@ -15,8 +15,8 @@ import {signUp, signIn} from './controller/auth_controller.js';
   });
   
   // Auth routes
-  router.post('/signup', signUp);
-  router.post('/signin', signIn);
+  router.post('/sign-up', signUp);
+  router.post('/sign-in', signIn);
 
 
   // Product routes
