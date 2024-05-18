@@ -20,12 +20,20 @@ const site_desc = {
 //for authentication and security
 const isUserSignedIn = !!localStorage.getItem('token')
 
+
+//for authentication and security
+const isUserSignedIn = !!localStorage.getItem('token')
+
 const router = createBrowserRouter([
   { path: '/', element: <Root desc = {site_desc}/>, children: [
     { path: '/', element: <Home desc = {site_desc}/> },
     { path: '/orders/:id', element: <Order />},
     { path: '/cart/:id', element: <Cart /> },
     { path:'/product/:id', element:<ProductDetails />}
+  ],
+  },
+  {path: '/sign-in', element: <SignIn />},
+  {path: '/sign-up', element: <SignUp />}
   ],
   },
   {path: '/sign-in', element: <SignIn />},
