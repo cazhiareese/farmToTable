@@ -12,14 +12,11 @@ import ProductDetails from './pages/ProductDetails'
 import SignIn from './pages/AuthPages/SignIn.js';
 import SignUp from './pages/AuthPages/SignUp.js';
 
+
 const site_desc = {
   name : "Farm-To-Table",
   Logo : "./images/logo",
 }
-
-//for authentication and security
-const isUserSignedIn = !!localStorage.getItem('token')
-
 
 //for authentication and security
 const isUserSignedIn = !!localStorage.getItem('token')
@@ -30,10 +27,6 @@ const router = createBrowserRouter([
     { path: '/orders/:id', element: <Order />},
     { path: '/cart/:id', element: <Cart /> },
     { path:'/product/:id', element:<ProductDetails />}
-  ],
-  },
-  {path: '/sign-in', element: <SignIn />},
-  {path: '/sign-up', element: <SignUp />}
   ],
   },
   {path: '/sign-in', element: <SignIn />},
