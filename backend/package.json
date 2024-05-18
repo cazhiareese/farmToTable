@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.4"
   },
   "scripts": {
@@ -10,7 +12,6 @@
   "version": "1.0.0",
   "main": "server.js",
   "type": "module",
-  "devDependencies": {},
   "author": "",
   "license": "ISC",
   "description": ""

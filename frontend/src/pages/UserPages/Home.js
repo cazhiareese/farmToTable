@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useParams, useOutletContext } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import add from '../icons/home_a_plus.png';
-import basket from '../icons/home_a_basket.png';
-import asc_a from '../icons/asc_active.png';
-import desc_a from '../icons/desc_active.png';
+import add from '../../icons/home_a_plus.png';
+import basket from '../../icons/home_a_basket.png';
+import asc_a from '../../icons/asc_active.png';
+import desc_a from '../../icons/desc_active.png';
 
 function Home (props){
 
@@ -13,18 +14,36 @@ function Home (props){
         sortBy: 'name'
     }
 
+    const [userId, count, setCount] = useOutletContext();
     const [ products, setProducts ] = useState([])
-
     const [pushCart, setCart] = useState([]);
-    
+    const [totalItems, setVal] = useState(0);
     const [sorter, setSort] = useState(filters)
     const [selectedOption, setSelectedOption] = useState(filters.sortBy);
 
     useEffect(() => {    
-        handleFilter(filters)
+        handleFilter(filters)    
+        
     },[])
 
+    useEffect(() =>{
+        fetchCart()
+    }, [pushCart])
 
+    useEffect(() =>{
+        setCount(totalItems)
+    }, [totalItems])
+
+
+    function fetchCart (){
+        let url = `http://localhost:3001/getCart/` + userId
+        fetch(url)
+            .then(response => response.json())
+            .then(body => {
+               setCart(body.cart)
+               countItems(body.cart)
+            })
+        }
     function handleFilter(sorter){
         let url = 'http://localhost:3001/products?sortBy='+sorter.sortBy+'&orderBy='+String(sorter.orderBy)
         console.log(url);
@@ -51,27 +70,36 @@ function Home (props){
         handleFilter(newSorter)
     }
 
-    function handleCartChange(cart){
-        fetch('http://localhost:3001/updateCart',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        //   add tayo dito ng authenticator token
-        },
-        body: JSON.stringify({ 
-                // authenticator dapat ang ipapasa ko ha
-                userId: '6638db055b73b79302282273',
-            cart : cart
+    function countItems(cart) {
+        let newTotal = 0;
+        cart.map((prod) => {
+            newTotal += prod.qty;
         })
-      }).then(response => response.text())
-            .then(body => {
-                console.log(body)
-      })
+        setVal(newTotal)
     }
 
-    // If a user clicks add to cart append it to the pushCart array and add a qty field.
-    //If it's already in the array, incement the qty. 
+    function handleCartChange(cart){
+
+        console.log(cart)
+        fetch('http://localhost:3001/updateCart',
+        {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            //   add tayo dito ng authenticator token
+            },
+            body: JSON.stringify({ 
+                    // authenticator dapat ang ipapasa ko ha
+                    userId: userId,
+                    cart: cart
+
+            })
+        }).then(response => response.text())
+                .then(body => {
+                    console.log(body)
+        })
+    }
+
     function addToCart (prod)
     {       
         let i = 0;
@@ -87,7 +115,7 @@ function Home (props){
         {
             setCart( (pushCart) =>{
                 const newCart = [...pushCart, {...prod, qty : 1}]
-                
+               
                 handleCartChange(newCart)
                 return newCart
             })
@@ -97,7 +125,7 @@ function Home (props){
             setCart((pushCart) =>{
                 const updateCart = [...pushCart];
                 updateCart[i]  =  { ...updateCart[i], qty: updateCart[i].qty + 1}
-                
+                // console.log(updateCart)
                 handleCartChange(updateCart)
                 return updateCart
             })
@@ -159,14 +187,14 @@ function Home (props){
                     return(
                     
                         <div  key= {prod._id} className='col-sm-6 col-md-4 col-lg-3' id={prod._id}>
-                            <Link  to={`/products/${prod._id}`}>
+                            <Link  to={`/product/${prod._id}`}>
                             <img src = {prod.imageURL}></img>
                             <h4> {prod.name}</h4>
                             </Link>
                             <h6> {handleType(prod.type)}</h6>
                             <h3> {prod.price}</h3>
                            
-                            <button onClick={()=> addToCart({productId : prod._id})} class="add_cart_button"><img class= "home_add_cart" src={add}></img><img class= "home_add_cart" src={basket}></img></button> 
+                            <button onClick={()=> addToCart({productId : prod._id})} className="add_cart_button"><img className= "home_add_cart" src={add}></img><img className= "home_add_cart" src={basket}></img></button> 
                         </div>
                    
                     )

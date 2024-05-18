@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/userSchema.js';
 
-SECRET_KEY = 'CMSC100FTT';
+const SECRET_KEY = 'CMSC100FTT';
 
 //sign up authentication
 const signUp = async (req, res) => {
@@ -53,4 +53,4 @@ const signIn = async (req, res) => {
 }
 
 
-export default { signUp, signIn }
+export { signUp, signIn }

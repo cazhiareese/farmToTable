@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import './index.css'
-import Root from './pages/Root';
-import Home from './pages/Home';
-import Cart from './pages/Cart';
-import Order from './pages/Orders';
-import ProductDetails from './pages/ProductDetails'
+import './Styling/index.css'
+import Root from './pages/UserPages/Root';
+import Home from './pages/UserPages/Home';
+import Cart from './pages/UserPages/Cart';
+import Order from './pages/UserPages/Orders';
+import ProductDetails from './pages/UserPages/ProductDetails'
 
 
 const site_desc = {
@@ -18,7 +18,7 @@ const site_desc = {
 const router = createBrowserRouter([
   { path: '/', element: <Root desc = {site_desc}/>, children: [
     { path: '/', element: <Home desc = {site_desc}/> },
-    { path: '/orders', element: <Order />},
+    { path: '/orders/:id', element: <Order />},
     { path: '/cart/:id', element: <Cart /> },
     { path:'/product/:id', element:<ProductDetails />}
   ]}

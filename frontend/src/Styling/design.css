@@ -123,3 +123,9 @@ body{
     line-height: 10px; 
     margin-top: 10px;
   }
+
+.cart-page{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}

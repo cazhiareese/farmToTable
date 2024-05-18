@@ -1,12 +1,19 @@
 import express from 'express';
-import router from './router.js';   // import the router function
-//Server configuration file
-//runs the application
+import router from './router.js';   // import the router
+
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-router(app);
+app.use(router);
 
-app.listen(3001);
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: 'Something went wrong' });
+});
+
+app.listen(3001, () => {
+    console.log('Server is running on port 3001');
+});
