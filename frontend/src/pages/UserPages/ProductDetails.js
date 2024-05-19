@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams, useOutletContext } from 'react-router-dom';
+import cart from '../../icons/view_product_cart.png';
+import stock from '../../icons/view_product_stock.png';
+import ptype from '../../icons/view_product_type.png';
+import arrow from '../../icons/view_product_arrow.png';
 import { Link } from 'react-router-dom';
 
 function ProductDetails (){
@@ -111,18 +115,31 @@ function ProductDetails (){
     }
 
     return(
-        <div className='details-container'>
-            <button><Link className="link-to-home" to={'/'}>Back to Homepage</Link></button>
-            <div className='upper-details'>
-                <img className='indiv-image' src = {product.imageURL}></img>
-                <h1>{product.name}</h1>
-                <p>Stock: {product.stock}</p>
-                <p>Type: {handleType(product.type)}</p>
-                <button onClick={()=> addToCart({productId : product._id})} className="add_cart_button_indiv">Add To Cart</button>
-            </div>
+        <div className='bg-fttBg font-Roboto text-fttGreen flex flex-col items-center min-h-screen' >
+            <div className='flex flex-col w-3/4 '>
 
-            <div className='description-container'>
+                <button className='hover:shadow-x; bg-fttWhite border shadow text-sm  w-52 h-10 my-6 rounded-full'>
+                <p className='inline-block '><img  className= 'inline-block h-4 mr-3' src={arrow}></img></p><Link className="link-to-home" to={'/'}>Back to Homepage</Link></button>
+
+                <div className='w-full flex bg-fttWhite p-7 rounded-md shadow-md '>
+                    <div><img className='object-cover mb-2 rounded-md h-96 w-96 float-left' src = {product.imageURL}></img></div>
+                        <div className = 'flex pl-10 justify-center flex-col' >
+                        <h1 className='text-2xl font-semibold'>{product.name}</h1>
+                        <p className='text-3xl font-semibold'> PHP {product.price}</p>
+                        <button className="hover:shadow-md bg-fttGreen py-2 my-8 px-6 rounded-full flex items-center" onClick={()=> addToCart({productId : product._id})}>
+                        <img className= "w-6 mr-2 inline-block" src={cart}></img><p className='text-fttWhite inline-block'>Add To Cart</p></button>
+                        <p className='inline-block font-medium'><img className= "w-6 inline-block mr-2" src={stock}></img> Stock: {product.stock}</p>
+                        <p className='inline-block font-medium'><img className= "w-6 inline-block mr-2" src={ptype}></img>Type: {handleType(product.type)}</p>
+                        </div> 
+                </div>
+                
+                <p className='mt-10 ml-3'>Product Description</p>
+                <div className='mt-3 w-full flex bg-fttWhite p-7 rounded-y-md shadow-md border-t-fttGreen border-t-4 rounded-br-md rounded-bl-md mb-28'>
                 <p>{product.description}</p>
+                 </div> 
+
+                
+                 
             </div>
         </div>
     )

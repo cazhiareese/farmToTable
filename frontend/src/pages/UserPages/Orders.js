@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams, useOutletContext } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import cart from '../../icons/orders_cart.png';
+import arrow from '../../icons/view_product_arrow.png';
 function Order (){
 
     const [userId, count, setCount] = useOutletContext();
@@ -78,56 +80,59 @@ function Order (){
 
 
  return (
-        <div className='orders-container'>
-            <button><Link className="link-to-home" to={'/'}>Back to Homepage</Link></button>
-            <h1>Your Orders</h1>
+        <div className='bg-fttBg flex flex-col items-center text-fttGreen font-Roboto '>
+            <div className='w-3/4 bg-fttWhite shadow my-4 rounded-md mb-32'>
+            <button className='ml-12 mt-6 hover:shadow py-2 px-4 rounded-full'><img className=' inline-block h-4 mr-2' src={arrow}></img><Link className="link-to-home" to={'/'}>Back to Homepage</Link></button>
+            <h1 className='font-black text-2xl my-6 ml-16 '><img className='inline-block w-10 mr-2' src={cart}></img>Your Orders</h1>
 
-            <button onClick={()=> {
+            <button className=" hover:border-green-900 hover:border-b active-btn w-24 mr-4 ml-12" id="pending-btn"  onClick={()=> {
                 setStatus(0);
-                getUserOrders(0)
+                getUserOrders(0);
+                document.querySelector('.active-btn')?.classList.remove("active-btn");
+                document.getElementById('pending-btn').classList.add("active-btn");
             }}>Pending</button>
-            <button onClick={() => {
+            <button className=" w-20 mx-4 active:border-b-fttGreen" id="confirmed-btn" onClick={() => {
                 setStatus(1);
                 getUserOrders(1)
+                document.querySelector('.active-btn')?.classList.remove("active-btn");
+                document.getElementById('confirmed-btn').classList.add("active-btn");
                 }}>Confirmed</button>
-            <button onClick={() => {setStatus(2);
+            <button className="w-28 mx-4 active:border-b-fttGreen active:border-b-2" id="canceled-btn" onClick={() => {setStatus(2);
                 getUserOrders(2)
+                document.querySelector('.active-btn')?.classList.remove("active-btn");
+                document.getElementById('canceled-btn').classList.add("active-btn");
             }}>Canceled</button>
+            <div className='border-t border-x-fttShadow flex flex-col items-center pb-6'>
+                {
+                    orderDeets.map((items)=>{
+                        return(
+                            <div key={items.orderId} className='border border-fttShadow w-2/4 p-6 shadow rounded-md my-4' >
+                                <h5 className='text-sm'>Order Tracker: {items.orderId} </h5>
+                                <h5 className='inline-block'>Order Total: <p className='font-semibold inline-block'>PHP {items.price}</p></h5>
+                                {
+                                items.orders.map((prod) =>{
+                                    return(
+                                        <div key={prod.productId} className='leading-tight my-4'>
+                                        <img className="float-left w-20 mr-4 h-20 object-cover rounded" src = {prod.imageURL}></img> 
+                                        <h3 className='font-medium'>{prod.name}</h3>     
+                                        <p>Quantity: {prod.qty}</p>
+                                        <p>Unit Price: {prod.price}</p>
+                                        <p className='inline-block'>Total Item Price: <h1 className='inline-block font-medium'>{prod.price * prod.qty}</h1></p>
+                                        </div>
+                                    )
+                                })
+                                }
+                                <div >{items.status !== 0 ? <div className='empty-div'></div>: <button className='hover:shadow-md  bg-fttGreen text-sm font-light text-fttWhite py-2 px-6 rounded-full flex items-center float-right' onClick={() => handleCancel(items.orderId, 2)}>Cancel Order</button>}</div>
+                            </div>
+                        );  
+                    })
+                }
 
-            {
-
-                orderDeets.map((items)=>{
-                    return(
-                        <div key={items.orderId} className='indiv-orders'>
-                            <h5>Order Tracker: {items.orderId}</h5>
-                            {
-                               items.orders.map((prod) =>{
-                                return(
-                                    <div key={prod.productId} className='details'>
-                                    {/* <img src = {prod.imageURL}></img>  */}
-                                    <h3>{prod.name}</h3>
-                                    <p>Count: {prod.qty}</p>
-                                    <p>Unit Price: {prod.price}</p>
-                                    <p>Total Item Price: {prod.price * prod.qty}</p>
-                                    </div>
-                                )
-                               })
-                            }
-
-                            <h5>Total Order Price: {items.price}</h5>
-
-                            <div className='cancel-button'>{items.status !== 0 ? <div className='empty-div'></div>: <button onClick={() => handleCancel(items.orderId, 2)}>Cancel Order</button>}</div>
-                        </div>
-                    );
-
-                    
-                })
-
-            }
-
+            </div>
+            
+            </div>
         </div>
     )
-    
 }
 
 export default Order

@@ -1,8 +1,13 @@
 import { useParams, useOutletContext } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-
 import CheckOutForm from '../../components/checkOutForm';
 import { Link } from 'react-router-dom';
+import arrow from '../../icons/view_product_arrow.png';
+import cart from '../../icons/orders_cart.png';
+import trash from '../../icons/cart_trash.png';
+import add from '../../icons/add.png';
+import sub from '../../icons/sub.png';
+import your from '../../images/cart_your_cart.png';
 
 function Cart({updateTotalItems}) {
 
@@ -191,61 +196,59 @@ function Cart({updateTotalItems}) {
     }
 
     return (
-        <div className='render-this'>
+        <div className='bg-fttBg text-fttGreen font-Roboto pb-16 min-h-screen pt-6'>
         { totalItems !== 0 ?
-        <div className='cart-page'>
-            <div className='cart-container'>
-
-                
-            <h1>Shopping Cart (Total Items : {totalItems})</h1>
+        <div className=' justify-between px-16 flex'>
+            <div className=' w-2/3 self-start left m-6'>
+            <img className='inline-block h-14 mr-2 mt-6' src={cart}></img>
+            <img className='inline-block h-10 mt-6' src={your}></img>
+            {totalItems > 1 ? <p className='ml-4 mb-6'>{totalItems} items in your cart</p> 
+            : <p className='font-black mb-6'>1 item in your cart</p>}
 
             <div className="cart-items">
             {
             newCart.map((prod)=> {
                 return(
-                    <div key={prod.productId} className="added-product">
-                        {/* pa-uncomment nalang di ko ma-style eh basta ayan haha */}
-                        {/* <img src = {prod.imageURL}></img>  */}
-                        <input type='checkbox' 
+                    <div key={prod.productId} className="border-fttGreen border rounded-lg bg-fttWhite justify-between items-center my-4 flex p-4">
+                        <div className="cart-name flex items-center ">
+                        <input className='ml-5 mr-7 rounded-md accent-fttGreen' type='checkbox' 
                         onChange={handleSelect}
-                         value={prod.productId} ></input>
-
-
-                        <div className="cart-name">
-                        <h2>{prod.name}</h2>
+                         value={prod.productId} ></input><img className=' mr-4 w-20 h-20 rounded object-cover' src={prod.imageURL}></img>
+                        <div className='leading-tight flex flex-col justify-center '>
+                        <h2 className='font-medium'> {prod.name}</h2>
+                        <p >PHP {prod.price}</p></div>                
                         </div>
 
-                        <div className="cart-price">
-                        <p>&#8369; {prod.price}</p>
-                        </div>
                         {/* Handle quantity depending on button clicked by user */}
-                        <div className="cart-qty">
-                        <button onClick={()=>handleQuantity(prod.productId,-1)}>-</button>
-                        <p>Qty: {prod.qty} </p>
+                        <div className="cart-qty flex justify-center">
+                        <button  className="hover:shadow mx-2 rounded-xl px-2 " onClick={()=>handleQuantity(prod.productId,-1)}>
+                        <img className='w-6' src={sub}></img>
+                        </button>
+                        <p>Qty: {prod.qty}</p>
                 
-                        <button onClick={()=> handleQuantity(prod.productId,1)}>+</button>
+                        <button className="hover:shadow mx-2 rounded-xl px-2" onClick={()=> handleQuantity(prod.productId,1)}>
+                        <img  className='w-6' src={add}></img>
+                        </button>
                         </div>
 
-                        <p>Total Price:{handlePrice(prod.price, prod.qty)}</p>
+                        <p className='font-medium'>PHP {handlePrice(prod.price, prod.qty)}</p>
                         {/* Remove an item regardless of quantity */}
                         <div className="remove">
-                        <button onClick={() => removeFromCart(prod.productId)}>Remove From Cart</button>
+                        <button className=" hover:shadow mx-2 rounded-2xl p-2 mr-5"  onClick={() => removeFromCart(prod.productId)}>
+                            <img className='w-6' src={trash}></img> </button>
                         </div>
                     </div>
                 )
             })
             }
             </div>
-            <button><Link className="link-to-home" to={'/'}>Back to Homepage</Link></button>
-
-
+            <button className='mt-4 hover:shadow py-2 px-4 rounded-full'><Link className="" to={'/'}>
+                <img className='inline-block h-4 mr-4' src={arrow}></img>Back to Homepage</Link></button>
             </div>
 
-            <div className= "checkOut-container">
+            <div className='transition ease-in-out duration-300 border-fttGreen border rounded-md m-2 flex w-1/3 h-fit mt-40 py-16 bg-fttWhite'>
                 <CheckOutForm list_selected={selectedList} state_selected={setSelected} cart={pushCart} cart_state = {setCart} setVal = {setVal} userId ={userId}/>
             </div> 
-
-            
             
         </div> : <div className='empty-cart'> <h1>Empty Cart! Shop more!</h1></div>
 

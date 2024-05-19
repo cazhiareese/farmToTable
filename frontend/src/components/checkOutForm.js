@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import summary from '../images/cart_summary.png';
 
 function CheckOutForm(props){
 
@@ -98,28 +98,35 @@ function CheckOutForm(props){
     }
     // render
     return (
-        <div className="checkout-details">
-            <h1>Check out</h1>
-            <p>(Total Items: {totalItemsSelected})</p>
-
-        {
-            selectedList.map((item) =>{
-                return(
-                    <div key= {item.productId} className="added-cards">
-                        <h2>{item.name}</h2>
-                        <p>Unit Price: {item.price}</p>
-                        <p>Count: {item.qty}</p>
-                        <p>Total Price:{handlePrice(item.price, item.qty)}</p>
-                    </div>
-                )
-            })
-        }
+        <div className="w-full h-full flex flex-col justify-center items-center rounded-md  text-fttGreen font-Roboto">
+            <img className="h-10" src={summary}></img>
+            { totalItemsSelected != 1 ? <p className="pl-12 mt-10 self-start">Selected {totalItemsSelected} items</p> 
+            : <p className="pl-12 mt-10 self-start">Selected 1 item</p> }
+            
+            <div className="border-t w-3/4 flex flex-col justify-between ">
+            {
+                selectedList.map((item) =>{
+                    return(
+                        <div key= {item.productId} className=" flex flex-col px-4 py-2">
+                            <div className="flex justify-between "> 
+                            <h2 className=" inline-block font-medium">{item.name}</h2>
+                            <p className="inline-block">PHP {item.price}</p>
+                            <p>Qty: {item.qty}</p></div>
+                            <p className="font-medium">Subtotal: PHP {handlePrice(item.price, item.qty)}</p>
+                        </div>
+                        
+                    )
+                })
+            }
+            </div>
 
            
-            <div className="for-CheckOut">
-                <h3>Overall Price: {totalPrice}</h3>
+            <div className="border-t w-3/4 flex flex-col max-h-fit" >
+                <div className="flex justify-between">
+                    <h3 className="font-black text-lg mt-4">TOTAL</h3> <h3 className="font-black text-lg mt-4">PHP {totalPrice}</h3>
+                </div>
                 <form onSubmit={handleCheckout}>
-                    <button disabled={selectedList.length === 0} type="submit">Proceed to checkout</button>
+                    <button className = " w-full rounded-full py-4 text-sm hover:shadow-lg hover:bg-green-800 my-4 text-fttWhite bg-fttGreen" disabled={selectedList.length === 0} type="submit">Proceed to checkout</button>
                 </form>
             </div> 
 

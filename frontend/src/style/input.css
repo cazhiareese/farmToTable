@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.active-btn {
+    @apply border-b-fttGreen border-b-2
+}
+
+.active-sort-home {
+    @apply border-fttGreen border
+}
+
+.inactive-sort-home {
+    @apply border-slate-300
+}
+
+.input-auth {
+    @apply border-fttGreen border-b-2 bg-fttBg h-10 px-6 block mb-4 accent-green-900
+}
