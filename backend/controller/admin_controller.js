@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { User } from '../models/userSchema.js';
-// import { Product } from '../models/productSchema.js';
+import { Product } from '../models/productSchema.js';
 import { Order } from '../models/orderSchema.js';
 // import {Cart} from '../models/cartSchema.js'
 
@@ -111,5 +111,59 @@ const getUser = async(req, res) => {
          res.status(500).json({ message: err.message });
        }
      };
+
+  
+    // TESTER ENDPOINTS
+    const addProduct = async (req, res) => {
+      try{
+        const newProduct = new Product({
+               name: req.body.name, 
+               description: req.body.description,
+               type: req.body.type,
+               stock: req.body.stock,
+               price: req.body.price, 
+               imageURL: req.body.imageURL
+        });
+        
+        //add product to database
+        await newProduct.save();
+
+        //send status
+        res.status(201).send({details: "Product successfully added!"});
+        }catch (error) {
+                res.status(400).send({details: "Invalid credentials!"});
+        }
+      }
+
+      const editStock = async (req, res) =>{       
+        try{
+          const filter = { _id: req.params.id };
+          const update = { stock: req.body.stock };
+        
+          const result = await Product.findOneAndUpdate(filter, update, {new:true})
+      
+          res.send(result)
+          if(!result) {
+             res.status(404).send({order: "Product is not found !"})
+          }
+        }catch(err){
+         res.status(500).send({error: err })
+        }        
+      }
+
+    const removeProduct = async(req, res) => {
+      try {
+        // The ID of the order to cancel
+        const deleteThis = await Product.findByIdAndDelete(req.params.id);
+        if (!deleteThis) {
+          return res.status(404).json({ message: 'Product not found' });
+        }
+
+        res.send(deleteThis);
+      } catch (err) {
+        res.status(500).json({ message: err.message });
+      }
+    }
+
    
-   export {getUser, getAllUser, getAllTransaction, getSalesReport, getTransaction}
+   export {getUser, getAllUser, getAllTransaction, getSalesReport, getTransaction, removeProduct, editStock, addProduct}

@@ -33,7 +33,7 @@ body{
 }
 
 .link{
-    color: #EEEEEA ;
+    color: #0b0b0a ;
     text-decoration: none;
 }
 
@@ -47,7 +47,7 @@ body{
 }
 
 .nav_link li {
-    color:#FFFDF9 ;
+    color:#0d0d0c ;
     justify-self: center;
     margin: 0px 20px 0px 20px;
 }
