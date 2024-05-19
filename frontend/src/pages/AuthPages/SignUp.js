@@ -1,6 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
+import {Link } from 'react-router-dom';
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
+import wheat from '../../images/wheat.png';
+import logo from '../../images/ftt_bg.png';
+import create from '../../images/up_create.png';
+
 
 function SignUp(){
   // const [user, setUser] = useState([])
@@ -52,42 +57,38 @@ function SignUp(){
     })
   }
 
-
   return(
-    <div className="signUp-main">
-      <div className="signUp-logo">
+    <div className="bg-fttGreen text-fttGreen font-Roboto min-h-screen w-full flex justify-between absolute">
+      <div></div>
+      <img className=" absolute ml-16 top-40 left-10 h-52" src={logo}></img>
+        <div className="bg-fttWhite rounded-3xl w-2/4 h-100 flex flex-col items-center my-6 mx-16 shadow">
+          <img className='h-14 mb-8 mt-16' src={create}></img>
+          <form className="flex flex-col items-center w-full " onSubmit={handleRegister}>
+            <div className='w-3/4 flex flex-col'>
+              <label for="fname" >First Name</label>
+              <input className="input-auth" type="text" id="fname" required value={fname} onChange={(e) => setFname(e.target.value)}/>
+              <label for="mname" >Middle name (optional)</label>
+              <input className="input-auth" type="text" id="mname" value={mname} onChange={(e) => setMname(e.target.value)}/>
 
-      </div>
-      <div className="signUp-div-form">
-        <div className="signUp-form">
-          <h1 className="signUp-createAcc">Create your account</h1>
-          <div className="signUp-textField-div">
-            <form className="signUp-textField" onSubmit={handleRegister}>
+              <label for="lname" >Last Name</label>
+              <input className="input-auth" type="text" id="lname" required value={lname} onChange={(e) => setLname(e.target.value)}/>
 
-              <label for="fname" className="signUp-textDesc">First Name</label><br/>
-              <input type="text" id="fname" name="fname" size="35" required value={fname} onChange={(e) => setFname(e.target.value)}/><br/><br/>
+              <label for="email" >E-mail</label>
+              <input className="input-auth" type="text" id="email" required value={email} onChange={(e) => setEmail(e.target.value)}/>
 
-              <label for="mname" className="signUp-textDesc">Middle name (optional)</label><br/>
-              <input type="text" id="mname" name="mname" size="35" value={mname} onChange={(e) => setMname(e.target.value)}/><br/><br/>
+              <label for="password">Password</label>
+              <input className="input-auth" type="password" id="password" required value={password} onChange={(e) => setPassword(e.target.value)}/>
 
-              <label for="lname" className="signUp-textDesc">Last Name</label><br/>
-              <input type="text" id="lname" name="lname" size="35" required value={lname} onChange={(e) => setLname(e.target.value)}/><br/><br/>
-
-              <label for="email" className="signUp-textDesc">E-mail</label><br/>
-              <input type="text" id="email" name="email" size="35" required value={email} onChange={(e) => setEmail(e.target.value)}/><br/><br/>
-
-              <label for="password" className="signUp-textDesc">Password</label><br/>
-              <input type="password" id="password" name="password" size="35"required value={password} onChange={(e) => setPassword(e.target.value)}/><br/><br/>
-
-              <label for="confirmPassword" className="signUp-textDesc">Confirm Password</label><br/>
-              <input type="password" id="confirmPassword" name="confirmPassword" size="35"required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/><br/><br/><br/>
-              <button type="submit" id="signUp">Register</button>
+              <label for="confirmPassword">Confirm Password</label>
+              <input className="input-auth" type="password" id="confirmPassword" name="confirmPassword"required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
+            </div>
+            <button className=" bg-fttGreen text-fttWhite w-80 mt-4 py-2 rounded-md" type="submit" id="signUp">Register</button> 
+            <p className='inline-block font-bold text-slate-400'> Already have an account?  
+            <h1 className=" mb-12 mt-2 inline-block font-bold underline text-fttGreen"><Link  to={'/sign-in'}> Sign-in!</Link></h1></p>
             </form>
-          </div>
-        </div>
       </div>
-    </div>
-  )
-}
+      <img className='absolute bottom-0 w-1/3' src={wheat}></img>
+      </div>
+  )}
 
 export default SignUp

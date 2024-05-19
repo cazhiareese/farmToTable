@@ -7,7 +7,6 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.8",
-    "bootstrap": "^5.3.3",
     "dom": "^0.0.3",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.2",
@@ -18,7 +17,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "WATCHPACK_POLLING=true react-scripts start",
+    "start": "WATCHPACK_POLLING=true react-scripts start && npx tailwindcss -i ./src/style/input.css -o ./src/style/output.css --watch",
+    "build-css": "npx tailwindcss -i ./src/style/input.css -o ./src/style/output.css --watch",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

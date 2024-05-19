@@ -1,9 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/js/bootstrap.js';
-import './Styling/index.css'
 import Root from './pages/UserPages/Root';
 import Home from './pages/UserPages/Home';
 import Cart from './pages/UserPages/Cart';
