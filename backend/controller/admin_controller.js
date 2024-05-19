@@ -17,7 +17,7 @@ const getUser = async(req, res) => {
      }
      
      // Retrieve all users
-     const getAllUser = async (req, res) => {
+const getAllUser = async (req, res) => {
        try {
          const users = await User.find();
          res.json(users);

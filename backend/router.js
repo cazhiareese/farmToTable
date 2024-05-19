@@ -18,6 +18,8 @@ import {signUp, signIn} from './controller/auth_controller.js';
   router.post('/sign-up', signUp);
   router.post('/sign-in', signIn);
 
+  router.get('/customer/:id', getUser);
+  router.get('/all-customer', getAllUser);
 
   // Product routes
   router.get('/getProduct/:id', getProduct);
