@@ -34,13 +34,16 @@ function getUserRole() {
     //decode error
     const decoded = jwtDecode(authToken);
     
-    return decoded.role;
+    return decoded.type;
   } catch (error) {
     return null;
   }
 }
 
 function App() {
+
+  const role = getUserRole();
+
   return(
     <div>
       <Routes>
@@ -52,8 +55,12 @@ function App() {
         </Route>
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/sign-up' element={<SignUp />} />
+
+        {/* Implement na if role is admin redirect to /admin */}
+        {/* Impelement that if role is not admin, display a no authorization page with a prompt to go back to homepage */}
+        {/* gumagana na yung decode dito */}
         {
-          isUserSignedIn ? (
+          role === 'admin' ? (
           <Route path='/admin/' element={<RootAdmin />}>
             <Route index element={<Dashboard />} />
             <Route path='inventory' element={<Inventory />} />

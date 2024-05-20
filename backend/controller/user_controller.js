@@ -47,10 +47,10 @@ const getAllProducts = async (req, res) => {
 const addOrder = async(req, res) => {
   const { productCheckedOut, customerId, price } = req.body;
   const newOrder = new Order({
-    productCheckedOut,
-    customerId,
+    productCheckedOut: req.body.productCheckedOut,
+    customerId: req.user.id,
     status: 0, // 0 for pending
-    price,
+    price:req.body.price,
   });
 
   try {
@@ -87,11 +87,11 @@ const removeOrder = async(req, res) => {
 // add authorization
 const updateCart = async (req, res) => {
   try {
-    if (!req.body.userId || !req.body.cart) {
+    if (!req.user.id|| !req.body.cart) {
       return res.status(400).json({ message: 'Missing userId or cart in request body' });
     }
 
-    await Cart.updateOne({ userId: req.body.userId }, { $set: { cart: req.body.cart } });
+    await Cart.updateOne({ userId: req.user.id }, { $set: { cart: req.body.cart } });
     res.json({ updatedOne: true });
   } catch (err) {
     console.log(err);
@@ -103,11 +103,11 @@ const updateCart = async (req, res) => {
 // add authorization
 const getCart = async (req, res) => {
   try {
-    if (!req.params.id) {
+    if (!req.user.id) {
       return res.status(400).json({ message: 'Missing userId in request params' });
     }
 
-    const cart = await Cart.findOne({ userId: req.params.id });
+    const cart = await Cart.findOne({ userId: req.user.id });
     if (!cart) {
       return res.status(404).json({ message: 'Cart not found' });
     }
@@ -127,7 +127,7 @@ FROM THIS POINT ARE TESTERS PLEASE HANDLE ERRORS IF EVER OR INCORRECT SYNTAX
 // getOrder for current customer
 const getOrder = async(req,res) =>{
   try {
-    const orders = await Order.find({customerId: req.params.id, status: req.query.status });
+    const orders = await Order.find({customerId: req.user.id, status: req.query.status });
     if (!orders) {
       return res.status(404).json({ message: 'Order not found' });
     }

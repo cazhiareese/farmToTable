@@ -19,7 +19,7 @@ import { auth } from './util/auth.js';
   router.post('/sign-up', signUp);
   router.post('/sign-in', signIn);
 
-  router.get('/customer/:id', auth, getUser);
+  router.get('/customer/:id', getUser);
   router.get('/all-customer', getAllUser);
 
   // Product routes
@@ -35,12 +35,12 @@ import { auth } from './util/auth.js';
   router.get('/orders/:id', getTransaction);
   router.get('/orders', getAllTransaction);
   router.post('/addOrder', auth, addOrder);
-  router.get('/getOrder/:id', getOrder);
+  router.get('/getOrder', auth, getOrder);
   router.post('/updateOrder/:id', updateOrder);
 
   // Cart routes
   router.post('/updateCart', auth, updateCart);
-  router.get('/getCart/:id', auth, getCart);
+  router.get('/getCart', auth, getCart);
 
   // Sales report
   router.get('/salesreport',salesReport);

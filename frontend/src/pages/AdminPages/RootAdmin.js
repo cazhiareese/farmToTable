@@ -2,8 +2,8 @@ import { Outlet,Link } from 'react-router-dom';
 import { useState } from 'react';
 import './design.css'
 
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/js/bootstrap.js';
+// import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/js/bootstrap.js';
  function RootAdmin (){
   const [countPending, setCountPending] = useState(0);
   const [countCompleted, setCountCompleted] = useState(0);
