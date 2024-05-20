@@ -14,6 +14,7 @@ import ActiveOrders from './pages/AdminPages/ActiveOrders.js';
 import Inventory from './pages/AdminPages/Inventory.js';
 import SalesReport from './pages/AdminPages/SalesReport.js';
 import CreateListing from './pages/AdminPages/CreateListing.js';
+import { jwtDecode } from 'jwt-decode';
 
 
 const site_desc = {
@@ -23,6 +24,21 @@ const site_desc = {
      
 //for authentication and security
 const isUserSignedIn = !!localStorage.getItem('token')
+
+//function that decodes the token and gets role of user
+function getUserRole() {
+  const authToken = localStorage.getItem('token');
+  if (!authToken) return null;
+
+  try{
+    //decode error
+    const decoded = jwtDecode(authToken);
+    
+    return decoded.role;
+  } catch (error) {
+    return null;
+  }
+}
 
 function App() {
   return(
