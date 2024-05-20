@@ -143,16 +143,16 @@ function Home (props){
                 </img><p className="inline-block  text-fttWhite">{count}</p></Link>
             </button>
             
-            <div className='px-44 py-32 flex-col bg-fttShadow border-b-fttGreen border-3'>
+            <div className='px-48 py-28 flex-col bg-fttShadow border-b-fttGreen border-3'>
                 <div className='flex lg:flex-row flex-col'>
                 <img src={shop} className='h-16 mr-10 mb-4 object-contain'></img>
-                <p>Shop for more agri deals now and make a difference. transactions between farmers and customers directly. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                <p className='text-md'>Shop for more agri deals now and make a difference. transactions between farmers and customers directly. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
                 </div>
                 <div className='flex w-full mt-12'>
-                    <ul className='flex lg:flex-row sm:flex-col justify-between w-full font-bold px-16'>
-                        <li className='flex sm:my-2 flex-col items-center'> <img className="h-8 mb-1 mt-3" src={fresh}></img>Fresh Products</li>
-                        <li className='flex sm:my-2 flex-col items-center'> <img className="h-8 mb-1 mt-3" src={sustainable}></img>Sustainable</li>
-                        <li className='flex sm:my-2 flex-col items-center'> <img className="h-8 mb-1 mt-3" src={support}></img>Support Local Farmers</li>
+                    <ul className='flex lg:flex-row sm:flex-col justify-between w-full font-bold px-24'>
+                        <li className='flex sm:my-2 flex-col text-md items-center'> <img className="h-8 mb-1 mt-3" src={fresh}></img>Fresh Products</li>
+                        <li className='flex sm:my-2 flex-col text-md items-center'> <img className="h-8 mb-1 mt-3" src={sustainable}></img>Sustainable</li>
+                        <li className='flex sm:my-2 flex-col text-md items-center'> <img className="h-8 mb-1 mt-3" src={support}></img>Support Local Farmers</li>
                     </ul>
                 </div>
             </div>
@@ -190,13 +190,13 @@ function Home (props){
                 </div>
             </div>
             
-            <div className='grid lg:grid-cols-4 md:grid-cols-2 pb-32 gap-4 mx-20'>
+            <div className='grid lg:grid-cols-4 md:grid-cols-2 pb-32 gap-6 mx-32'>
                 {
                 products.map((prod) =>{
                     return(
-                        <div  key= {prod._id} className=' rounded-md p-2 w-full overflow-hidden leading-tight ' id={prod._id}>
+                        <div  key= {prod._id} className='rounded-md w-full overflow-hidden leading-tight' id={prod._id}>
                             <Link  to={`/product/${prod._id}`}>
-                            <img className= "w-full h-56 object-cover mb-2 rounded transition ease-in-out delay-100 hover:-translate-y-1 hover:scale-110 duration-400 " src = {prod.imageURL}></img>
+                            <img className= "w-full h-56 object-cover mb-2 rounded transition ease-in-out delay-100 hover:-translate-y-1 hover:scale-110 duration-400" src = {prod.imageURL}></img>
                             <p className='font-medium text-2xl'> {prod.name}</p>
                             <p className='font-bold text-2xl '> PHP {prod.price}</p>
                             <p className='inline-block float-left'> {handleType(prod.type)}</p>

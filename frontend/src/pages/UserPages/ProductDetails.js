@@ -118,15 +118,15 @@ function ProductDetails (){
         <div className='bg-fttBg font-Roboto text-fttGreen flex flex-col items-center min-h-screen' >
             <div className='flex flex-col w-3/4 '>
 
-                <button className='hover:shadow-x; bg-fttWhite border shadow text-sm  w-52 h-10 my-6 rounded-full'>
-                <p className='inline-block '><img  className= 'inline-block h-4 mr-3' src={arrow}></img></p><Link className="link-to-home" to={'/'}>Back to Homepage</Link></button>
+                <button className='hover:shadow-md group bg-fttWhite border shadow text-sm  w-52 h-10 my-6 rounded-full'>
+                <p className='inline-block'><img  className= 'ease-out delay-150 group-hover:-translate-x-1 inline-block h-4 mr-3' src={arrow}></img></p><Link className="link-to-home" to={'/'}>Back to Homepage</Link></button>
 
                 <div className='w-full flex bg-fttWhite p-7 rounded-md shadow-md '>
                     <div><img className='object-cover mb-2 rounded-md h-96 w-96 float-left' src = {product.imageURL}></img></div>
                         <div className = 'flex pl-10 justify-center flex-col' >
                         <h1 className='text-2xl font-semibold'>{product.name}</h1>
                         <p className='text-3xl font-semibold'> PHP {product.price}</p>
-                        <button className="hover:shadow-md bg-fttGreen py-2 my-8 px-6 rounded-full flex items-center" onClick={()=> addToCart({productId : product._id})}>
+                        <button className="transition ease-in-out duration-300 hover:bg-green-800 hover:shadow-lg  bg-fttGreen py-2 my-8 px-6 rounded-full flex items-center" onClick={()=> addToCart({productId : product._id})}>
                         <img className= "w-6 mr-2 inline-block" src={cart}></img><p className='text-fttWhite inline-block'>Add To Cart</p></button>
                         <p className='inline-block font-medium'><img className= "w-6 inline-block mr-2" src={stock}></img> Stock: {product.stock}</p>
                         <p className='inline-block font-medium'><img className= "w-6 inline-block mr-2" src={ptype}></img>Type: {handleType(product.type)}</p>

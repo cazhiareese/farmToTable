@@ -1,20 +1,28 @@
 import { Outlet,Link } from 'react-router-dom';
 import { useState } from 'react';
-import css1 from '../../style/output.css';
+import css from '../../style/output.css';
 import cart from '../../icons/header_cart.png';
 import logo from '../../images/ftt_logo.png';
 import footerimg from '../../images/footer_pic.png';
 
 export default function Root() {
-
+  
   const userId= "6638db055b73b79302282273";
-
   const [count, setCount] = useState(0);
+  let navY = window.scrollY;
+
+  // window.addEventListener("scroll", () =>{
+  //   if (navY < window.scrollY){
+  //     console.log(document.getElementById("customer-nav").classList()); console.log("DOWN");
+  //   } else{
+  //     console.log(document.getElementById("customer-nav")); console.log("UP");
+  //   } navY = window.scrollY;
+  // });
 
     return (
-      <div className=' font-Roboto'>
-        <div className = "flex justify-between items-center lg:flex-row md:flex-col sm:flex-col bg-fttGreen w-full min-h-20 lg:px-32 md:px-32 sm:px-12 ">
-        <img className = "w-60 mt-4" src={logo}></img>
+      <div className= 'font-Roboto'>
+        <div className = "flex justify-between items-center lg:flex-row md:flex-col sm:flex-col bg-fttGreen w-full min-h-20 lg:px-32 py-4 md:px-32 sm:px-12" id="customer-nav">
+        <img className = "w-60" src={logo}></img>
         <div className="items-center align w-6/12"><nav >
           <ul  className="flex justify-between w-full" >
             <li className="text-fttBg hover:text-fttWhite"><Link className="link" to={'/'}>Homepage</Link></li>
