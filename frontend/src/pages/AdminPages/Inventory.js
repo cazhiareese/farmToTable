@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
-// import asc_a from '../../icons/asc_active.png';
-// import desc_a from '../../icons/desc_active.png';
+import { useOutletContext } from 'react-router';
 import AddStock from '../../components/AddStock';
 import DeleteProduct from '../../components/DeleteProduct';
 export default function Inventory(){
@@ -10,7 +9,7 @@ export default function Inventory(){
         orderBy : 1,
         sortBy: 'name'
     }
-
+   
     const [selectedOption, setSelectedOption] = useState(filters.sortBy);
     const [ products, setProducts ] = useState([])
     const [sorter, setSort] = useState(filters)
@@ -46,6 +45,7 @@ export default function Inventory(){
           .then(response => response.json())
           .then(body => {
             setProducts(body)
+
         })
     }
 

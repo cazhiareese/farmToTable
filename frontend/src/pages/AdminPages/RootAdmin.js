@@ -1,7 +1,14 @@
 import { Outlet,Link } from 'react-router-dom';
-import '../../Styling/design.css';
- function RootAdmin (){
+import { useState } from 'react';
+import './design.css'
 
+// import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/js/bootstrap.js';
+ function RootAdmin (){
+  const [countPending, setCountPending] = useState(0);
+  const [countCompleted, setCountCompleted] = useState(0);
+  const [countListings, setCountListings] = useState(0);
+  const [countUsers, setCountUsers] = useState(0)
     return (
     <div className='container-fluid'>
         <div id="header">
@@ -17,7 +24,7 @@ import '../../Styling/design.css';
         </div>
         <div>
         </div>
-        <Outlet  />
+        <Outlet context={[setCountPending, setCountCompleted, setCountListings, setCountUsers, countPending, countCompleted, countListings, countUsers]} />
         
       </div>
     )

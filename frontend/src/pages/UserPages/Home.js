@@ -10,6 +10,7 @@ import sustainable from '../../icons/home_sustainable.png';
 import shop from '../../icons/home_shop.png';
 
 function Home (props){
+    const token = localStorage.getItem('token');
     let filters = {
         orderBy : 1,
         sortBy: 'name'
@@ -23,6 +24,7 @@ function Home (props){
     const [selectedOption, setSelectedOption] = useState(filters.sortBy);
 
     useEffect(() => {    
+        console.log(token)
         handleFilter(filters)    
         
     },[])
@@ -36,14 +38,17 @@ function Home (props){
     }, [totalItems])
 
     function fetchCart (){
-        let url = `http://localhost:3001/getCart/` + userId
-        fetch(url)
-            .then(response => response.json())
+        let url = `http://localhost:3001/getCart/`
+        fetch(url, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }}).then(response => response.json())
             .then(body => {
                setCart(body.cart)
-               countItems(body.cart)
-            })
-        }
+                countItems(body.cart)
+            })  
+    }
+    
     function handleFilter(sorter){
         let url = 'http://localhost:3001/products?sortBy='+sorter.sortBy+'&orderBy='+String(sorter.orderBy)
         console.log(url);
@@ -85,12 +90,12 @@ function Home (props){
         {
             method: 'POST',
             headers: {
-            'Content-Type': 'application/json'
-            //   add tayo dito ng authenticator token
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({ 
                     // authenticator dapat ang ipapasa ko ha
-                    userId: userId,
+                    // userId: userId,
                     cart: cart
 
             })
@@ -138,7 +143,7 @@ function Home (props){
         <div className='bg-fttWhite font-Roboto text-fttGreen shadow-md min-h-screen' >
             {/* FLOATING CART WIIIIIII */}
             <button className= 'hover:bg-green-900  hover:shadow-3xl p-4 bottom-4 right-6 bg-fttGreen/75 fixed rounded-full shadow-lg'>
-                <Link className="link" to={`cart/${userId}`}>
+                <Link className="link" to={`cart/`}>
                 <img className='w-7 h-7 mr-1 inline-block' src={cart} id='header_cart'>
                 </img><p className="inline-block  text-fttWhite">{count}</p></Link>
             </button>

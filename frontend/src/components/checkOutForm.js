@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import summary from '../images/cart_summary.png';
 
 function CheckOutForm(props){
-
+    const token = props.token
     const selectedList = props.list_selected;
     const setSelected = props.state_selected;
     const userId = props.userId
@@ -52,12 +52,12 @@ function CheckOutForm(props){
                 {
                 method: 'POST',
                 headers: {
-                'Content-Type': 'application/json'
-                //   add tayo dito ng authenticator token
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({ 
                         productCheckedOut: pushCart.filter(item => selectedList.some(selected => selected.productId === item.productId)),
-                        customerId: '6638db055b73b79302282273',
+                        // customerId: '6638db055b73b79302282273',
                         price: totalPrice
 
                 })
@@ -70,11 +70,11 @@ function CheckOutForm(props){
         const updateCartResponse = await fetch(`http://localhost:3001/updateCart/`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
-                // Add authenticator token if needed
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
-                userId: userId,
+                // userId: userId,
                 cart: pushCart.filter(item => !selectedList.some(selected => selected.productId === item.productId))
             })
         });
@@ -100,7 +100,7 @@ function CheckOutForm(props){
     return (
         <div className="w-full h-full flex flex-col justify-center items-center rounded-md  text-fttGreen font-Roboto">
             <img className="h-10" src={summary}></img>
-            { totalItemsSelected != 1 ? <p className="pl-12 mt-10 self-start">Selected {totalItemsSelected} items</p> 
+            { totalItemsSelected !== 1 ? <p className="pl-12 mt-10 self-start">Selected {totalItemsSelected} items</p> 
             : <p className="pl-12 mt-10 self-start">Selected 1 item</p> }
             
             <div className="border-t w-3/4 flex flex-col justify-between ">

@@ -47,8 +47,9 @@ const signIn = async (req, res) => {
                }
 
                //pass token
-               const token = jwt.sign({userID: user._id}, SECRET_KEY, {expiresIn: '1hr'});
-               res.status(200).send({ details: "Login successful" });
+               const token = jwt.sign({id: user._id, type: user.type}, SECRET_KEY, {expiresIn: '1hr'});
+               console.log(token)
+               res.status(200).send(token);
 
        }catch (error) {
               res.status(401).send({details: "Invalid credentials!"});
