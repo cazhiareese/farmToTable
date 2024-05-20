@@ -1,6 +1,6 @@
 import{ getProduct, getAllProducts, addOrder, removeOrder, updateCart, getCart, getOrder, updateOrder }from './controller/user_controller.js'
 import express from 'express';
-import {getUser, getAllUser, getAllTransaction, getSalesReport, getTransaction, removeProduct, editStock, addProduct} from './controller/admin_controller.js'
+import {getUser, getAllUser, getAllTransaction, getSalesReport, getTransaction, removeProduct, editStock, addProduct, salesReport, countListings, countOrders, countUsers} from './controller/admin_controller.js'
 import {signUp, signIn} from './controller/auth_controller.js';
 
   const router = express.Router();
@@ -42,7 +42,11 @@ import {signUp, signIn} from './controller/auth_controller.js';
   router.get('/getCart/:id', getCart);
 
   // Sales report
-  router.get('/salesreport', getSalesReport);
+  router.get('/salesreport',salesReport);
+
+  router.get('/countOrder',countOrders);
+  router.get('/countUsers',countUsers);
+  router.get('/countListings',countListings);
 
 
 

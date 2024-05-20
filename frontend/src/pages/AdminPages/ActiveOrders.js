@@ -5,14 +5,36 @@ import { Link } from 'react-router-dom';
 export default function ActiveOrders(){
    
     const [orderList, setOrders] = useState([]) 
-
+    const [countCompleted, setCountCompleted] = useState(0)
+    const [countPending, setCountPending] = useState(0)
+    const [countCanceled, setCountCanceled] = useState(0)
     const [status, setStatus] = useState(0)
 
     const [orderDeets, setDisplay] = useState([])
 
     useEffect(() => {
         getUserOrders(status)
+        // fetchOrderCount(status)
     }, [])
+
+    useEffect(() =>{
+        fetchOrderCount(status)
+    }, [status])
+
+
+    function fetchOrderCount(status){
+        fetch(`http://localhost:3001/countOrder?status=${status}`)
+        .then(response => response.json())
+        .then(body =>{
+            if (status === 0){
+                setCountPending(body.count)
+            }else if (status === 1){
+                setCountCompleted(body.count)
+            }else if (status === 2){
+                setCountCanceled(body.count)
+            }
+        })
+    }
 
     function getUserOrders (status) {
         let url = `http://localhost:3001/orders/?status=${status}`
@@ -29,31 +51,36 @@ export default function ActiveOrders(){
             setDisplay([])
             return
         }
+        async function getOrderDetails(orders) {
+            const details = [];
+            for (const order of orders) {
+                const orderSpecs = [];   
+                for (const added of order.productCheckedOut) {
+                    const url = `http://localhost:3001/getProduct/${added.productId}`;
+                    const response = await fetch(url);
+                    const body = await response.json();
+                    orderSpecs.push({
+                        imageURL: body.imageURL,
+                        productId: body._id,
+                        name: body.name,
+                        price: body.price,
+                        stock: body.stock,
+                        qty: added.qty
+                    });
+                }
+        
+                details.push({
+                        orderId: order._id,
+                        customer: order.customerId,
+                        status: order.status,
+                        orders: orderSpecs,
+                        price: order.price
+                        });
+            } 
+            return details;
+          }
 
-        const details = await Promise.all(orders.map(async (order) => {
-            const orderSpecs = await Promise.all(order.productCheckedOut.map(async (added) => {
-                const url = `http://localhost:3001/getProduct/${added.productId}`;
-                const response = await fetch(url);
-                const body = await response.json();
-                return {
-                    
-                    imageURL: body.imageURL,
-                    productId: body._id,
-                    name: body.name,
-                    price: body.price,
-                    stock: body.stock,
-                    qty: added.qty
-                };
-            }));
-    
-            return {
-                orderId: order._id,
-                customer: order.customerId,
-                status: order.status,
-                orders: orderSpecs,
-                price: order.price
-            };
-        }));
+          const details = await getOrderDetails(orders);
 
         // setDisplay(details)
         setCustomerName(details);
@@ -101,12 +128,12 @@ export default function ActiveOrders(){
                 console.log(body)
                 
         }).then(() => {
-            console.log('here?')
             if (statusChange === 1) {
                 console.log(order)
                 handleStockChange(order)
             }else{
                 getUserOrders(status)
+                fetchOrderCount(status)
             }
         })
     }
@@ -126,6 +153,7 @@ export default function ActiveOrders(){
                 .then(body => {
                 console.log(body)
                 getUserOrders(status)
+                fetchOrderCount(status)
             })
         }))
         
@@ -138,14 +166,14 @@ export default function ActiveOrders(){
             <button onClick={()=> {
                 setStatus(0);
                 getUserOrders(0)
-            }}>Pending</button>
+            }}>Pending {status === 0 && countPending} </button>
             <button onClick={() => {
                 setStatus(1);
                 getUserOrders(1)
-                }}>Confirmed</button>
+                }}>Confirmed {status === 1 && countCompleted}</button>
             <button onClick={() => {setStatus(2);
                 getUserOrders(2)
-            }}>Canceled</button>
+            }}>Canceled {status === 2 && countCanceled}</button>
 
             {
                 orderDeets.map((items)=>{
@@ -168,7 +196,7 @@ export default function ActiveOrders(){
                             }
 
                             <h5>Total Order Price: {items.price}</h5>
-                            <div className='cancel-button'>{items.status === 2 ? <div className='empty-div'></div>: <button onClick={() => handleStatusChange(items, 2)}>Cancel Order</button>}</div>
+                            <div className='cancel-button'>{items.status !== 0 ? <div className='empty-div'></div>: <button onClick={() => handleStatusChange(items, 2)}>Cancel Order</button>}</div>
                             <div className='confirm-button'>{items.status !== 0 ? <div className='empty-div'></div>: <button onClick={() => handleStatusChange(items, 1)}>Confirm Order</button>}</div>
                             </div>
                     );    

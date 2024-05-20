@@ -100,7 +100,7 @@ function CheckOutForm(props){
     return (
         <div className="w-full h-full flex flex-col justify-center items-center rounded-md  text-fttGreen font-Roboto">
             <img className="h-10" src={summary}></img>
-            { totalItemsSelected != 1 ? <p className="pl-12 mt-10 self-start">Selected {totalItemsSelected} items</p> 
+            { totalItemsSelected !== 1 ? <p className="pl-12 mt-10 self-start">Selected {totalItemsSelected} items</p> 
             : <p className="pl-12 mt-10 self-start">Selected 1 item</p> }
             
             <div className="border-t w-3/4 flex flex-col justify-between ">
