@@ -24,7 +24,8 @@ function SignIn(){
         email: email,
         password: password
       })
-      const authToken = res.data.token;
+      const authToken = res.data;
+
       alert('Sign in successful')
       setEmail('')
       setPassword('')

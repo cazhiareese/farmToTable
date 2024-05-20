@@ -43,6 +43,7 @@ const getAllProducts = async (req, res) => {
 
 
 // Create a new order
+// add authorization
 const addOrder = async(req, res) => {
   const { productCheckedOut, customerId, price } = req.body;
   const newOrder = new Order({
@@ -83,6 +84,7 @@ const removeOrder = async(req, res) => {
 
 
 // Update the cart with error handling
+// add authorization
 const updateCart = async (req, res) => {
   try {
     if (!req.body.userId || !req.body.cart) {
@@ -98,6 +100,7 @@ const updateCart = async (req, res) => {
 };
 
 // Retrieve the cart by user ID with error handling
+// add authorization
 const getCart = async (req, res) => {
   try {
     if (!req.params.id) {
