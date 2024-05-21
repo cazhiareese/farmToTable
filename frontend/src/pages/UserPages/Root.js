@@ -7,8 +7,6 @@ import footerimg from '../../images/footer_pic.png';
 
 export default function Root(props) {
   const userId= props.user;
-  // const userId = "664c12672159f289e3f533f8"
-  //const userId= "6638db055b73b79302282273";
 
   const [count, setCount] = useState(0);
 

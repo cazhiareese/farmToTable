@@ -61,16 +61,7 @@ function App() {
 
   return(
     <div>
-      <Routes>
-        <Route path='/sign-in' element={<SignIn />} />
-        <Route path='/sign-up' element={<SignUp />} />
-        <Route path='/' element={<Root desc={site_desc} user={userId}/>}>
-          <Route index element={<Home desc={site_desc} user={userId}/>} />
-          <Route path="orders/:id" element={<Order />} />
-          <Route path="cart/:id" element={<Cart />} />
-          <Route path="product/:id" element={<ProductDetails />} />
-        </Route>
-        
+      <Routes>        
         {/* Implement na if role is admin redirect to /admin */}
         {/* Impelement that if role is not admin, display a no authorization page with a prompt to go back to homepage */}
         {/* gumagana na yung decode dito */}
@@ -86,15 +77,14 @@ function App() {
             <Route path='edit-product/:id' element={<EditProduct />}/>
           </Route>
           ) : (
-          <Route path='/admin/' >
-            <Route index element={<SignIn />} />
-            <Route path='inventory' element={<SignIn />} />
-            <Route path='active-orders' element={<SignIn />} />
-            <Route path='sales-report' element={<SignIn />} />
-            <Route path='active-accounts' element={<SignIn />} />
-            <Route path='create-listing' element={<SignIn />} />
-            <Route path='edit-product/:id' element={<EditProduct />}/>
-          </Route>
+            <Route path='/sign-in' element={<SignIn />} />
+              <Route path='/sign-up' element={<SignUp />} />
+              <Route path='/' element={<Root desc={site_desc} user={userId}/>}>
+              <Route index element={<Home desc={site_desc} user={userId}/>} />
+              <Route path="orders/:id" element={<Order />} />
+              <Route path="cart/:id" element={<Cart />} />
+              <Route path="product/:id" element={<ProductDetails />} />
+            </Route>
           )
         }
       </Routes>
