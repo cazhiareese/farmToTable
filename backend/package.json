@@ -16,5 +16,7 @@
   "type": "module",
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+  }
 }

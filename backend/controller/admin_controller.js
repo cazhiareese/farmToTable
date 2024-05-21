@@ -51,8 +51,9 @@ const getAllUser = async (req, res) => {
      };
      
      
-     
+    /*                   VERSION 1
      // Generate sales report based on the specified period
+     
      const getSalesReport = async (req, res) => {
        const period = req.query.period || 'weekly'; // Set a default value for period
        const allowedPeriods = ['weekly', 'monthly', 'annual'];
@@ -112,7 +113,60 @@ const getAllUser = async (req, res) => {
          res.status(500).json({ message: err.message });
        }
      };
+     */
 
+
+////////////////////////////////////////////////////////////////////////
+
+//            VERSION 2
+const getSalesReport = async (req, res) => {
+  try {
+    const period = req.query.period || 'weekly';
+    const startDate = req.query.startDate;
+    const endDate = req.query.endDate;
+    const allowedPeriods = ['weekly', 'monthly', 'annual', 'custom'];
+
+    if (!allowedPeriods.includes(period)) {
+      return res.status(400).json({ message: 'Invalid period specified' });
+    }
+
+    const { start, end } = getDateRange(period, startDate, endDate);
+
+    const sales = await Order.find({
+      status: 1,
+      dateTime: { $gte: start, $lte: end },
+    });
+
+    const details = await getOrderDetails(sales);
+    const flattenedDetails = details.flat();
+    const productSalesMap = flattenedDetails.reduce((acc, product) => {
+      if (acc[product.productId]) {
+        acc[product.productId].totalQty += product.qty;
+        acc[product.productId].totalSales += product.productSale;
+      } else {
+        acc[product.productId] = {
+          productId: product.productId,
+          name: product.name,
+          price: product.price,
+          stock: product.stock,
+          imageURL: product.imageURL,
+          totalQty: product.qty,
+          totalSales: product.productSale,
+        };
+      }
+      return acc;
+    }, {});
+
+    const consolidatedDetails = Object.values(productSalesMap);
+
+    res.json(consolidatedDetails);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+////////////////////////////////////////////////////////////////////////
   
     // TESTER ENDPOINTS
     const addProduct = async (req, res) => {
@@ -167,7 +221,7 @@ const getAllUser = async (req, res) => {
     }
 
 
-    const salesReport = async (req, res) => {
+   /* const salesReport = async (req, res) => {
 
     
       const period = req.query.period || 'weekly'; // Set a default value for period
@@ -266,7 +320,140 @@ const getAllUser = async (req, res) => {
 
       res.json(consolidatedDetails)
 
+    } */
+
+
+    
+//////////////////////REFACTORED///////////////////////////////////////////////////////
+
+/*                           VERSION 1
+// Helper function to get the start date based on the provided period parameter
+const getStartDate = (period) => {
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+
+  switch (period) {
+    case 'weekly':
+      return new Date(now.setDate(now.getDate() - 7));
+    case 'monthly':
+      return new Date(now.setMonth(now.getMonth() - 1));
+    case 'annual':
+      return new Date(now.setFullYear(now.getFullYear() - 1));
+    default:
+      throw new Error('Invalid period specified');
+  }
+};
+
+*/
+
+
+// Helper function to get order details
+const getOrderDetails = async (sales) => {
+  const details = [];
+
+  for (const order of sales) {
+    const orderSpecs = [];
+
+    for (const added of order.productCheckedOut) {
+      const body = await Product.findById(added.productId);
+
+      if (body) {
+        orderSpecs.push({
+          productId: body._id,
+          name: body.name,
+          price: body.price,
+          stock: body.stock,
+          imageURL: body.imageURL,
+          qty: added.qty,
+          productSale: added.qty * body.price,
+        });
+      }
     }
+
+    details.push(orderSpecs);
+  }
+
+  return details;
+};
+
+//          VERSION 2
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_operator
+const getDateRange = (period, startDate, endDate) => {
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+
+  let start, end;
+
+  switch (period) {
+    case 'custom':
+      start = startDate ? new Date(startDate) : now;
+      end = endDate ? new Date(endDate) : now;
+      break;
+    case 'weekly':
+      start = new Date(now.setDate(now.getDate() - 7));
+      end = now;
+      break;
+    case 'monthly':
+      start = new Date(now.setMonth(now.getMonth() - 1));
+      end = now;
+      break;
+    case 'annual':
+      start = new Date(now.setFullYear(now.getFullYear() - 1));
+      end = now;
+      break;
+    default:
+      throw new Error('Invalid period specified');
+  }
+
+  return { start, end };
+};
+
+
+// New salesReport function
+const salesReport = async (req, res) => {
+  try {
+    const period = req.query.period || 'weekly';
+    const allowedPeriods = ['weekly', 'monthly', 'annual'];
+
+    if (!allowedPeriods.includes(period)) {
+      return res.status(400).json({ message: 'Invalid period specified' });
+    }
+
+    const startDate = getStartDate(period);
+
+    const sales = await Order.find({ status: 1, dateTime: { $gte: startDate } });
+    const details = await getOrderDetails(sales);
+    const flattenedDetails = details.flat();
+    const productSalesMap = flattenedDetails.reduce((acc, product) => {
+      if (acc[product.productId]) {
+        acc[product.productId].totalQty += product.qty;
+        acc[product.productId].totalSales += product.productSale;
+      } else {
+        acc[product.productId] = {
+          productId: product.productId,
+          name: product.name,
+          price: product.price,
+          stock: product.stock,
+          imageURL: product.imageURL,
+          totalQty: product.qty,
+          totalSales: product.productSale,
+        };
+      }
+      return acc;
+    }, {});
+
+    const consolidatedDetails = Object.values(productSalesMap);
+
+    res.json(consolidatedDetails);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+
+
+//////////////////////REFACTORED///////////////////////////////////////////////////////
 
     const countUsers = async(req, res) => {
 
@@ -278,6 +465,8 @@ const getAllUser = async (req, res) => {
       }
 
     }
+
+
 
     const countOrders = async(req, res) => {
 
@@ -303,4 +492,4 @@ const getAllUser = async (req, res) => {
   
 
    
-   export {getUser, getAllUser, getAllTransaction, getSalesReport, getTransaction, removeProduct, editStock, addProduct, salesReport, countUsers, countOrders, countListings}
+   export {getUser, getAllUser, getAllTransaction, getSalesReport, getTransaction, getDateRange, removeProduct, editStock, addProduct, salesReport, countUsers, countOrders, countListings}
