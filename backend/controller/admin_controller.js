@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import { User } from '../models/userSchema.js';
 import { Product } from '../models/productSchema.js';
-import { Product } from '../models/productSchema.js';
 import { Order } from '../models/orderSchema.js';
 // import {Cart} from '../models/cartSchema.js'
 
@@ -18,7 +17,6 @@ const getUser = async(req, res) => {
      }
      
      // Retrieve all users
-const getAllUser = async (req, res) => {
 const getAllUser = async (req, res) => {
        try {
          const users = await User.find();
@@ -109,7 +107,6 @@ const getAllUser = async (req, res) => {
          ]);
      
          res.json(sales);
-         res.send(sales);
          res.send(sales);
        } catch (err) {
          res.status(500).json({ message: err.message });
