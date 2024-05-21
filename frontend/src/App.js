@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Root from './pages/UserPages/Root';
 import Home from './pages/UserPages/Home';
 import Cart from './pages/UserPages/Cart';
@@ -68,14 +68,15 @@ function App() {
         {
           isUserSignedIn ? (
             role === 'customer' ? (
-              <Route path='/' element={<Root desc={site_desc} user={userId}/>}>
-                <Route index element={<Home desc={site_desc} user={userId}/>} />
+              <Route path='/' element={<Root desc={site_desc} />}>
+                <Route index element={<Home desc={site_desc} />} />
                 <Route path="orders/:id" element={<Order />} />
                 <Route path="cart/" element={<Cart />} />
                 <Route path="product/:id" element={<ProductDetails />} />
-                <Route path="*" element={<Home desc={site_desc} user={userId}/>} />
+                <Route path="*" element={<Home desc={site_desc} />} />
               </Route>
             ) : (
+              <>
               <Route path='/admin/' element={<RootAdmin />}>
                 <Route index element={<Dashboard />} />
                 <Route path='inventory' element={<Inventory />} />
@@ -86,15 +87,24 @@ function App() {
                 <Route path='edit-product/:id' element={<EditProduct />}/>
                 <Route path="*" element={<Dashboard />} />
               </Route>
+              <Route path='/' element={<RootAdmin />}>
+                <Route path="*" element={<Dashboard />} />
+              </Route>
+              </>
             )
           ) : (
             <>
             <Route path='/sign-in' element={<SignIn />} />
             <Route path='/sign-up' element={<SignUp />} />
-            <Route path="*" element={<ErrorPage />} />
+            <Route path="*" element={<SignUp />} />
             </>
           )
         }
+        <>
+            <Route path='/sign-in' element={<SignIn />} />
+            <Route path='/sign-up' element={<SignUp />} />
+            <Route path="*" element={<SignUp />} />
+        </>
       </Routes>
     </div>
   )

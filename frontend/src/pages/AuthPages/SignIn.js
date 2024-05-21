@@ -5,7 +5,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import welcome from '../../images/in_welc.png';
 import wheat from '../../images/wheat.png';
 import logo from '../../images/ftt_bg.png';
-
+import { jwtDecode } from 'jwt-decode';
 function SignIn(){
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,6 +14,22 @@ function SignIn(){
   useEffect(() => {
 
   }, [])
+
+  function getUserRole() {
+    const authToken = localStorage.getItem('token');
+    console.log(authToken);
+    if (!authToken) return null;
+  
+    try{
+      //decode error
+      const decoded = jwtDecode(authToken);
+      console.log('helo');
+      console.log(decoded.type);
+      return decoded.type;
+    } catch (error) {
+      return null;
+    }
+  }
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -28,9 +44,16 @@ function SignIn(){
       alert('Sign in successful')
       setEmail('')
       setPassword('')
-      navigate('/')
-      window.location.reload()
       localStorage.setItem('token', authToken)
+      let role = await getUserRole()
+      console.log(role)
+      if (role === 'admin'){
+        navigate('/admin')
+      }else{
+        navigate('/')
+      }
+      window.location.reload()
+      
     }catch (error){
     }
   }

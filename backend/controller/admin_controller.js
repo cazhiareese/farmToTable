@@ -116,6 +116,11 @@ const getAllUser = async (req, res) => {
   
     // TESTER ENDPOINTS
     const addProduct = async (req, res) => {
+
+      let status = 0;
+        if (req.body.stock > 0){
+            status = 1
+        }
       try{
         const newProduct = new Product({
                name: req.body.name, 
@@ -123,7 +128,8 @@ const getAllUser = async (req, res) => {
                type: req.body.type,
                stock: req.body.stock,
                price: req.body.price, 
-               imageURL: req.body.imageURL
+               imageURL: req.body.imageURL,
+               status: status
         });
         
         //add product to database
@@ -136,7 +142,11 @@ const getAllUser = async (req, res) => {
         }
       }
 
-      const editProduct = async (req, res) =>{       
+      const editProduct = async (req, res) =>{ 
+        let status = 0;
+        if (req.body.stock > 0){
+            status = 1
+        }
         try{
           const result = await Product.updateOne({_id: req.params.id},
              { $set:{
@@ -145,7 +155,8 @@ const getAllUser = async (req, res) => {
                   type: req.body.type,
                   price: req.body.price,
                   description: req.body.description,
-                  imageURL: req.body.imageURL
+                  imageURL: req.body.imageURL,
+                  status: status
              }});
       
           res.send(result)
@@ -157,12 +168,17 @@ const getAllUser = async (req, res) => {
         }        
       }
 
-      const editStock = async (req, res) =>{       
+      const editStock = async (req, res) =>{      
+        let status = 0;
+        if (req.body.stock > 0){
+            status = 1
+        } 
         try{
           const result = await Product.updateOne({_id: req.params.id},
              { $set:{
   
                   stock: req.body.stock,
+                  status: status
              }});
       
           res.send(result)
@@ -188,6 +204,7 @@ const getAllUser = async (req, res) => {
         res.status(500).json({ message: err.message });
       }
     }
+
 
 
     const salesReport = async (req, res) => {
@@ -321,7 +338,24 @@ const getAllUser = async (req, res) => {
       }
 
     }
+
+    const unlistProduct = async(req,res) => {
+        try{
+          const filter = { _id: req.params.id };
+          const update = { status: req.body.status, stock: req.body.stock };
+        
+          const result = await Product.findOneAndUpdate(filter, update, {new:true})
+      
+          res.send(result)
+          if(!result) {
+             res.status(404).send({order: "Order is not found !"})
+          }
+        }catch(err){
+         res.status(500).send({error: err })
+        }
+      }
+    
   
 
    
-   export {getUser, getAllUser, getAllTransaction, getSalesReport, getTransaction, removeProduct, editProduct, addProduct, salesReport, countUsers, countOrders, countListings, editStock}
+   export {getUser, getAllUser, getAllTransaction, getSalesReport, getTransaction, removeProduct, editProduct, addProduct, salesReport, countUsers, countOrders, countListings, editStock, unlistProduct}

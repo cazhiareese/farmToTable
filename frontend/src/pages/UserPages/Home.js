@@ -200,6 +200,8 @@ function Home (props){
                 {
                 products.map((prod) =>{
                     return(
+
+                        prod.status !== 2 ?
                         <div  key= {prod._id} className='rounded-md w-full overflow-hidden leading-tight' id={prod._id}>
                             <Link  to={`/product/${prod._id}`}>
                             <img className= "w-full h-56 object-cover mb-2 rounded transition ease-in-out delay-100 hover:-translate-y-1 hover:scale-110 duration-400" src = {prod.imageURL}></img>
@@ -207,10 +209,11 @@ function Home (props){
                             <p className='font-bold text-2xl '> PHP {prod.price}</p>
                             <p className='inline-block float-left'> {handleType(prod.type)}</p>
                             </Link>
+                            { prod.status === 1 ?
                             <button className= "transition ease-in-out duration-300 hover:bg-green-800 hover:shadow-lg inline-block float-right bg-fttGreen w-14 rounded-3xl p-1.5" onClick={()=> addToCart({productId : prod._id})}>
                                 <img className= "inline-block w-5" src={add}></img>
-                                <img className= "inline-block w-5" src={basket}></img></button> 
-                        </div>
+                                <img className= "inline-block w-5" src={basket}></img></button> : <><br/> <p>Out of stock!</p></> }
+                        </div> : null
                    
                     )
                 })

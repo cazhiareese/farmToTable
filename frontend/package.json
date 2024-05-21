@@ -2,6 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "http://localhost:3000/sign-up",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -18,7 +19,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "WATCHPACK_POLLING=true react-scripts start && npx tailwindcss -i ./src/style/input.css -o ./src/style/output.css --watch",
     "build-css": "npx tailwindcss -i ./src/style/input.css -o ./src/style/output.css --watch",
     "build": "react-scripts build",
     "test": "react-scripts test",

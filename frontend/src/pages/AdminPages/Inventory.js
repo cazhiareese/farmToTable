@@ -61,6 +61,16 @@ export default function Inventory(){
         }
     }
 
+    function handleStatus(status){
+        if (status === 1){
+            return 'In Stock'
+        }else if (status === 2){
+            return 'Unlisted'
+        }else if (status === 0){
+            return 'Out of stock'
+        }
+    }
+
 
 
     return(
@@ -114,15 +124,17 @@ export default function Inventory(){
                             <img className= "w-full h-56 shadow object-cover mb-2 rounded" src = {prod.imageURL}></img>
                             <h4 className='font-medium text-2xl'> {prod.name}</h4>
                             <h6  className='font-xs text-light '> {handleType(prod.type)}</h6>
-                            <h3 className='font-sm text-light' > {prod.stock} in stock</h3>
+                            {prod.status === 1 ? <h3 className='font-sm text-light' > {prod.stock} in stock</h3> : null }
                             <h3  className='font-md  '> PHP {prod.price}</h3>
-                            
+                            <h6  className='font-xs text-light '> {handleStatus(prod.status)}</h6>
                             <div className='flex justify-end'> 
                            
+                           {
+                            prod.status !== 2 ?
+                            <>
                             <Link to={`/admin/edit-product/${prod._id}`}><button className='ml-2  bg-fttGreen  hover:bg-green-900 text-fttWhite text-sm px-4 py-1 rounded-3xl'>
                                 Edit</button></Link>
-
-                            <button className='ml-2  bg-fttGreen  hover:bg-green-900 text-fttWhite text-sm px-4 py-1 rounded-3xl' onClick={()=> handleDelete(prod._id)}>Delete </button>
+                                                        <button className='ml-2  bg-fttGreen  hover:bg-green-900 text-fttWhite text-sm px-4 py-1 rounded-3xl' onClick={()=> handleDelete(prod._id)}>Delete </button>
                             {activeDelete === prod._id && (
                                 <div>
                                 <DeleteProduct 
@@ -132,7 +144,10 @@ export default function Inventory(){
                                     setFilter={handleFilter} 
                                 />
                                 </div>
-                            )}</div>
+                            )}
+                            </> : null
+                            }   
+                            </div>
                            
                         </div>
                    
