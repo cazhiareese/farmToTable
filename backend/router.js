@@ -3,7 +3,7 @@ import express from 'express';
 import {getUser, getAllUser, getAllTransaction, editStock, getSalesReport, getTransaction, removeProduct, editProduct, addProduct, salesReport, countListings, countOrders, countUsers} from './controller/admin_controller.js'
 import {signUp, signIn} from './controller/auth_controller.js';
 import { auth } from './util/auth.js';
-import { auth } from './util/auth.js';
+
 
   const router = express.Router();
 
