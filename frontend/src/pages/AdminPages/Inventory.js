@@ -64,7 +64,7 @@ export default function Inventory(){
 
 
     return(
-        <div className="bg-fttWhite w-full font-Roboto text-fttGreen">
+        <div className="bg-fttWhite w-full font-Roboto text-fttGreen ">
             <div className="border-fttGreen border-b mb-10 flex items-center h-28">
                 <h1 className=' ml-12 text-4xl font-medium'>Inventory</h1>
                 <div className='flex justify-end items-center w-full '>
@@ -110,7 +110,7 @@ export default function Inventory(){
                 {
                 products.map((prod) =>{
                     return(
-                        <div  key= {prod._id} className='p-4 border-slate-400 border hover:shadow-md shadow rounded-md w-full overflow-hidden leading-tight transition delay-150 flex flex-col' id={prod._id}>
+                        <div  key= {prod._id} className='p-4 border border-gray-300 hover:shadow-md shadow rounded-md w-full overflow-hidden leading-tight flex flex-col' id={prod._id}>
                             <img className= "w-full h-56 shadow object-cover mb-2 rounded" src = {prod.imageURL}></img>
                             <h4 className='font-medium text-2xl'> {prod.name}</h4>
                             <h6  className='font-xs text-light '> {handleType(prod.type)}</h6>

@@ -3,8 +3,9 @@ import { useParams, useOutletContext } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import cart from '../../icons/orders_cart.png';
 import arrow from '../../icons/view_product_arrow.png';
-function Order (){
 
+function Order (){
+    const token = localStorage.getItem('token');
     const [userId, count, setCount] = useOutletContext();
     // let userId = useParams();
     const [orderList, setOrders] = useState([]) 
@@ -17,10 +18,12 @@ function Order (){
         getUserOrders(0)
     }, [])
 
-
     function getUserOrders (status) {
-        let url = `http://localhost:3001/getOrder/${userId}/?status=${status}`
-        fetch(url)
+        let url = `http://localhost:3001/getOrder/?status=${status}`
+        fetch(url, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }})
             .then(response => response.json())
             .then(body => {
                setOrders(body)
@@ -86,13 +89,13 @@ function Order (){
                 <img className='ease-in-out delay-150 group-hover:-translate-x-1 inline-block h-4 mr-2' src={arrow}></img><Link className="link-to-home" to={'/'}>Back to Homepage</Link></button>
             <h1 className='font-black text-2xl my-6 ml-16 '><img className='inline-block w-10 mr-2' src={cart}></img>Your Orders</h1>
 
-            <button className="active-btn w-24 mr-4 ml-12" id="pending-btn"  onClick={()=> {
+            <button className="active-btn w-28 mr-4 ml-12" id="pending-btn"  onClick={()=> {
                 setStatus(0);
                 getUserOrders(0);
                 document.querySelector('.active-btn')?.classList.remove("active-btn");
                 document.getElementById('pending-btn').classList.add("active-btn");
             }}>Pending</button>
-            <button className=" w-20 mx-4" id="confirmed-btn" onClick={() => {
+            <button className=" w-28 mx-4" id="confirmed-btn" onClick={() => {
                 setStatus(1);
                 getUserOrders(1)
                 document.querySelector('.active-btn')?.classList.remove("active-btn");

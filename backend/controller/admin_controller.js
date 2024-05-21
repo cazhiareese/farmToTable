@@ -17,7 +17,7 @@ const getUser = async(req, res) => {
      }
      
      // Retrieve all users
-     const getAllUser = async (req, res) => {
+const getAllUser = async (req, res) => {
        try {
          const users = await User.find();
          res.json(users);
@@ -107,6 +107,7 @@ const getUser = async(req, res) => {
          ]);
      
          res.json(sales);
+         res.send(sales);
        } catch (err) {
          res.status(500).json({ message: err.message });
        }
@@ -135,22 +136,6 @@ const getUser = async(req, res) => {
         }
       }
 
-      const editStock = async (req, res) =>{       
-        try{
-          const filter = { _id: req.params.id };
-          const update = { stock: req.body.stock };
-        
-          const result = await Product.findOneAndUpdate(filter, update, {new:true})
-      
-          res.send(result)
-          if(!result) {
-             res.status(404).send({order: "Product is not found !"})
-          }
-        }catch(err){
-         res.status(500).send({error: err })
-        }        
-      }
-
       const editProduct = async (req, res) =>{       
         try{
           const result = await Product.updateOne({_id: req.params.id},
@@ -172,6 +157,7 @@ const getUser = async(req, res) => {
         }        
       }
 
+
     const removeProduct = async(req, res) => {
       try {
         // The ID of the order to cancel
@@ -186,5 +172,139 @@ const getUser = async(req, res) => {
       }
     }
 
+
+    const salesReport = async (req, res) => {
+      const period = req.query.period || 'weekly'; // Set a default value for period
+      // const status = req.query.status
+      const allowedPeriods = ['weekly', 'monthly', 'annual'];
+      
+      if (!allowedPeriods.includes(period)) {
+        return res.status(400).json({ message: 'Invalid period specified' });
+      }
+
+      const now = new Date();
+      let startDate;
+      now.setHours(0,0,0,0); // set to 0:00
+      switch (period) {
+        case 'weekly':
+          startDate = new Date(now);
+          startDate.setDate(startDate.getDate() - 7);
+          break;
+        case 'monthly':
+          startDate = new Date(now);
+          startDate.setMonth(startDate.getMonth() - 1);
+          break;
+        case 'annual':
+          startDate = new Date(now);
+          startDate.setFullYear(startDate.getFullYear() - 1);
+          break;
+      }
+
+      const sales = await Order.find({status: 1, dateTime: {$gte: startDate}})
+
+      async function getOrderDetails(sales) {
+        const details = [];
+        for (const order of sales) {
+            const orderSpecs = [];   
+            for (const added of order.productCheckedOut) {
+                const body = await Product.findById(added.productId);
+                orderSpecs.push({
+                    productId: body._id,
+                    name: body.name,
+                    price: body.price,
+                    stock: body.stock,
+                    imageURL: body.imageURL,
+                    qty: added.qty,
+                    productSale: added.qty * body.price
+                });
+            }
+    
+            details.push(orderSpecs);
+        } 
+        return details;
+      }
+
+
+    
+    const details = await getOrderDetails(sales);
+
+    // const details = await Promise.all(sales.map(async (order) => {
+    //   const orderSpecs = await Promise.all(order.productCheckedOut.map(async (added) => {
+    //       const body = await Product.findById(added.productId);
+    //       return {
+    //         productId: body._id,
+    //         name: body.name,
+    //         price: body.price,
+    //         stock: body.stock,
+    //         imageURL: body.imageURL,
+    //         qty: added.qty,
+    //         productSale: added.qty * body.price
+    //       };
+    //   }));
+    //   return orderSpecs;
+    // }));
+
+    const flattenedDetails = details.flat();
+    const productSalesMap = {};
+      flattenedDetails.forEach((product) => {
+        if (productSalesMap[product.productId]) {
+            productSalesMap[product.productId] = {
+                ...productSalesMap[product.productId],
+                totalQty: productSalesMap[product.productId].totalQty + product.qty,
+                totalSales: productSalesMap[product.productId].totalSales + product.productSale
+            };
+        } else {
+            productSalesMap[product.productId] = {
+                productId: product.productId,
+                name: product.name,
+                price: product.price,
+                stock: product.stock,
+                imageURL: product.imageURL,
+                totalQty: product.qty,
+                totalSales: product.productSale
+            };
+        }
+      });
+      
+      const consolidatedDetails = [...Object.values(productSalesMap)];
+
+      res.json(consolidatedDetails)
+
+    }
+
+    const countUsers = async(req, res) => {
+
+      try{
+      const count = await User.countDocuments({})
+      res.send({count})
+      }catch(err){
+        res.status(500).json({ message: err.message });
+      }
+
+    }
+
+    const countOrders = async(req, res) => {
+
+      try{
+      const count = await Order.countDocuments({status: req.query.status})
+      res.send({count})
+      }catch(err){
+        res.status(500).json({ message: err.message });
+      }
+
+    }
+
+    const countListings = async(req, res) => {
+
+      try{
+      const count = await Product.countDocuments({})
+      res.send({count})
+      }catch(err){
+        res.status(500).json({ message: err.message });
+      }
+
+    }
+  
+
    
-   export {editProduct, getUser, getAllUser, getAllTransaction, getSalesReport, getTransaction, removeProduct, editStock, addProduct}
+   export {getUser, getAllUser, getAllTransaction, getSalesReport, getTransaction, removeProduct, editProduct, addProduct, salesReport, countUsers, countOrders, countListings}

@@ -10,6 +10,7 @@ import sustainable from '../../icons/home_sustainable.png';
 import shop from '../../icons/home_shop.png';
 
 function Home (props){
+    const token = localStorage.getItem('token');
     let filters = {
         orderBy : 1,
         sortBy: 'name'
@@ -23,6 +24,7 @@ function Home (props){
     const [selectedOption, setSelectedOption] = useState(filters.sortBy);
 
     useEffect(() => {    
+        console.log(token)
         handleFilter(filters)    
         
     },[])
@@ -36,14 +38,17 @@ function Home (props){
     }, [totalItems])
 
     function fetchCart (){
-        let url = `http://localhost:3001/getCart/` + userId
-        fetch(url)
-            .then(response => response.json())
+        let url = `http://localhost:3001/getCart/`
+        fetch(url, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }}).then(response => response.json())
             .then(body => {
                setCart(body.cart)
-               countItems(body.cart)
-            })
-        }
+                countItems(body.cart)
+            })  
+    }
+    
     function handleFilter(sorter){
         let url = 'http://localhost:3001/products?sortBy='+sorter.sortBy+'&orderBy='+String(sorter.orderBy)
         console.log(url);

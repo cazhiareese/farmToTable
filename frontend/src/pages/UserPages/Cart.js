@@ -12,7 +12,7 @@ import your from '../../images/cart_your_cart.png';
 function Cart({updateTotalItems}) {
 
     // let userId = useParams();
-
+    const token = localStorage.getItem('token');
     const [userId, count, setCount] = useOutletContext();
     const [pushCart, setCart] = useState([]);
     const [totalItems, setVal] = useState(0);
@@ -21,13 +21,16 @@ function Cart({updateTotalItems}) {
     const [newCart, setNew] = useState([])
 
     useEffect(() => {
-        let url = `http://localhost:3001/getCart/${userId}`
-        fetch(url)
-            .then(response => response.json())
-            .then(body => {
-               setCart(body.cart)
-                countItems(body.cart)
-            })  
+        const token = localStorage.getItem('token');
+        let url = `http://localhost:3001/getCart/`
+        fetch(url, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }}).then(response => response.json())
+        .then(body => {
+           setCart(body.cart)
+            countItems(body.cart)
+        })  
             
     }, [])
 

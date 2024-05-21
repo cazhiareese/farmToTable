@@ -7,6 +7,7 @@ import arrow from '../../icons/view_product_arrow.png';
 import { Link } from 'react-router-dom';
 
 function ProductDetails (){
+    const token = localStorage.getItem('token');
     let productId = useParams();
     const [userId, count, setCount] = useOutletContext();
     const [pushCart, setCart] = useState([]);
@@ -33,13 +34,15 @@ function ProductDetails (){
     }, [totalItems])
 
     function fetchCart (){
-        let url = `http://localhost:3001/getCart/` + userId
-        fetch(url)
-            .then(response => response.json())
+        let url = `http://localhost:3001/getCart/`
+        fetch(url, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }}).then(response => response.json())
             .then(body => {
                setCart(body.cart)
-               countItems(body.cart)
-            })
+                countItems(body.cart)
+            })  
         }
 
     function countItems(cart) {

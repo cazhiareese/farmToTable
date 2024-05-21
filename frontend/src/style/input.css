@@ -32,7 +32,3 @@
 .default-dash {
     @apply  text-slate-300
 }
-
-.active-dash {
-    @apply font-semibold text-fttWhite
-}
