@@ -144,7 +144,7 @@ function Home (props){
         <div className='bg-fttWhite font-Roboto text-fttGreen shadow-md min-h-screen' >
             {/* FLOATING CART WIIIIIII */}
             <button className= 'hover:bg-green-900  hover:shadow-3xl p-4 bottom-4 right-6 bg-fttGreen/75 fixed rounded-full shadow-lg'>
-                <Link className="link" to={`cart/${userId}`}>
+                <Link className="link" to={`cart/`}>
                 <img className='w-7 h-7 mr-1 inline-block' src={cart} id='header_cart'>
                 </img><p className="inline-block  text-fttWhite">{count}</p></Link>
             </button>

@@ -1,0 +1,30 @@
+[
+    {
+      productId: '6649a1433688bc67417b2dab',
+      name: '1kg Beef',
+      price: 350,
+      totalQty: 2,
+      totalSales: 700
+    },
+    {
+      productId: '664a1923cde5a53c82b4cf71',
+      name: 'Bibe',
+      price: 500,
+      totalQty: 3,
+      totalSales: 1500
+    },
+    {
+      productId: '6649a2053688bc67417b2dad',
+      name: 'Corn',
+      price: 10,
+      totalQty: 3,
+      totalSales: 30
+    },
+    {
+      productId: '664a1842cde5a53c82b4cf6b',
+      name: 'Bigas',
+      price: 130,
+      totalQty: 7,
+      totalSales: 910
+    }
+  ]

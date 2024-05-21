@@ -6,6 +6,7 @@ import arrow from '../../icons/view_product_arrow.png';
 
 function Order (){
     const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
     const [userId, count, setCount] = useOutletContext();
     // let userId = useParams();
     const [orderList, setOrders] = useState([]) 
@@ -19,6 +20,11 @@ function Order (){
     }, [])
 
     function getUserOrders (status) {
+        let url = `http://localhost:3001/getOrder/?status=${status}`
+        fetch(url, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }})
         let url = `http://localhost:3001/getOrder/?status=${status}`
         fetch(url, {
             headers: {
@@ -67,11 +73,11 @@ function Order (){
             {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
-                    //   add tayo dito ng authenticator token
+                    'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({                   // authenticator dapat ang ipapasa ko ha
-                    customerId: userId,
+                    // customerId: userId,
                     status: statusChange
                 })
             }).then(response => response.text())

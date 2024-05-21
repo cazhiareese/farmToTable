@@ -675,6 +675,10 @@ video {
   margin-bottom: 4rem;
 }
 
+.mb-16{
+  margin-bottom: 4rem;
+}
+
 .mb-2{
   margin-bottom: 0.5rem;
 }
@@ -1577,7 +1581,9 @@ video {
 }
 
 .hover\:bg-green-900:hover{
+.hover\:bg-green-900:hover{
   --tw-bg-opacity: 1;
+  background-color: rgb(20 83 45 / var(--tw-bg-opacity));
   background-color: rgb(20 83 45 / var(--tw-bg-opacity));
 }
 

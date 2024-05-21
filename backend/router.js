@@ -3,6 +3,7 @@ import express from 'express';
 import {getUser, getAllUser, getAllTransaction, editStock, getSalesReport, getTransaction, removeProduct, editProduct, addProduct, salesReport, countListings, countOrders, countUsers} from './controller/admin_controller.js'
 import {signUp, signIn} from './controller/auth_controller.js';
 import { auth } from './util/auth.js';
+import { auth } from './util/auth.js';
 
   const router = express.Router();
 
@@ -19,6 +20,8 @@ import { auth } from './util/auth.js';
   router.post('/sign-up', signUp);
   router.post('/sign-in', signIn);
 
+  router.get('/customer/:id', getUser);
+  router.get('/all-customer', getAllUser);
   router.get('/customer/:id', getUser);
   router.get('/all-customer', getAllUser);
 
@@ -38,8 +41,13 @@ import { auth } from './util/auth.js';
   router.post('/addOrder', auth, addOrder);
   router.get('/getOrder', auth, getOrder);
   router.post('/updateOrder/:id', updateOrder);
+  router.post('/addOrder', auth, addOrder);
+  router.get('/getOrder', auth, getOrder);
+  router.post('/updateOrder/:id', updateOrder);
 
   // Cart routes
+  router.post('/updateCart', auth, updateCart);
+  router.get('/getCart', auth, getCart);
   router.post('/updateCart', auth, updateCart);
   router.get('/getCart', auth, getCart);
 

@@ -1,4 +1,4 @@
-import { Outlet,Link } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
 import { useState } from 'react';
 import css from '../../style/output.css';
 import cart from '../../icons/header_cart.png';

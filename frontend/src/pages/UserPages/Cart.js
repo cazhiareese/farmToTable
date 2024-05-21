@@ -62,11 +62,11 @@ function Cart({updateTotalItems}) {
             {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
-                    //   add tayo dito ng authenticator token
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({                   // authenticator dapat ang ipapasa ko ha
-                    userId: userId,
+                    // userId: userId,
                     cart: cart
                 })
             }).then(response => response.text())
