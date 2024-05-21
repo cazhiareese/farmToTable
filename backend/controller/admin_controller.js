@@ -492,4 +492,4 @@ const salesReport = async (req, res) => {
   
 
    
-   export {getUser, getAllUser, getAllTransaction, getSalesReport, getTransaction, removeProduct, editStock, addProduct, salesReport, countUsers, countOrders, countListings}
+   export {getUser, getAllUser, getAllTransaction, getSalesReport, getTransaction, getDateRange, removeProduct, editStock, addProduct, salesReport, countUsers, countOrders, countListings}
