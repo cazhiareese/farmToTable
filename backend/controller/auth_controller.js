@@ -2,9 +2,6 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/userSchema.js';
 import { Cart } from '../models/cartSchema.js';
-//temp
-// await mongoose.connect( 'mongodb+srv://cazhia:E13UKHwTNcHF3PzJ@farm.kzqurki.mongodb.net/ftt?retryWrites=true&w=majority&appName=farm', {  
-//  useNewUrlParser: true, useUnifiedTopology: true });
 
 const SECRET_KEY = 'CMSC100FTT';
 
