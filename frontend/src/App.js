@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Root from './pages/UserPages/Root';
 import Home from './pages/UserPages/Home';
 import Cart from './pages/UserPages/Cart';
@@ -15,6 +15,7 @@ import Inventory from './pages/AdminPages/Inventory.js';
 import SalesReport from './pages/AdminPages/SalesReport.js';
 import CreateListing from './pages/AdminPages/CreateListing.js';
 import EditProduct from './pages/AdminPages/EditProduct.js';
+import ErrorPage from './pages/AuthPages/Error.js';
 import { jwtDecode } from 'jwt-decode';
 
 
@@ -29,12 +30,14 @@ const isUserSignedIn = !!localStorage.getItem('token')
 //function that decodes the token and gets role of user
 function getUserRole() {
   const authToken = localStorage.getItem('token');
+  console.log(authToken);
   if (!authToken) return null;
 
   try{
     //decode error
     const decoded = jwtDecode(authToken);
-    
+    console.log('helo');
+    console.log(decoded.type);
     return decoded.type;
   } catch (error) {
     return null;
@@ -62,41 +65,46 @@ function App() {
   return(
     <div>
       <Routes>
-        <Route path='/sign-in' element={<SignIn />} />
-        <Route path='/sign-up' element={<SignUp />} />
-        <Route path='/' element={<Root desc={site_desc} user={userId}/>}>
-          <Route index element={<Home desc={site_desc} user={userId}/>} />
-          <Route path="orders/:id" element={<Order />} />
-          <Route path="cart/" element={<Cart />} />
-          <Route path="product/:id" element={<ProductDetails />} />
-        </Route>
-
-        {/* Implement na if role is admin redirect to /admin */}
-        {/* Impelement that if role is not admin, display a no authorization page with a prompt to go back to homepage */}
-        {/* gumagana na yung decode dito */}
         {
-          role === 'admin' ? (
-          <Route path='/admin/' element={<RootAdmin />}>
-            <Route index element={<Dashboard />} />
-            <Route path='inventory' element={<Inventory />} />
-            <Route path='active-orders' element={<ActiveOrders />} />
-            <Route path='sales-report' element={<SalesReport />} />
-            <Route path='active-accounts' element={<Account />} />
-            <Route path='create-listing' element={<CreateListing />} />
-            <Route path='edit-product/:id' element={<EditProduct />}/>
-          </Route>
+          isUserSignedIn ? (
+            role === 'customer' ? (
+              <Route path='/' element={<Root desc={site_desc} />}>
+                <Route index element={<Home desc={site_desc} />} />
+                <Route path="orders/:id" element={<Order />} />
+                <Route path="cart/" element={<Cart />} />
+                <Route path="product/:id" element={<ProductDetails />} />
+                <Route path="*" element={<Home desc={site_desc} />} />
+              </Route>
+            ) : (
+              <>
+              <Route path='/admin/' element={<RootAdmin />}>
+                <Route index element={<Dashboard />} />
+                <Route path='inventory' element={<Inventory />} />
+                <Route path='active-orders' element={<ActiveOrders />} />
+                <Route path='sales-report' element={<SalesReport />} />
+                <Route path='active-accounts' element={<Account />} />
+                <Route path='create-listing' element={<CreateListing />} />
+                <Route path='edit-product/:id' element={<EditProduct />}/>
+                <Route path="*" element={<Dashboard />} />
+              </Route>
+              <Route path='/' element={<RootAdmin />}>
+                <Route path="*" element={<Dashboard />} />
+              </Route>
+              </>
+            )
           ) : (
-          <Route path='/admin/' >
-            <Route index element={<SignIn />} />
-            <Route path='inventory' element={<SignIn />} />
-            <Route path='active-orders' element={<SignIn />} />
-            <Route path='sales-report' element={<SignIn />} />
-            <Route path='active-accounts' element={<SignIn />} />
-            <Route path='create-listing' element={<SignIn />} />
-            <Route path='edit-product/:id' element={<EditProduct />}/>
-          </Route>
+            <>
+            <Route path='/sign-in' element={<SignIn />} />
+            <Route path='/sign-up' element={<SignUp />} />
+            <Route path="*" element={<SignUp />} />
+            </>
           )
         }
+        <>
+            <Route path='/sign-in' element={<SignIn />} />
+            <Route path='/sign-up' element={<SignUp />} />
+            <Route path="*" element={<SignUp />} />
+        </>
       </Routes>
     </div>
   )

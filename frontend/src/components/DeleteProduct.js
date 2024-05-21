@@ -7,7 +7,7 @@ function DeleteProduct (props){
     const sorter = props.currentFilter
 
     const deleteProduct = (e) =>{
-        fetch(`http://localhost:3001/remove-product/${id}`,
+        fetch(`http://localhost:3001/unlist-product/${id}`,
         {
             method: 'POST',
             headers: {
@@ -15,7 +15,8 @@ function DeleteProduct (props){
                 
             },
             body: JSON.stringify({                   
-                
+                status: 2,
+                stock: 0
             })
         }).then(response => response.text())
         .then(body => {

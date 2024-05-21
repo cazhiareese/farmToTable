@@ -1,6 +1,6 @@
 import{ getProduct, getAllProducts, addOrder, removeOrder, updateCart, getCart, getOrder, updateOrder }from './controller/user_controller.js'
 import express from 'express';
-import {getUser, getAllUser, getAllTransaction, editStock, getSalesReport, getTransaction, removeProduct, editProduct, addProduct, salesReport, countListings, countOrders, countUsers} from './controller/admin_controller.js'
+import {getUser, getAllUser, getAllTransaction, editStock, getSalesReport, getTransaction, removeProduct, editProduct, addProduct, salesReport, countListings, countOrders, countUsers, unlistProduct} from './controller/admin_controller.js'
 import {signUp, signIn} from './controller/auth_controller.js';
 import { auth } from './util/auth.js';
 
@@ -32,6 +32,7 @@ import { auth } from './util/auth.js';
   router.post('/edit-product/:id', editProduct);
   router.post('/add-product', addProduct)
   router.post('/edit-stock/:id', editStock)
+  router.post('/unlist-product/:id', unlistProduct)
 
 
   // Order routes
