@@ -10,14 +10,11 @@ import sub from '../../icons/sub.png';
 import your from '../../images/cart_your_cart.png';
 
 function Cart({updateTotalItems}) {
-
-    // let userId = useParams();
     const token = localStorage.getItem('token');
     const [userId, count, setCount] = useOutletContext();
     const [pushCart, setCart] = useState([]);
     const [totalItems, setVal] = useState(0);
     const [selectedList, setSelected] = useState([])
-
     const [newCart, setNew] = useState([])
 
     useEffect(() => {
@@ -250,7 +247,7 @@ function Cart({updateTotalItems}) {
             </div>
 
             <div className='transition ease-in-out duration-300 border-fttGreen border rounded-md m-2 flex w-1/3 h-fit mt-40 py-16 bg-fttWhite'>
-                <CheckOutForm list_selected={selectedList} state_selected={setSelected} cart={pushCart} cart_state = {setCart} setVal = {setVal} userId ={userId}/>
+                <CheckOutForm list_selected={selectedList} state_selected={setSelected} cart={pushCart} cart_state = {setCart} setVal = {setVal} userId ={userId} token={token}/>
             </div> 
             
         </div> : <div className='empty-cart'> <h1>Empty Cart! Shop more!</h1></div>

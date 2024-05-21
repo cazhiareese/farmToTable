@@ -208,7 +208,7 @@ export default function ActiveOrders(){
 
                             <p className=' font-bold'>Order Total: PHP {items.price}</p>
                             <div className='cancel-button'>{items.status !== 0 ? <div className='empty-div'></div>: <button className='hover:shadow-md  bg-fttGreen text-sm hover:bg-green-800 font-light text-fttWhite py-2 px-6 rounded-full flex items-center float-right' onClick={() => handleStatusChange(items, 2)}>Cancel Order</button>}</div>
-                            <div className='confirm-button'>{items.status !== 0 ? <div className='empty-div'></div>: <button className='hover:shadow-md  bg-fttGreen text-sm hover:bg-green-800 font-light text-fttWhite py-2 px-6 rounded-full flex items-center float-right' onClick={() => handleStatusChange(items, 1)}>Confirm Order</button>}</div>
+                            <div className='confirm-button'>{items.status !== 0 ? <div className='empty-div'></div>: <button className='hover:shadow-md mr-1 bg-fttGreen text-sm hover:bg-green-800 font-light text-fttWhite py-2 px-6 rounded-full flex items-center float-right' onClick={() => handleStatusChange(items, 1)}>Confirm Order</button>}</div>
                             </div>
                     );    
                 })

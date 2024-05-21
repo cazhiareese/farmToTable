@@ -90,12 +90,12 @@ function Home (props){
         {
             method: 'POST',
             headers: {
-            'Content-Type': 'application/json'
-            //   add tayo dito ng authenticator token
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({ 
                     // authenticator dapat ang ipapasa ko ha
-                    userId: userId,
+                    // userId: userId,
                     cart: cart
 
             })
@@ -138,6 +138,7 @@ function Home (props){
 
         
     }
+
 
     return(
         <div className='bg-fttWhite font-Roboto text-fttGreen shadow-md min-h-screen' >
