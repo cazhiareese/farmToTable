@@ -28,7 +28,7 @@ export default function Root(props) {
             <li className="text-fttBg hover:text-fttWhite"><Link className="link" to={'/'}>Homepage</Link></li>
             <li className="text-fttBg hover:text-fttWhite"><Link className="link" to={`/orders/${userId}`}>Orders</Link></li>
             <li className="text-fttBg hover:text-fttWhite"><Link className="link" onClick={handleSignOut}>Sign Out</Link></li>
-            <li className="hover:animate- text-fttBg hover:text-fttWhite"><Link className="link" to={`cart/${userId}`}>
+            <li className="hover:animate- text-fttBg hover:text-fttWhite"><Link className="link" to={`cart/`}>
             <img className='w-7 h-7 mr-1 inline-block' src={cart} id='header_cart'>
               </img><p className="inline-block">{count}</p></Link></li>
           </ul>

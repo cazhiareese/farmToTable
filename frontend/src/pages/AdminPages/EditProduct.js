@@ -9,7 +9,7 @@ function EditProduct (){
     const [product, setProduct] = useState({})
     const [name, setName] = useState("")
     const [description, setDescription] = useState('')
-    const [type, setType] = useState('')
+    const [type, setType] = useState(1)
     const [stock, setStock] = useState('')
     const [price, setPrice] = useState('')
     const [imageURL, setImageURL] = useState('')
@@ -46,7 +46,7 @@ function EditProduct (){
         }).then( () => {
             setName('')
             setDescription('')
-            setType(0)
+            setType(1)
             setStock(0)
             setPrice(0)
             setImageURL(0)

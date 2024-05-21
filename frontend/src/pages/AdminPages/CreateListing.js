@@ -6,7 +6,7 @@ import arrow from '../../icons/view_product_arrow.png';
 function CreateListing () {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
-    const [type, setType] = useState(0)
+    const [type, setType] = useState(1)
     const [stock, setStock] = useState(0)
     const [price, setPrice] = useState(0)
     const [imageURL, setImageURL] = useState('')
@@ -25,7 +25,7 @@ function CreateListing () {
         }).then( () => {
             setName('')
             setDescription('')
-            setType(0)
+            setType(1)
             setStock(0)
             setPrice(0)
             setImageURL(0)

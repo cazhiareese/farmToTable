@@ -157,6 +157,23 @@ const getAllUser = async (req, res) => {
         }        
       }
 
+      const editStock = async (req, res) =>{       
+        try{
+          const result = await Product.updateOne({_id: req.params.id},
+             { $set:{
+  
+                  stock: req.body.stock,
+             }});
+      
+          res.send(result)
+          if(!result) {
+             res.status(404).send({order: "Product is not found !"})
+          }
+        }catch(err){
+         res.status(500).send({error: err })
+        }        
+      }
+
 
     const removeProduct = async(req, res) => {
       try {
@@ -307,4 +324,4 @@ const getAllUser = async (req, res) => {
   
 
    
-   export {getUser, getAllUser, getAllTransaction, getSalesReport, getTransaction, removeProduct, editProduct, addProduct, salesReport, countUsers, countOrders, countListings}
+   export {getUser, getAllUser, getAllTransaction, getSalesReport, getTransaction, removeProduct, editProduct, addProduct, salesReport, countUsers, countOrders, countListings, editStock}
