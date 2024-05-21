@@ -16,6 +16,21 @@ function Cart({updateTotalItems}) {
     const [totalItems, setVal] = useState(0);
     const [selectedList, setSelected] = useState([])
     const [newCart, setNew] = useState([])
+    const [filter, setFilter] = useState([])
+    const [order, setOrder] = useState([])
+
+
+    const sort_by = (field, reverse) => {
+        const key = function(x) {
+            return x[field]
+          };
+
+        reverse = !reverse ? 1 : -1;
+        return function(a, b) {
+            return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
+        }
+      }
+
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -25,8 +40,10 @@ function Cart({updateTotalItems}) {
             'Authorization': `Bearer ${token}`
         }}).then(response => response.json())
         .then(body => {
-           setCart(body.cart)
+            setCart(body.cart)
             countItems(body.cart)
+            setFilter('name')
+            setOrder(false)
         })  
             
     }, [])
@@ -49,6 +66,8 @@ function Cart({updateTotalItems}) {
                     imageURL: body.imageURL,
                     productId: body._id,
                     name: body.name,
+                    type: body.type,
+                    stock: body.stock,
                     price: body.price,
                     qty: added.qty
                 }));
@@ -116,7 +135,6 @@ function Cart({updateTotalItems}) {
             let updateCart = [...currentCart];
             let gotRemoved = false;
             updateCart[i] = { ...updateCart[i], qty: updateCart[i].qty + num };
-
 
             
             if (updateCart[i].qty === 0) {    
@@ -200,23 +218,61 @@ function Cart({updateTotalItems}) {
         { totalItems !== 0 ?
         <div className=' justify-between px-16 flex'>
             <div className=' w-2/3 self-start left m-6'>
-            <img className='inline-block h-14 mr-2 mt-6' src={cart}></img>
+            <div className='flex justify-between items-center'>
+                <div className=' w-2/4'>
+                    <img className='inline-block h-14 mr-2 mt-6' src={cart}></img>
             <img className='inline-block h-10 mt-6' src={your}></img>
             {totalItems > 1 ? <p className='ml-4 mb-6'>{totalItems} items in your cart</p> 
-            : <p className='ml-4 mb-6'>1 item in your cart</p>}
+            : <p className='ml-4 mb-6'>1 item in your cart</p>}</div>
+            <div>
+                <div className='mr-1 flex items-center'>
+                <label >Sort by: </label>
+                <select className='border mr-1 ml-2 py-3 px-4 font-medium border-fttGreen bg-fttBg rounded-full ' name="filters" id="filters"
+                                onChange={e => {
+                                    setFilter(e.target.value)
+                                }}>
+                    <option value="name">Name</option>
+                    <option value="type">Type</option>
+                    <option value="price">Price</option>
+                    <option value="stock">Stock</option>
+                </select>
+
+                    <button className=' hover:border-fttGreen border-slate-500 border p-4 rounded-full mr-1' id="home-asc" onClick={()=>{
+                                setOrder(false)
+                                console.log(newCart.sort(sort_by(filter,order)))
+                        }}><svg width="16" height="11" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.27787 1.04679C7.67437 0.459683 8.53879 0.459683 8.93529 1.04679L15.3161 10.4949C15.7646 11.159 15.2888 12.0545 14.4874 12.0545L1.72579 12.0545C0.924383 12.0545 0.448551 11.159 0.897079 10.4949L7.27787 1.04679Z" fill="#074528"/>
+                        </svg></button>
+
+                    <button className='hover:border-fttGreen border-slate-500 border p-4 rounded-full'  id="home-desc" onClick={()=>{
+                                setOrder(true)
+                                console.log(newCart.sort(sort_by(filter,order)))
+                    }}><svg width="16" height="11" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8.72213 11.5587C8.32563 12.1458 7.46121 12.1458 7.06471 11.5587L0.683919 2.11059C0.235391 1.44645 0.711223 0.55092 1.51263 0.55092L14.2742 0.550921C15.0756 0.550921 15.5515 1.44646 15.1029 2.11059L8.72213 11.5587Z" fill="#074528"/>
+                    </svg>       
+                        </button>
+            </div>
+            </div>
+            </div>
+            
+
+           
 
             <div className="cart-items">
             {
-            newCart.map((prod)=> {
+            newCart.sort(sort_by(filter,order)).map((prod)=> {
                 return(
                     <div key={prod.productId} className="border-fttGreen border rounded-lg bg-fttWhite justify-between items-center my-4 flex p-4">
                         <div className="cart-name flex items-center ">
                         <input className='ml-5 mr-7 rounded-md accent-fttGreen' type='checkbox' 
                         onChange={handleSelect}
-                         value={prod.productId} ></input><img className=' mr-4 w-20 h-20 rounded object-cover' src={prod.imageURL}></img>
+                         value={prod.productId} ></input>
+                        <div className=' flex justify-items-center'>
+                        <img className=' mr-4 w-20 h-20 rounded float-left object-cover' src={prod.imageURL}></img>
                         <div className='leading-tight flex flex-col justify-center '>
                         <h2 className='font-medium'> {prod.name}</h2>
-                        <p >PHP {prod.price}</p></div>                
+                        <p >PHP {prod.price}</p></div>    
+                        </div>            
                         </div>
 
                         {/* Handle quantity depending on button clicked by user */}

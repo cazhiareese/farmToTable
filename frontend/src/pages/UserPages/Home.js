@@ -44,7 +44,7 @@ function Home (props){
                 'Authorization': `Bearer ${token}`
             }}).then(response => response.json())
             .then(body => {
-               setCart(body.cart)
+                setCart(body.cart)
                 countItems(body.cart)
             })  
     }
