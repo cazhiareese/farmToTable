@@ -1,14 +1,15 @@
 import{ getProduct, getAllProducts, addOrder, removeOrder, updateCart, getCart, getOrder, updateOrder }from './controller/user_controller.js'
 import express from 'express';
-import {getUser, getAllUser, getAllTransaction, getSalesReport, getTransaction, removeProduct, editStock, addProduct, salesReport, countListings, countOrders, countUsers} from './controller/admin_controller.js'
+import {getUser, getAllUser, getAllTransaction, editStock, getSalesReport, getTransaction, removeProduct, editProduct, addProduct, salesReport, countListings, countOrders, countUsers} from './controller/admin_controller.js'
 import {signUp, signIn} from './controller/auth_controller.js';
+import { auth } from './util/auth.js';
 import { auth } from './util/auth.js';
 
   const router = express.Router();
 
   // CORS setup
   router.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', '*', "http://localhost:3000/*",);
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
@@ -21,13 +22,16 @@ import { auth } from './util/auth.js';
 
   router.get('/customer/:id', getUser);
   router.get('/all-customer', getAllUser);
+  router.get('/customer/:id', getUser);
+  router.get('/all-customer', getAllUser);
 
   // Product routes
   router.get('/getProduct/:id', getProduct);
   router.get('/products', getAllProducts);
   router.post('/remove-product/:id', removeProduct);
-  router.post('/edit-stock/:id', editStock);
+  router.post('/edit-product/:id', editProduct);
   router.post('/add-product', addProduct)
+  router.post('/edit-stock/:id', editStock)
 
 
   // Order routes
@@ -37,8 +41,13 @@ import { auth } from './util/auth.js';
   router.post('/addOrder', auth, addOrder);
   router.get('/getOrder', auth, getOrder);
   router.post('/updateOrder/:id', updateOrder);
+  router.post('/addOrder', auth, addOrder);
+  router.get('/getOrder', auth, getOrder);
+  router.post('/updateOrder/:id', updateOrder);
 
   // Cart routes
+  router.post('/updateCart', auth, updateCart);
+  router.get('/getCart', auth, getCart);
   router.post('/updateCart', auth, updateCart);
   router.get('/getCart', auth, getCart);
 
@@ -49,7 +58,4 @@ import { auth } from './util/auth.js';
   router.get('/countUsers',countUsers);
   router.get('/countListings',countListings);
 
-
-
- 
 export default router

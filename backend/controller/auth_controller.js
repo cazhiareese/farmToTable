@@ -1,16 +1,18 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/userSchema.js';
+import { Cart } from '../models/cartSchema.js';
 //temp
 // await mongoose.connect( 'mongodb+srv://cazhia:E13UKHwTNcHF3PzJ@farm.kzqurki.mongodb.net/ftt?retryWrites=true&w=majority&appName=farm', {  
 //  useNewUrlParser: true, useUnifiedTopology: true });
 
 const SECRET_KEY = 'CMSC100FTT';
 
-//sign up authentication
+// sign-up
 const signUp = async (req, res) => {
        try{
               //hashed password & new user
+              
               const hashedPassword = await bcrypt.hash(req.body.password, 10);
               const newUser = new User({
                      firstName: req.body.firstName,
@@ -22,7 +24,14 @@ const signUp = async (req, res) => {
               });
               
               //add user to database
-              await newUser.save();
+              const ret = await newUser.save({});
+              console.log(ret)
+              const newCart = new Cart({
+                     userId: ret._id,
+                     cart:[]
+              })
+             
+              await newCart.save();
 
               //send status
               res.status(201).send({details: "User successfully added!"});

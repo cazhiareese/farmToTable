@@ -1,6 +1,5 @@
 import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
-import { useOutletContext } from 'react-router';
 import AddStock from '../../components/AddStock';
 import DeleteProduct from '../../components/DeleteProduct';
 export default function Inventory(){
@@ -9,7 +8,7 @@ export default function Inventory(){
         orderBy : 1,
         sortBy: 'name'
     }
-   
+
     const [selectedOption, setSelectedOption] = useState(filters.sortBy);
     const [ products, setProducts ] = useState([])
     const [sorter, setSort] = useState(filters)
@@ -45,7 +44,6 @@ export default function Inventory(){
           .then(response => response.json())
           .then(body => {
             setProducts(body)
-
         })
     }
 
@@ -66,71 +64,67 @@ export default function Inventory(){
 
 
     return(
-        <div className="inventory-container">
-            <div className="row">
-
-                <h1>Inventory</h1>
-                <div className='col-sm-6 col-md-6 col-lg-3'></div>
-                <div className='col-sm-3 col-md-3 col-lg-3'>
-                <label>Sort by: </label>
-                <select name="filters" id="filters" value={selectedOption}
-                                onChange={e => {
-                                    setSelectedOption(e.target.value)
-                                    handleFilterChange(e.target.value)
-                                }}>
-                    <option value="name">Name</option>
-                    <option value="type">Type</option>
-                    <option value="price">Price</option>
-                    <option value="stock">Stock</option>
-                </select>
-                </div>
-                <div className='col-sm-3 col-md-3 col-lg-3'>
-                    <button className='btn-sm' onClick={()=>{
+        <div className="bg-fttWhite w-full font-Roboto text-fttGreen ">
+            <div className="border-fttGreen border-b mb-10 flex items-center h-28">
+                <h1 className=' ml-12 text-4xl font-medium'>Inventory</h1>
+                <div className='flex justify-end items-center w-full '>
+                    <label>Sort by: </label>
+                    <select className='border mr-1 ml-2 py-3 px-4 font-medium border-fttGreen rounded-full ' name="filters" id="filters" value={selectedOption}
+                                    onChange={e => {
+                                        setSelectedOption(e.target.value)
+                                        handleFilterChange(e.target.value)
+                                    }}>
+                        <option value="name">Name</option>
+                        <option value="type">Type</option>
+                        <option value="price">Price</option>
+                        <option value="stock">Stock</option>
+                    </select>
+                
+                    <button className=' hover:border-fttGreen border-slate-500 border p-4 rounded-full mr-1' id="home-asc" onClick={()=>{
                                 var newSorter = {...sorter, orderBy:1}
                                 setSort(newSorter)
                                 handleFilter(newSorter)
-                        }}>Asc</button>
-                    <button className='btn-sm' onClick={()=>{
+                        }}><svg width="16" height="11" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7.27787 1.04679C7.67437 0.459683 8.53879 0.459683 8.93529 1.04679L15.3161 10.4949C15.7646 11.159 15.2888 12.0545 14.4874 12.0545L1.72579 12.0545C0.924383 12.0545 0.448551 11.159 0.897079 10.4949L7.27787 1.04679Z" fill="#074528"/>
+                        </svg></button>
+
+                    <button className='hover:border-fttGreen border-slate-500 border p-4 rounded-full'  id="home-desc" onClick={()=>{
                                 var newSorter = {...sorter, orderBy:-1}
                                 setSort(newSorter)
                                 handleFilter(newSorter)
-                    }}>Desc</button>
+                    }}><svg width="16" height="11" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8.72213 11.5587C8.32563 12.1458 7.46121 12.1458 7.06471 11.5587L0.683919 2.11059C0.235391 1.44645 0.711223 0.55092 1.51263 0.55092L14.2742 0.550921C15.0756 0.550921 15.5515 1.44646 15.1029 2.11059L8.72213 11.5587Z" fill="#074528"/>
+                    </svg></button>
+
+                    <Link to={`/admin/create-listing`}>
+                    <button className='bg-fttGreen py-3 px-6 ml-4 mr-12 rounded-full text-fttWhite transition hover:scale-105 hover:bg-green-900 ease-out duration-150'>Create Listing 
+                    <svg className="inline-block stroke-fttWhite ml-2 w-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 6L12 18" strokeWidth="2" strokeLinecap="round"/>
+                    <path d="M18 12L6 12" strokeWidth="2" strokeLinecap="round"/>
+                    </svg></button></Link>
+
                 </div>
-
-
-                <Link to={`/admin/create-listing`}><button className='col-lg-3'>Create Listing</button></Link>
             </div>
 
-            <div className='row'>
+            <div className='grid lg:grid-cols-4 md:grid-cols-2 pb-32 sm:grid-flow-cols-1 gap-4 mx-16'>
                 {
                 products.map((prod) =>{
                     return(
-                    
-                        <div  key= {prod._id} className='col-sm-6 col-md-4 col-lg-3' id={prod._id}>
+                        <div  key= {prod._id} className='p-4 border border-gray-300 hover:shadow-md shadow rounded-md w-full overflow-hidden leading-tight flex flex-col' id={prod._id}>
+                            <img className= "w-full h-56 shadow object-cover mb-2 rounded" src = {prod.imageURL}></img>
+                            <h4 className='font-medium text-2xl'> {prod.name}</h4>
+                            <h6  className='font-xs text-light '> {handleType(prod.type)}</h6>
+                            <h3 className='font-sm text-light' > {prod.stock} in stock</h3>
+                            <h3  className='font-md  '> PHP {prod.price}</h3>
+                            
+                            <div className='flex justify-end'> 
                            
-                            <img src = {prod.imageURL}></img>
-                            <h4> {prod.name}</h4>
-                            <h6> {handleType(prod.type)}</h6>
-                            <h3> {prod.price}</h3>
-                            <h3>Stock: {prod.stock}</h3>
-                            <button onClick={() => handleAddStockClick(prod._id)}>Edit Stock</button>
+                            <Link to={`/admin/edit-product/${prod._id}`}><button className='ml-2  bg-fttGreen  hover:bg-green-900 text-fttWhite text-sm px-4 py-1 rounded-3xl'>
+                                Edit</button></Link>
 
-                            
-                            {activeProduct === prod._id && (
-                                <div className='AddStock'>
-                                <AddStock 
-                                    id={prod._id} 
-                                    stock={prod.stock} 
-                                    setShow={handleCloseAddStock} 
-                                    setFilter={handleFilter} 
-                                    currentFilter={sorter}
-                                />
-                                </div>
-                            )}
-                            
-                            <button onClick={()=> handleDelete(prod._id)}>Delete </button>
+                            <button className='ml-2  bg-fttGreen  hover:bg-green-900 text-fttWhite text-sm px-4 py-1 rounded-3xl' onClick={()=> handleDelete(prod._id)}>Delete </button>
                             {activeDelete === prod._id && (
-                                <div className='AddStock'>
+                                <div>
                                 <DeleteProduct 
                                     id={prod._id} 
                                     setShow={handleCloseDelete} 
@@ -138,7 +132,8 @@ export default function Inventory(){
                                     setFilter={handleFilter} 
                                 />
                                 </div>
-                            )}
+                            )}</div>
+                           
                         </div>
                    
                     )

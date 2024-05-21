@@ -3,7 +3,9 @@ import { useParams, useOutletContext } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import cart from '../../icons/orders_cart.png';
 import arrow from '../../icons/view_product_arrow.png';
+
 function Order (){
+    const token = localStorage.getItem('token');
     const token = localStorage.getItem('token');
     const [userId, count, setCount] = useOutletContext();
     // let userId = useParams();
@@ -17,8 +19,12 @@ function Order (){
         getUserOrders(0)
     }, [])
 
-
     function getUserOrders (status) {
+        let url = `http://localhost:3001/getOrder/?status=${status}`
+        fetch(url, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }})
         let url = `http://localhost:3001/getOrder/?status=${status}`
         fetch(url, {
             headers: {
@@ -83,24 +89,25 @@ function Order (){
 
 
  return (
-        <div className='bg-fttBg flex flex-col items-center text-fttGreen font-Roboto '>
+        <div className='bg-fttBg flex flex-col items-center text-fttGreen font-Roboto min-h-screen'>
             <div className='w-3/4 bg-fttWhite shadow my-4 rounded-md mb-32'>
-            <button className='ml-12 mt-6 hover:shadow py-2 px-4 rounded-full'><img className=' inline-block h-4 mr-2' src={arrow}></img><Link className="link-to-home" to={'/'}>Back to Homepage</Link></button>
+            <button className='group ml-12 mt-6 hover:shadow py-2 px-4 rounded-full'>
+                <img className='ease-in-out delay-150 group-hover:-translate-x-1 inline-block h-4 mr-2' src={arrow}></img><Link className="link-to-home" to={'/'}>Back to Homepage</Link></button>
             <h1 className='font-black text-2xl my-6 ml-16 '><img className='inline-block w-10 mr-2' src={cart}></img>Your Orders</h1>
 
-            <button className=" hover:border-green-900 hover:border-b active-btn w-24 mr-4 ml-12" id="pending-btn"  onClick={()=> {
+            <button className="active-btn w-28 mr-4 ml-12" id="pending-btn"  onClick={()=> {
                 setStatus(0);
                 getUserOrders(0);
                 document.querySelector('.active-btn')?.classList.remove("active-btn");
                 document.getElementById('pending-btn').classList.add("active-btn");
             }}>Pending</button>
-            <button className=" w-20 mx-4 active:border-b-fttGreen" id="confirmed-btn" onClick={() => {
+            <button className=" w-28 mx-4" id="confirmed-btn" onClick={() => {
                 setStatus(1);
                 getUserOrders(1)
                 document.querySelector('.active-btn')?.classList.remove("active-btn");
                 document.getElementById('confirmed-btn').classList.add("active-btn");
                 }}>Confirmed</button>
-            <button className="w-28 mx-4 active:border-b-fttGreen active:border-b-2" id="canceled-btn" onClick={() => {setStatus(2);
+            <button className="w-28 mx-4 " id="canceled-btn" onClick={() => {setStatus(2);
                 getUserOrders(2)
                 document.querySelector('.active-btn')?.classList.remove("active-btn");
                 document.getElementById('canceled-btn').classList.add("active-btn");
@@ -125,7 +132,7 @@ function Order (){
                                     )
                                 })
                                 }
-                                <div >{items.status !== 0 ? <div className='empty-div'></div>: <button className='hover:shadow-md  bg-fttGreen text-sm font-light text-fttWhite py-2 px-6 rounded-full flex items-center float-right' onClick={() => handleCancel(items.orderId, 2)}>Cancel Order</button>}</div>
+                                <div >{items.status !== 0 ? <div className='empty-div'></div>: <button className='hover:shadow-md  bg-fttGreen text-sm hover:bg-green-800 font-light text-fttWhite py-2 px-6 rounded-full flex items-center float-right' onClick={() => handleCancel(items.orderId, 2)}>Cancel Order</button>}</div>
                             </div>
                         );  
                     })

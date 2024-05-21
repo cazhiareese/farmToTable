@@ -28,11 +28,10 @@ function AddStock (props) {
         })
     }
     return(
-        <div>
+        <div className='w-full'>
         <h3>Add Stock</h3>
-        <div className='form'>
+        <div >
             <form className="create-product" onSubmit={handleAddStock}>
-
             <label for="stock"> Stock: </label>
             <input type='number' id='stock' required value={stockNew} onChange={(e) => setStock(parseInt(e.target.value))}/>
             <button type="submit">Confirm</button>

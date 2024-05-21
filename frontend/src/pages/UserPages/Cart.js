@@ -10,25 +10,16 @@ import sub from '../../icons/sub.png';
 import your from '../../images/cart_your_cart.png';
 
 function Cart({updateTotalItems}) {
-
-    // let userId = useParams();
     const token = localStorage.getItem('token');
     const [userId, count, setCount] = useOutletContext();
     const [pushCart, setCart] = useState([]);
     const [totalItems, setVal] = useState(0);
     const [selectedList, setSelected] = useState([])
-
     const [newCart, setNew] = useState([])
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         let url = `http://localhost:3001/getCart/`
-        // fetch(url)
-        //     .then(response => response.json())
-        //     .then(body => {
-        //        setCart(body.cart)
-        //         countItems(body.cart)
-        //     })  
         fetch(url, {
         headers: {
             'Authorization': `Bearer ${token}`
@@ -212,7 +203,7 @@ function Cart({updateTotalItems}) {
             <img className='inline-block h-14 mr-2 mt-6' src={cart}></img>
             <img className='inline-block h-10 mt-6' src={your}></img>
             {totalItems > 1 ? <p className='ml-4 mb-6'>{totalItems} items in your cart</p> 
-            : <p className='font-black mb-6'>1 item in your cart</p>}
+            : <p className='ml-4 mb-6'>1 item in your cart</p>}
 
             <div className="cart-items">
             {
@@ -251,12 +242,12 @@ function Cart({updateTotalItems}) {
             })
             }
             </div>
-            <button className='mt-4 hover:shadow py-2 px-4 rounded-full'><Link className="" to={'/'}>
-                <img className='inline-block h-4 mr-4' src={arrow}></img>Back to Homepage</Link></button>
+            <button className='group mt-4 hover:shadow py-2 px-8 rounded-full'><Link className="" to={'/'}>
+                <img className='ease-out delay-150 group-hover:-translate-x-1 inline-block h-4 mr-4' src={arrow}></img>Back to Homepage</Link></button>
             </div>
 
             <div className='transition ease-in-out duration-300 border-fttGreen border rounded-md m-2 flex w-1/3 h-fit mt-40 py-16 bg-fttWhite'>
-                <CheckOutForm list_selected={selectedList} state_selected={setSelected} cart={pushCart} cart_state = {setCart} setVal = {setVal} token ={token}/>
+                <CheckOutForm list_selected={selectedList} state_selected={setSelected} cart={pushCart} cart_state = {setCart} setVal = {setVal} userId ={userId} token={token}/>
             </div> 
             
         </div> : <div className='empty-cart'> <h1>Empty Cart! Shop more!</h1></div>

@@ -14,6 +14,7 @@ import ActiveOrders from './pages/AdminPages/ActiveOrders.js';
 import Inventory from './pages/AdminPages/Inventory.js';
 import SalesReport from './pages/AdminPages/SalesReport.js';
 import CreateListing from './pages/AdminPages/CreateListing.js';
+import EditProduct from './pages/AdminPages/EditProduct.js';
 import { jwtDecode } from 'jwt-decode';
 
 
@@ -40,21 +41,35 @@ function getUserRole() {
   }
 }
 
+function getUserId() {
+  const authToken = localStorage.getItem('token');
+  if (!authToken) return null;
+
+  try{
+    //decode error
+    const decoded = jwtDecode(authToken);
+    
+    return decoded.id;
+  } catch (error) {
+    return null;
+  }
+}
+
 function App() {
-
   const role = getUserRole();
-
+  const userId = getUserId();
+  
   return(
     <div>
       <Routes>
-        <Route path='/' element={<Root desc={site_desc} />}>
-          <Route index element={<Home desc = {site_desc}/>} />
-          <Route path="orders/:id" element={<Order />} />
-          <Route path="cart/:id" element={<Cart />} />
-          <Route path="product/:id" element={<ProductDetails />} />
-        </Route>
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/sign-up' element={<SignUp />} />
+        <Route path='/' element={<Root desc={site_desc} user={userId}/>}>
+          <Route index element={<Home desc={site_desc} user={userId}/>} />
+          <Route path="orders/:id" element={<Order />} />
+          <Route path="cart/" element={<Cart />} />
+          <Route path="product/:id" element={<ProductDetails />} />
+        </Route>
 
         {/* Implement na if role is admin redirect to /admin */}
         {/* Impelement that if role is not admin, display a no authorization page with a prompt to go back to homepage */}
@@ -68,6 +83,7 @@ function App() {
             <Route path='sales-report' element={<SalesReport />} />
             <Route path='active-accounts' element={<Account />} />
             <Route path='create-listing' element={<CreateListing />} />
+            <Route path='edit-product/:id' element={<EditProduct />}/>
           </Route>
           ) : (
           <Route path='/admin/' >
@@ -77,6 +93,7 @@ function App() {
             <Route path='sales-report' element={<SignIn />} />
             <Route path='active-accounts' element={<SignIn />} />
             <Route path='create-listing' element={<SignIn />} />
+            <Route path='edit-product/:id' element={<EditProduct />}/>
           </Route>
           )
         }
@@ -85,4 +102,4 @@ function App() {
   )
 }
 
-export default App;
+export default App

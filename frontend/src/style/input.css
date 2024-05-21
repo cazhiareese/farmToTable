@@ -17,5 +17,18 @@
 }
 
 .input-auth {
-    @apply border-fttGreen border-b-2 bg-fttBg h-10 px-6 block mb-4 accent-green-900
+    @apply border-fttGreen border-b-2 bg-fttBg h-12 px-6 block mb-4 accent-green-900 focus:shadow-lg
+}
+
+.nav-hide {
+    @apply border-b-fuchsia-500 border-2
+    /* transition ease-in-out delay-150 -translate-y-50 */
+}
+
+.dash-li {
+    @apply flex items-center my-6 text-lg
+}
+
+.default-dash {
+    @apply  text-slate-300
 }

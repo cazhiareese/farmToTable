@@ -160,50 +160,64 @@ export default function ActiveOrders(){
     }
 
     return (
-        <div className='orders-container'>
-            <h1>Orders</h1>
+        <div className='bg-fttBg flex flex-col items-center w-full text-fttGreen font-Roboto min-h-screen'>
+            <div className=' w-full h-full rounded-md'>
+            <div className="mb-10 flex border-b border-fttGreen justify-center flex-col h-28">
+                <h1 className=' ml-12 text-4xl font-medium mb-2'>Orders</h1>
+            </div>
 
-            <button onClick={()=> {
+            <button className="active-btn w-28 mr-4 ml-12" id="pending-btn"  onClick={()=> {
                 setStatus(0);
-                getUserOrders(0)
-            }}>Pending {status === 0 && countPending} </button>
-            <button onClick={() => {
+                getUserOrders(0);
+                document.querySelector('.active-btn')?.classList.remove("active-btn");
+                document.getElementById('pending-btn').classList.add("active-btn");
+            }}>Pending {status === 0 && countPending}</button>
+            <button className=" w-28 mx-4" id="confirmed-btn" onClick={() => {
                 setStatus(1);
                 getUserOrders(1)
+                document.querySelector('.active-btn')?.classList.remove("active-btn");
+                document.getElementById('confirmed-btn').classList.add("active-btn");
                 }}>Confirmed {status === 1 && countCompleted}</button>
-            <button onClick={() => {setStatus(2);
+            <button className="w-28 mx-4 " id="canceled-btn" onClick={() => {setStatus(2);
                 getUserOrders(2)
+                document.querySelector('.active-btn')?.classList.remove("active-btn");
+                document.getElementById('canceled-btn').classList.add("active-btn");
             }}>Canceled {status === 2 && countCanceled}</button>
+
+            <div className='border-t border-slate-300 flex flex-col items-center pb-6'>
 
             {
                 orderDeets.map((items)=>{
                     return(
-                        <div key={items.orderId} className='indiv-orders'>
-                            <h5>Order Tracker: {items.orderId}</h5>
-                            <h6>Customer Name: {items.customerFirstName} {items.customerLastName}</h6>
+                        <div key={items.orderId} className='border border-gray-300 w-2/4 p-6 shadow rounded-md my-4' >
+                            <h5 className='text-sm'>Order Tracker: {items.orderId}</h5>
+                            <h6 className=' font-medium'>Customer Name: {items.customerFirstName} {items.customerLastName}</h6>
                             {
                                items.orders.map((prod) =>{
                                 return(
-                                    <div key={prod.productId} className='details'>
-                                    {/* <img src = {prod.imageURL}></img>  */}
-                                    <h3>{prod.name}</h3>
+                                    <div key={prod.productId} className='leading-tight my-4'>
+                                    <img className="float-left w-20 mr-4 h-20 object-cover rounded" src = {prod.imageURL}></img> 
+                                    <h3 className=' font-medium'>{prod.name}</h3>
                                     <p>Count: {prod.qty}</p>
-                                    <p>Unit Price: {prod.price}</p>
-                                    <p>Total Item Price: {prod.price * prod.qty}</p>
+                                    <p>Unit Price: PHP {prod.price}</p>
+                                    <p className=' font-medium'>Total Item Price: PHP {prod.price * prod.qty}</p>
                                     </div>
                                 )
                                })
                             }
 
-                            <h5>Total Order Price: {items.price}</h5>
-                            <div className='cancel-button'>{items.status !== 0 ? <div className='empty-div'></div>: <button onClick={() => handleStatusChange(items, 2)}>Cancel Order</button>}</div>
-                            <div className='confirm-button'>{items.status !== 0 ? <div className='empty-div'></div>: <button onClick={() => handleStatusChange(items, 1)}>Confirm Order</button>}</div>
+                            <p className=' font-bold'>Order Total: PHP {items.price}</p>
+                            <div className='cancel-button'>{items.status !== 0 ? <div className='empty-div'></div>: <button className='hover:shadow-md  bg-fttGreen text-sm hover:bg-green-800 font-light text-fttWhite py-2 px-6 rounded-full flex items-center float-right' onClick={() => handleStatusChange(items, 2)}>Cancel Order</button>}</div>
+                            <div className='confirm-button'>{items.status !== 0 ? <div className='empty-div'></div>: <button className='hover:shadow-md mr-1 bg-fttGreen text-sm hover:bg-green-800 font-light text-fttWhite py-2 px-6 rounded-full flex items-center float-right' onClick={() => handleStatusChange(items, 1)}>Confirm Order</button>}</div>
                             </div>
                     );    
                 })
 
             }
 
+            </div>
+            
+            </div>
         </div>
     )
     

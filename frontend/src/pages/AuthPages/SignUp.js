@@ -53,6 +53,7 @@ function SignUp(){
       navigate('/sign-in')
     })
     .catch((error) => {
+      console.log(error)
       console.log('Register unsuccessful')
     })
   }
@@ -61,12 +62,13 @@ function SignUp(){
     <div className="bg-fttGreen text-fttGreen font-Roboto min-h-screen w-full flex justify-between absolute">
       <div></div>
       <img className=" absolute ml-16 top-40 left-10 h-52" src={logo}></img>
-        <div className="bg-fttWhite rounded-3xl w-2/4 h-100 flex flex-col items-center my-6 mx-16 shadow">
-          <img className='h-14 mb-8 mt-16' src={create}></img>
+        <div className="bg-fttWhite rounded-3xl w-2/4 h-100 flex flex-col items-center my-6 mr-28 shadow">
+          <img className='h-14 mb-8 mt-20' src={create}></img>
           <form className="flex flex-col items-center w-full " onSubmit={handleRegister}>
-            <div className='w-3/4 flex flex-col'>
+            <div className='w-8/12 flex flex-col'>
               <label for="fname" >First Name</label>
               <input className="input-auth" type="text" id="fname" required value={fname} onChange={(e) => setFname(e.target.value)}/>
+              
               <label for="mname" >Middle name (optional)</label>
               <input className="input-auth" type="text" id="mname" value={mname} onChange={(e) => setMname(e.target.value)}/>
 
@@ -74,7 +76,7 @@ function SignUp(){
               <input className="input-auth" type="text" id="lname" required value={lname} onChange={(e) => setLname(e.target.value)}/>
 
               <label for="email" >E-mail</label>
-              <input className="input-auth" type="text" id="email" required value={email} onChange={(e) => setEmail(e.target.value)}/>
+              <input className="input-auth" type="email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" id="email" required value={email} onChange={(e) => setEmail(e.target.value)}/>
 
               <label for="password">Password</label>
               <input className="input-auth" type="password" id="password" required value={password} onChange={(e) => setPassword(e.target.value)}/>
@@ -82,7 +84,7 @@ function SignUp(){
               <label for="confirmPassword">Confirm Password</label>
               <input className="input-auth" type="password" id="confirmPassword" name="confirmPassword"required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
             </div>
-            <button className=" bg-fttGreen text-fttWhite w-80 mt-4 py-2 rounded-md" type="submit" id="signUp">Register</button> 
+            <button className=" bg-fttGreen text-fttWhite w-1/2 mt-4 py-2 rounded-md" type="submit" id="signUp">Register</button> 
             <p className='inline-block font-bold text-slate-400'> Already have an account?  
             <h1 className=" mb-12 mt-2 inline-block font-bold underline text-fttGreen"><Link  to={'/sign-in'}> Sign-in!</Link></h1></p>
             </form>

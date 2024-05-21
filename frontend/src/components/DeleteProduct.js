@@ -31,10 +31,10 @@ function DeleteProduct (props){
     }
 
     return(
-        <div>
+        <div className="flex flex-col text-center items-center leading-snug text-sm">
             <h3>Are you sure?</h3>
-            <button onClick={deleteProduct}>Yes</button>
-            <button onClick={cancelDelete}>No</button>
+            <button className="rounded-2xl py-1 mb-1 border-fttGreen border transition hover:scale-115 hover:shadow-md hover:bg-green-800 hover:text-fttWhite w-10" onClick={deleteProduct}>Yes</button>
+            <button className="rounded-2xl py-1 border-fttGreen border transition hover:scale-115 hover:shadow-md hover:bg-green-800 hover:text-fttWhite w-10" onClick={cancelDelete}>No</button>
         </div>
     )
 }
