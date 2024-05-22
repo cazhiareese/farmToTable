@@ -1,8 +1,8 @@
 # Farm-to-Table E-Commerce Platform
 
+![ftt_bg](https://github.com/cazhiareese/farmToTable/assets/146474697/980b6e82-077f-42ad-ba26-7bcc921cc0ed)
 
-
-# CMSC 100-U5L
+## CMSC 100-U5L
 Lleva, Cazhia Reese  
 Cea, Alyssa F.  
 Ramos, John Miles  
@@ -42,13 +42,38 @@ Combalicer, Lawrence S.
 
 ## Screenshots
 
+### Sign-in / Sign-up
+
+![msedge_UWJT9gO83I](https://github.com/cazhiareese/farmToTable/assets/146474697/8c1d7b64-2174-4a90-bdae-06489d5d4fad)
+
+![msedge_WyoanqaBsf](https://github.com/cazhiareese/farmToTable/assets/146474697/602a11ae-bae5-4ca0-ad8c-fcd0af82c81d)
+
+
 ### Admin Dashboard
 
+![msedge_zylxXxfWSf](https://github.com/cazhiareese/farmToTable/assets/146474697/d0b56b78-4edf-41cd-ac67-19cd8a75a100)
 
-### Product Listing
+![msedge_pXagwUPTc8](https://github.com/cazhiareese/farmToTable/assets/146474697/58ba4dab-7ec5-4bf0-9335-6217129f664f)
 
+![msedge_7ea24xmucJ](https://github.com/cazhiareese/farmToTable/assets/146474697/f825214a-66f6-4025-b970-8edca761507c)
 
-### Shopping Cart
+### Admin Management
+
+![msedge_93aRb5s05v](https://github.com/cazhiareese/farmToTable/assets/146474697/6326947c-7ee7-4165-9bc7-c5082188fe3e)
+
+![msedge_qZZ0yMTJEq](https://github.com/cazhiareese/farmToTable/assets/146474697/2b42f413-44e3-4f5f-8b2e-2317aab4c159)
+
+![msedge_uMPeWz2E2a](https://github.com/cazhiareese/farmToTable/assets/146474697/e685a044-5e02-4342-8383-c3bb74d6c530)
+
+![msedge_ieSu59R3MX](https://github.com/cazhiareese/farmToTable/assets/146474697/d257910a-aff5-4047-823e-ddc8f9301ca1)
+
+### Customer
+
+![msedge_M7P5LcVplj](https://github.com/cazhiareese/farmToTable/assets/146474697/6ce20d69-f0a2-4fe8-97bc-d789770c9ab5)
+
+![msedge_WeAvLZuZrK](https://github.com/cazhiareese/farmToTable/assets/146474697/6f3edc23-022e-4a22-8b11-143c616bb061)
+
+![msedge_ydq3guc2gi](https://github.com/cazhiareese/farmToTable/assets/146474697/c7239abf-d2a4-40ce-87be-b20a7a8a0ee9)
 
 
 ## Usage Guidelines
