@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import moment from 'moment'
 import { User } from '../models/userSchema.js';
 import { Product } from '../models/productSchema.js';
 import { Order } from '../models/orderSchema.js';
@@ -209,32 +210,45 @@ const getAllUser = async (req, res) => {
 
     const salesReport = async (req, res) => {
       const period = req.query.period || 'weekly'; // Set a default value for period
-      // const status = req.query.status
       const allowedPeriods = ['weekly', 'monthly', 'annual'];
       
       if (!allowedPeriods.includes(period)) {
         return res.status(400).json({ message: 'Invalid period specified' });
       }
 
-      const now = new Date();
+      // const now = new Date();
       let startDate;
-      now.setHours(0,0,0,0); // set to 0:00
+      const now = moment().startOf('day');
+      // now.setHours(0,0,0,0); // set to 0:00
+      // switch (period) {
+      //   case 'weekly':
+      //     startDate = new Date(now);
+      //     startDate.setDate(startDate.getDate() - 7);
+      //     break;
+      //   case 'monthly':
+      //     startDate = new Date(now);
+      //     startDate.setMonth(startDate.getMonth() - 1);
+      //     break;
+      //   case 'annual':
+      //     startDate = new Date(now);
+      //     startDate.setFullYear(startDate.getFullYear() - 1);
+      //     break;
+      // }
+
       switch (period) {
         case 'weekly':
-          startDate = new Date(now);
-          startDate.setDate(startDate.getDate() - 7);
+          startDate = moment().startOf('week'); // Start of the current week
           break;
         case 'monthly':
-          startDate = new Date(now);
-          startDate.setMonth(startDate.getMonth() - 1);
+          startDate = moment().startOf('month'); // Start of the current month
           break;
         case 'annual':
-          startDate = new Date(now);
-          startDate.setFullYear(startDate.getFullYear() - 1);
+          startDate = moment().startOf('year'); // Start of the current year
           break;
       }
 
-      const sales = await Order.find({status: 1, dateTime: {$gte: startDate}})
+      console.log(startDate)
+      const sales = await Order.find({status: 1, dateTime: {$gte: startDate.toDate()}})
 
       async function getOrderDetails(sales) {
         const details = [];
@@ -257,27 +271,7 @@ const getAllUser = async (req, res) => {
         } 
         return details;
       }
-
-
-    
     const details = await getOrderDetails(sales);
-
-    // const details = await Promise.all(sales.map(async (order) => {
-    //   const orderSpecs = await Promise.all(order.productCheckedOut.map(async (added) => {
-    //       const body = await Product.findById(added.productId);
-    //       return {
-    //         productId: body._id,
-    //         name: body.name,
-    //         price: body.price,
-    //         stock: body.stock,
-    //         imageURL: body.imageURL,
-    //         qty: added.qty,
-    //         productSale: added.qty * body.price
-    //       };
-    //   }));
-    //   return orderSpecs;
-    // }));
-
     const flattenedDetails = details.flat();
     const productSalesMap = {};
       flattenedDetails.forEach((product) => {
