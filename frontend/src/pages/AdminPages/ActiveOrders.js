@@ -1,3 +1,9 @@
+/**
+ * Contains a React component for managing active orders. 
+ * It fetches order data from the server based on their status (pending, confirmed, or canceled), 
+ * displays the orders along with customer details, and allows the admin to change the status of orders.
+ */
+
 import { useEffect, useState } from 'react';
 import { useParams, useOutletContext } from 'react-router-dom';
 import { Link } from 'react-router-dom';

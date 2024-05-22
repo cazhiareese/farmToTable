@@ -1,3 +1,11 @@
+/**
+ * Main application file for routing and rendering components in a React application.
+ * 
+ * This file sets up the routes for different pages in the application,
+ * handles authentication, and directs users to the appropriate pages
+ * based on their role (customer or admin).
+ */
+
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Root from './pages/UserPages/Root';
@@ -44,6 +52,7 @@ function getUserRole() {
   }
 }
 
+// Function to decode the JWT token and get the ID of the user
 function getUserId() {
   const authToken = localStorage.getItem('token');
   if (!authToken) return null;

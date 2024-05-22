@@ -1,3 +1,9 @@
+/*
+*
+* Controller for handling administrative actions such as user management, transaction retrieval, and sales reporting
+*
+*/
+
 import mongoose from 'mongoose';
 import moment from 'moment'
 import { User } from '../models/userSchema.js';
@@ -5,6 +11,7 @@ import { Product } from '../models/productSchema.js';
 import { Order } from '../models/orderSchema.js';
 // import {Cart} from '../models/cartSchema.js'
 
+// Retrieve a user by ID
 const getUser = async(req, res) => {
        try {
          const user = await User.findById(req.params.id);
@@ -17,7 +24,7 @@ const getUser = async(req, res) => {
        }
      }
      
-     // Retrieve all users
+// Retrieve all users
 const getAllUser = async (req, res) => {
        try {
          const users = await User.find();
@@ -143,6 +150,7 @@ const getAllUser = async (req, res) => {
         }
       }
 
+      // Edit existing product
       const editProduct = async (req, res) =>{ 
         let status = 0;
         if (req.body.stock > 0){
@@ -169,6 +177,7 @@ const getAllUser = async (req, res) => {
         }        
       }
 
+      // Edit current stock
       const editStock = async (req, res) =>{      
         let status = 0;
         if (req.body.stock > 0){
@@ -208,6 +217,7 @@ const getAllUser = async (req, res) => {
 
 
 
+    // Generate sales report based on the specified period
     const salesReport = async (req, res) => {
       const period = req.query.period || 'weekly'; // Set a default value for period
       const allowedPeriods = ['weekly', 'monthly', 'annual'];
@@ -299,7 +309,7 @@ const getAllUser = async (req, res) => {
       res.json(consolidatedDetails)
 
     }
-
+// Count the total number of users
     const countUsers = async(req, res) => {
 
       try{
@@ -310,7 +320,7 @@ const getAllUser = async (req, res) => {
       }
 
     }
-
+// Count the total number of orders based on status
     const countOrders = async(req, res) => {
 
       try{
@@ -322,6 +332,7 @@ const getAllUser = async (req, res) => {
 
     }
 
+// Count the total number of product listings
     const countListings = async(req, res) => {
 
       try{
@@ -333,6 +344,7 @@ const getAllUser = async (req, res) => {
 
     }
 
+// Unlist a product by updating its status and stock
     const unlistProduct = async(req,res) => {
         try{
           const filter = { _id: req.params.id };

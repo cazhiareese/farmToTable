@@ -1,3 +1,7 @@
+/*
+ * Router setup for handling various routes in the application.
+ */ 
+
 import{ getProduct, getAllProducts, addOrder, removeOrder, updateCart, getCart, getOrder, updateOrder }from './controller/user_controller.js'
 import express from 'express';
 import {getUser, getAllUser, getAllTransaction, editStock, getSalesReport, getTransaction, removeProduct, editProduct, addProduct, salesReport, countListings, countOrders, countUsers, unlistProduct} from './controller/admin_controller.js'

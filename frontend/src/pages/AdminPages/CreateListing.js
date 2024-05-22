@@ -1,3 +1,9 @@
+/**
+ * Contains a React component for creating new product listings. 
+ * It includes form fields for entering product details such as name, description, type, stock, price, and image URL. 
+ * Upon submitting the form, it sends a POST request to the server to add the new product. 
+ * It also provides a link to navigate back to the inventory page.
+ */
 import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import { Navigate, useNavigate } from 'react-router-dom';

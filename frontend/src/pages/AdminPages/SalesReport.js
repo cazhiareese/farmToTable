@@ -1,3 +1,8 @@
+/**
+ * This is responsible for displaying sales reports based on different time periods (weekly, monthly, or annual). 
+ * It fetches sales data from the server, calculates total sales, and renders the report
+ */
+
 import { useEffect, useState } from 'react';
 
 export default function SalesReport (){

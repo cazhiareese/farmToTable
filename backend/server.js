@@ -1,3 +1,10 @@
+/**
+ * Server configuration file for running the application.
+ * 
+ * This file sets up the Express server, connects to the MongoDB database,
+ * and initializes the necessary middleware and routes.
+ */
+
 // import express from 'express';
 import router from './router.js';   // import the router function
 // //Server configuration file
@@ -10,8 +17,6 @@ import router from './router.js';   // import the router function
 // router(app);
 
 // app.listen(3001);
-
-
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
