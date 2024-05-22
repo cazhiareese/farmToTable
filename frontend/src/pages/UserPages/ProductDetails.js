@@ -129,8 +129,8 @@ function ProductDetails (){
                         <div className = 'flex pl-10 justify-center flex-col' >
                         <h1 className='text-2xl font-semibold'>{product.name}</h1>
                         <p className='text-3xl font-semibold'> PHP {product.price}</p>
-                        <button className="transition ease-in-out duration-300 hover:bg-green-800 hover:shadow-lg  bg-fttGreen py-2 my-8 px-6 rounded-full flex items-center" onClick={()=> addToCart({productId : product._id})}>
-                        <img className= "w-6 mr-2 inline-block" src={cart}></img><p className='text-fttWhite inline-block'>Add To Cart</p></button>
+                        {product.status === 1 ? <button className="transition ease-in-out duration-300 hover:bg-green-800 hover:shadow-lg  bg-fttGreen py-2 my-8 px-6 rounded-full flex items-center" onClick={()=> addToCart({productId : product._id})}>
+                        <img className= "w-6 mr-2 inline-block" src={cart}></img><p className='text-fttWhite inline-block'>Add To Cart</p></button> : null }
                         <p className='inline-block font-medium'><img className= "w-6 inline-block mr-2" src={stock}></img> Stock: {product.stock}</p>
                         <p className='inline-block font-medium'><img className= "w-6 inline-block mr-2" src={ptype}></img>Type: {handleType(product.type)}</p>
                         </div> 
