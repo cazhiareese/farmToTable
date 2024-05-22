@@ -1,3 +1,7 @@
+/**
+ * This admin dashboard displays various metrics and provides links to different sections of the admin interface.
+ */
+
 import { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router';
 import {Link} from 'react-router-dom';

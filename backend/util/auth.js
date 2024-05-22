@@ -1,3 +1,7 @@
+/**
+ * Handles user authentication based on JWT tokens
+ */
+
 import jwt from 'jsonwebtoken';
 
 

@@ -1,3 +1,8 @@
+/**
+ * This component provides the foundational layout and navigation structure for the admin section, 
+ * allowing easy access to different features and functionalities.
+ */
+
 import { Outlet,Link } from 'react-router-dom';
 import css from '../../style/output.css';
 import { useState } from 'react';

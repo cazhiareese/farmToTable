@@ -1,3 +1,7 @@
+/**
+ * This component is for editing product listings in the admin interface
+ */
+
 import { useEffect, useState } from 'react';
 import { useParams, useOutletContext } from 'react-router-dom';
 import { Navigate, useNavigate } from 'react-router-dom';

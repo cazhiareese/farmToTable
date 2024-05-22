@@ -1,3 +1,9 @@
+/*
+*
+* Controller for handling user authentication, including sign-up and sign-in
+*
+*/
+
 import mongoose from 'mongoose';
 import { User } from '../models/userSchema.js';
 import { Product } from '../models/productSchema.js';
@@ -21,7 +27,7 @@ const getProduct = async(req, res) => {
   }
 }
 
-
+// Retrieve all products with sorting functionality
 const getAllProducts = async (req, res) => {
   let sorter = req.query.sortBy;
   let orderBy = parseInt(req.query.orderBy);
@@ -37,10 +43,6 @@ const getAllProducts = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
-
-
-
 
 // Create a new order
 // add authorization

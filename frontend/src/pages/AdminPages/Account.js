@@ -1,5 +1,12 @@
+/**
+ * Contains a React component for managing user accounts. 
+ * It fetches user data from the server and displays it, including details like first name, last name, email, and user type.
+ */
+
 import { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router';
+
+// Component for displaying user accounts
 export default function Account(){
    
     const [users, setUsers] = useState([])

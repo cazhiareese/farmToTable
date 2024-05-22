@@ -1,3 +1,8 @@
+/**
+ * This is for managing the inventory page in the admin interface.
+ * This component enables administrators to view, sort, add stock to, and delete products within the inventory page
+ */
+
 import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import AddStock from '../../components/AddStock';
