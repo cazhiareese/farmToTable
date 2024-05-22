@@ -55,15 +55,16 @@ Combalicer, Lawrence S.
 
 - Windows Subsystem for Linux and Visual Studio Code are recommended to be used  
 
-- 3 Terminals are needed to run the program and server (backend, frontend, MongoDB)  
+- 3 Terminals are needed to run the program and server (backend, frontend, MongoDB)    
+
 For Windows Users, remove the following in the **package.json** file in the *frontend* folder so it can load normally
 
-    WATCHPACK_POLLING=true 
+      WATCHPACK_POLLING=true 
       
 - Administrator login for the website
 
-    ftt@gmail.com
-    banana11
+      ftt@gmail.com
+      banana11
 
 - Sign up for a new account to see the customer view
 
@@ -72,11 +73,11 @@ Follow these steps to set up the project locally:
 
 1. Clone the repository:
 
-    git clone https://github.com/cazhiareese/farmToTable.git
+       git clone https://github.com/cazhiareese/farmToTable.git
 
 2. Make sure to have updated operating system and modules. Versions used in this project:
 
-    lsb_release -a //Ubuntu 22.04.1
+       lsb_release -a //Ubuntu 22.04.1
 
 NodeJS and npm
 
@@ -96,23 +97,23 @@ MongoDB Shell (for mongosh)
 
 3. Navigate to the project directory and install dependencies:
 
-    cd /path/farmToTable/backend
-    npm install
+       cd /path/farmToTable/backend
+       npm install
 
-    cd /path/farmToTable/frontend
-    npm install
+       cd /path/farmToTable/frontend
+       npm install
 
 4. Set-up MongoDB
 
-    mongosh mongodb+srv://username:password@farm.kzqurki.mongodb.net/ftt
+       mongosh mongodb+srv://username:password@farm.kzqurki.mongodb.net/ftt
 
 5. Start the development server:
 
-    cd /path/farmToTable/backend
-    npm start
+       cd /path/farmToTable/backend
+       npm start
 
-    cd /path/farmToTable/frontend
-    npm start
+       cd /path/farmToTable/frontend
+       npm start
 
 ## Contributing
 
@@ -120,16 +121,16 @@ MongoDB Shell (for mongosh)
 
 2. Create a new branch
 
-    git checkout -b feature-branch-name
+       git checkout -b feature-branch-name
 
 3. Make your changes
 
 4. Commit your changes:
 
-    git commit -m "This is a commit message"
+       git commit -m "This is a commit message"
 
 5. Push the changes to the branch 
 
-    git push origin feature-branch-name
+       git push origin feature-branch-name
 
 6. Create a pull request
