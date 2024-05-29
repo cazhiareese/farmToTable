@@ -271,7 +271,7 @@ function Cart({updateTotalItems}) {
                         <img className=' mr-4 w-20 h-20 rounded float-left object-cover' src={prod.imageURL}></img>
                         <div className='leading-tight flex flex-col justify-center '>
                         <h2 className='font-medium'> {prod.name}</h2>
-                        <p >PHP {prod.price}</p></div>    
+                        <p >PHP {new Intl.NumberFormat().format(prod.price)}</p></div>    
                         </div>            
                         </div>
 
@@ -287,7 +287,7 @@ function Cart({updateTotalItems}) {
                         </button>
                         </div>
 
-                        <p className='font-medium'>PHP {handlePrice(prod.price, prod.qty)}</p>
+                        <p className='font-medium'>PHP {new Intl.NumberFormat().format(handlePrice(prod.price, prod.qty))}</p>
                         {/* Remove an item regardless of quantity */}
                         <div className="remove">
                         <button className=" hover:shadow mx-2 rounded-2xl p-2 mr-5"  onClick={() => removeFromCart(prod.productId)}>

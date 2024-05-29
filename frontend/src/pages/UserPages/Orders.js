@@ -112,7 +112,7 @@ function Order (){
                         return(
                             <div key={items.orderId} className='border border-fttShadow w-2/4 p-6 shadow rounded-md my-4' >
                                 <h5 className='text-sm'>Order Tracker: {items.orderId} </h5>
-                                <h5 className='inline-block'>Order Total: <p className='font-semibold inline-block'>PHP {items.price}</p></h5>
+                                <h5 className='inline-block'>Order Total: <p className='font-semibold inline-block'>PHP {new Intl.NumberFormat().format(items.price)}</p></h5>
                                 {
                                 items.orders.map((prod) =>{
                                     return(
@@ -120,8 +120,8 @@ function Order (){
                                         <img className="float-left w-20 mr-4 h-20 object-cover rounded" src = {prod.imageURL}></img> 
                                         <h3 className='font-medium'>{prod.name}</h3>     
                                         <p>Quantity: {prod.qty}</p>
-                                        <p>Unit Price: {prod.price}</p>
-                                        <p className='inline-block'>Total Item Price: <h1 className='inline-block font-medium'>{prod.price * prod.qty}</h1></p>
+                                        <p>Unit Price: PHP {new Intl.NumberFormat().format(prod.price)}</p>
+                                        <p className='inline-block'>Total Item Price: <h1 className='inline-block font-medium'>PHP {new Intl.NumberFormat().format(prod.price * prod.qty)}</h1></p>
                                         </div>
                                     )
                                 })
