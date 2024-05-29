@@ -1,8 +1,7 @@
-/*
-*
-* Controller for handling administrative actions such as user management, transaction retrieval, and sales reporting
-*
-*/
+/**
+ * Controller for handling administrative actions such as user management, transaction retrieval, and sales reporting.
+ * Includes functions to retrieve user data, transaction data, generate sales reports, and manage products.
+ */
 
 import mongoose from 'mongoose';
 import moment from 'moment'
@@ -257,7 +256,7 @@ const getAllUser = async (req, res) => {
           break;
       }
 
-      console.log(startDate)
+      //console.log(startDate)
       const sales = await Order.find({status: 1, dateTime: {$gte: startDate.toDate()}})
 
       async function getOrderDetails(sales) {

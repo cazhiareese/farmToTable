@@ -1,3 +1,8 @@
+/**
+* Schema for users.
+* Represents the structure of a user, including their first name, middle name (optional), last name, type, email, and password.
+*/
+
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({

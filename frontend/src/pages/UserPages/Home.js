@@ -1,3 +1,9 @@
+/**
+ * This component fetches and displays products from the server, allows sorting and filtering,
+ * and provides functionality to add products to the user's cart. It handles state management
+ * for products, cart items, sorting options, and user interactions.
+ */
+
 import { useEffect, useState } from 'react';
 import { useParams, useOutletContext } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -24,7 +30,7 @@ function Home (props){
     const [selectedOption, setSelectedOption] = useState(filters.sortBy);
 
     useEffect(() => {    
-        console.log(token)
+        //console.log(token)
         handleFilter(filters)    
         
     },[])
@@ -51,7 +57,7 @@ function Home (props){
     
     function handleFilter(sorter){
         let url = 'http://localhost:3001/products?sortBy='+sorter.sortBy+'&orderBy='+String(sorter.orderBy)
-        console.log(url);
+        //console.log(url);
         fetch(url)
           .then(response => response.json())
           .then(body => {
@@ -68,8 +74,8 @@ function Home (props){
     }
 
     function handleFilterChange(filter){
-        console.log(filter)
-        console.log(typeof filter)
+        //console.log(filter)
+        //console.log(typeof filter)
         var newSorter = {...sorter, sortBy: filter}
         setSort(newSorter)
         handleFilter(newSorter)
@@ -85,7 +91,7 @@ function Home (props){
 
     function handleCartChange(cart){
 
-        console.log(cart)
+        //console.log(cart)
         fetch('http://localhost:3001/updateCart',
         {
             method: 'POST',
@@ -101,7 +107,7 @@ function Home (props){
             })
         }).then(response => response.text())
                 .then(body => {
-                    console.log(body)
+                    //console.log(body)
         })
     }
 

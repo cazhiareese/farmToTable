@@ -1,3 +1,9 @@
+/**
+ * This component renders a sign-up form for new users. It manages the form state, handles form submission, 
+ * validates password confirmation, and makes a POST request to the server to register a new user. 
+ * Upon successful registration, it navigates the user to the sign-in page.
+ */
+
 import React, { useState, useEffect} from 'react';
 import {Link } from 'react-router-dom';
 import axios from 'axios';

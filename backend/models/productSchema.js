@@ -1,3 +1,8 @@
+/**
+* Schema for products.
+* Represents the structure of a product, including its name, description, type, stock quantity, price, image URL, and status.
+*/
+
 import mongoose from 'mongoose';
 
 const productSchema = new mongoose.Schema({

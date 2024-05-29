@@ -1,7 +1,6 @@
-/*
-*
-* Controller for handling user authentication, including sign-up and sign-in
-*
+/**
+* Controller for handling user authentication, including sign-up and sign-in.
+* Provides functions to register a new user and authenticate existing users.
 */
 
 import bcrypt from 'bcrypt';
@@ -28,7 +27,7 @@ const signUp = async (req, res) => {
               
               //add user to database
               const ret = await newUser.save({});
-              console.log(ret)
+              //console.log(ret)
               const newCart = new Cart({
                      userId: ret._id,
                      cart:[]
@@ -60,7 +59,7 @@ const signIn = async (req, res) => {
 
                // JWT pass token
                const token = jwt.sign({id: user._id, type: user.type}, SECRET_KEY, {expiresIn: '1hr'});
-               console.log(token)
+               //console.log(token)
                res.status(200).send(token);
 
        }catch (error) {

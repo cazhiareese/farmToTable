@@ -1,3 +1,9 @@
+/**
+ * This component fetches product details and user's cart information from the server, and allows
+ * the user to add products to their cart. It handles cart state updates and ensures that the total
+ * item count in the cart is updated accordingly.
+ */
+
 import { useEffect, useState } from 'react';
 import { useParams, useOutletContext } from 'react-router-dom';
 import cart from '../../icons/view_product_cart.png';
@@ -20,7 +26,7 @@ function ProductDetails (){
             .then(response => response.json())
             .then(body => {
                setProduct(body)
-               console.log(body)
+               //console.log(body)
             })  
             
     }, [])
@@ -55,7 +61,7 @@ function ProductDetails (){
 
     function handleCartChange(cart){
 
-        console.log(cart)
+        //console.log(cart)
         fetch('http://localhost:3001/updateCart',
         {
             method: 'POST',
@@ -71,7 +77,7 @@ function ProductDetails (){
             })
         }).then(response => response.text())
                 .then(body => {
-                    console.log(body)
+                    //console.log(body)
         })
     }
 

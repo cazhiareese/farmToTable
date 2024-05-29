@@ -44,7 +44,7 @@ export default function Inventory(){
 
     function handleFilter(sorter){
         let url = 'http://localhost:3001/products?sortBy='+sorter.sortBy+'&orderBy='+String(sorter.orderBy)
-        console.log(url);
+        //console.log(url);
         fetch(url)
           .then(response => response.json())
           .then(body => {
