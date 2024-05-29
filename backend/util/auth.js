@@ -23,7 +23,7 @@ function auth(req,res,next){
       next();
 
   }catch (e){
-        console.log('here then')
+        //console.log('here then')
       res.status(401).json({error:"Invalid-token"});
   }
 

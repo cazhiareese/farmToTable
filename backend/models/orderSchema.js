@@ -1,3 +1,8 @@
+/**
+* Schema for orders.
+* Represents the structure of an order, including the products checked out, customer ID, status, date and time, and total price.
+*/
+
 import mongoose from 'mongoose';
 
 const orderSchema = new mongoose.Schema({

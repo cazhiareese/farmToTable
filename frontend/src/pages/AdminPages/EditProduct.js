@@ -31,7 +31,7 @@ function EditProduct (){
                setStock(body.stock)
                setPrice(body.price)
                setImageURL(body.imageURL)
-               console.log(body)
+               //console.log(body)
             })  
             
     }, [])
@@ -40,7 +40,7 @@ function EditProduct (){
     const handleEditProduct = (e) =>{
         e.preventDefault()
        const product ={ name, description, type, stock, price, imageURL}
-        console.log(product)
+        //console.log(product)
         fetch(`http://localhost:3001/edit-product/${productId.id}`, {
             method: 'POST',
             body: JSON.stringify(product),

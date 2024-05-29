@@ -1,3 +1,10 @@
+/**
+ * This component renders a sign-in form for existing users. It manages the form state, handles form submission, 
+ * and makes a POST request to the server to authenticate the user. Upon successful authentication, it stores 
+ * the authentication token in local storage and redirects the user to either the homepage or admin dashboard 
+ * based on their role.
+ */
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -17,14 +24,14 @@ function SignIn(){
 
   function getUserRole() {
     const authToken = localStorage.getItem('token');
-    console.log(authToken);
+    //console.log(authToken);
     if (!authToken) return null;
   
     try{
       //decode error
       const decoded = jwtDecode(authToken);
-      console.log('helo');
-      console.log(decoded.type);
+      //console.log('helo');
+      //console.log(decoded.type);
       return decoded.type;
     } catch (error) {
       return null;
@@ -46,7 +53,7 @@ function SignIn(){
       setPassword('')
       localStorage.setItem('token', authToken)
       let role = await getUserRole()
-      console.log(role)
+      //console.log(role)
       if (role === 'admin'){
         navigate('/admin')
       }else{

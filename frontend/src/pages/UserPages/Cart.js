@@ -1,3 +1,9 @@
+/**
+ * This component manages and displays the user's shopping cart. It fetches cart items from the server,
+ * allows sorting and filtering of the items, updates item quantities, and handles item removal.
+ * It also provides functionality for selecting items for checkout and updates the total item count.
+ */
+
 import { useParams, useOutletContext } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import CheckOutForm from '../../components/checkOutForm';
@@ -90,7 +96,7 @@ function Cart({updateTotalItems}) {
                 })
             }).then(response => response.text())
             .then(body => {
-                console.log(body)
+                //console.log(body)
 
             })
     }
@@ -165,14 +171,14 @@ function Cart({updateTotalItems}) {
     }
 
     function handleSelectChange(x, itemUpdated){
-        console.log('enterThis?')
+        //console.log('enterThis?')
         let updateSelect = [...selectedList]
         let updator = {}
         for (let j = 0; j<newCart.length; j++){
             if(newCart[j].productId === itemUpdated.productId){
-                console.log(newCart[j].productId)
+                //console.log(newCart[j].productId)
                 updator = {...newCart[j], qty: itemUpdated.qty}
-                console.log(updator)
+                //console.log(updator)
             }
         }
 
@@ -191,7 +197,7 @@ function Cart({updateTotalItems}) {
     const handleSelect = (event) => {
         const { value, checked } = event.target;
         
-        console.log(value)
+        //console.log(value)
         if (checked) {
           let checkedObject = {}
 
@@ -200,7 +206,7 @@ function Cart({updateTotalItems}) {
                 checkedObject = prod
             }
         })
-        console.log(checkedObject)
+        //console.log(checkedObject)
             
           setSelected([...selectedList, checkedObject]);
         } else {
@@ -239,14 +245,14 @@ function Cart({updateTotalItems}) {
 
                     <button className=' hover:border-fttGreen border-slate-500 border p-4 rounded-full mr-1' id="home-asc" onClick={()=>{
                                 setOrder(false)
-                                console.log(newCart.sort(sort_by(filter,order)))
+                                //console.log(newCart.sort(sort_by(filter,order)))
                         }}><svg width="16" height="11" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7.27787 1.04679C7.67437 0.459683 8.53879 0.459683 8.93529 1.04679L15.3161 10.4949C15.7646 11.159 15.2888 12.0545 14.4874 12.0545L1.72579 12.0545C0.924383 12.0545 0.448551 11.159 0.897079 10.4949L7.27787 1.04679Z" fill="#074528"/>
                         </svg></button>
 
                     <button className='hover:border-fttGreen border-slate-500 border p-4 rounded-full'  id="home-desc" onClick={()=>{
                                 setOrder(true)
-                                console.log(newCart.sort(sort_by(filter,order)))
+                                //console.log(newCart.sort(sort_by(filter,order)))
                     }}><svg width="16" height="11" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M8.72213 11.5587C8.32563 12.1458 7.46121 12.1458 7.06471 11.5587L0.683919 2.11059C0.235391 1.44645 0.711223 0.55092 1.51263 0.55092L14.2742 0.550921C15.0756 0.550921 15.5515 1.44646 15.1029 2.11059L8.72213 11.5587Z" fill="#074528"/>
                     </svg>       

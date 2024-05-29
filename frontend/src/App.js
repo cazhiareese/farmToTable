@@ -38,14 +38,14 @@ const isUserSignedIn = !!localStorage.getItem('token')
 //function that decodes the token and gets role of user
 function getUserRole() {
   const authToken = localStorage.getItem('token');
-  console.log(authToken);
+  //console.log(authToken);
   if (!authToken) return null;
 
   try{
     //decode error
     const decoded = jwtDecode(authToken);
-    console.log('helo');
-    console.log(decoded.type);
+    //console.log('helo');
+    //console.log(decoded.type);
     return decoded.type;
   } catch (error) {
     return null;

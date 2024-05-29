@@ -1,3 +1,9 @@
+/**
+ * This component renders a form to add stock to a product. It allows the user to input the new stock quantity
+ * and submits a POST request to the server to update the stock of the specified product. Upon successful update,
+ * it triggers a re-render by setting the filter and hiding the modal.
+ */
+
 import { useState } from "react"
 
 function AddStock (props) {
@@ -22,7 +28,7 @@ function AddStock (props) {
                 })
             }).then(response => response.text())
             .then(body => {
-                console.log(body)
+                //console.log(body)
                 setFilter(sorter)
                 setShow()
         })

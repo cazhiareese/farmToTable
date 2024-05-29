@@ -21,7 +21,7 @@ function CreateListing () {
     const handleNewProduct = (e) =>{
         e.preventDefault()
         const product ={name, description, type, stock, price, imageURL}
-        console.log(product)
+        //console.log(product)
         fetch('http://localhost:3001/add-product', {
             method: 'POST',
             body: JSON.stringify(product),

@@ -1,3 +1,9 @@
+/**
+ * This component fetches the user's orders based on their status (pending, confirmed, canceled)
+ * and allows the user to cancel pending orders. It handles state management for order details and
+ * dynamically updates the display based on user interactions.
+ */
+
 import { useEffect, useState } from 'react';
 import { useParams, useOutletContext } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -76,7 +82,7 @@ function Order (){
                 })
             }).then(response => response.text())
             .then(body => {
-                console.log(body)
+                //console.log(body)
                 getUserOrders(status)
         })
     }

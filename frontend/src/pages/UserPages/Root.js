@@ -1,3 +1,8 @@
+/**
+ * This component sets up the main layout of the application, including the header with navigation links,
+ * user authentication status, and a footer. It also manages the state for the item count in the cart
+ */
+
 import { Outlet, Link } from 'react-router-dom';
 import { useState } from 'react';
 import css from '../../style/output.css';

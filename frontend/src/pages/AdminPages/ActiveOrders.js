@@ -112,7 +112,7 @@ export default function ActiveOrders(){
                 customerLastName: body.lastName
             }
         }));
-        console.log(moreDetails)
+        //console.log(moreDetails)
         setDisplay(moreDetails)
     }
 
@@ -131,11 +131,11 @@ export default function ActiveOrders(){
                 })
             }).then(response => response.text())
             .then(body => {
-                console.log(body)
+                //console.log(body)
                 
         }).then(() => {
             if (statusChange === 1) {
-                console.log(order)
+                //console.log(order)
                 handleStockChange(order)
             }else{
                 getUserOrders(status)
@@ -157,7 +157,7 @@ export default function ActiveOrders(){
                     stock : edit.stock - edit.qty
                 })}).then(response => response.text())
                 .then(body => {
-                console.log(body)
+                //console.log(body)
                 getUserOrders(status)
                 fetchOrderCount(status)
             })

@@ -1,3 +1,10 @@
+/**
+ * It handles the product ID, functions to set visibility and update filter, and the current filter state. Upon confirmation 
+ * of deletion, it sends a POST request to the server to update the product status and stock, then updates 
+ * the filter and visibility state. If the deletion is canceled, it simply updates the visibility and 
+ * filter state.
+ */
+
 import { useState } from "react"
 
 function DeleteProduct (props){
@@ -20,7 +27,7 @@ function DeleteProduct (props){
             })
         }).then(response => response.text())
         .then(body => {
-            console.log(body)
+            //console.log(body)
             setFilter(sorter)
             setShow()
     })

@@ -1,7 +1,6 @@
-/*
-*
-* Controller for handling user authentication, including sign-up and sign-in
-*
+/**
+* Controller for handling product management and order processing.
+* Provides functions to retrieve product information, manage orders, and update the user's shopping cart.
 */
 
 import mongoose from 'mongoose';
@@ -13,14 +12,14 @@ import { Cart } from '../models/cartSchema.js'
 // Retrieve a products by their ID
 const getProduct = async(req, res) => {
   const {id} = req.params;
-  console.log(id)
+  //console.log(id)
   try {
     const product = await Product.findById(id);
     if (!product) {
       
       return res.status(404).json({ message: 'Product not found' });
     }
-    console.log(product)
+    //console.log(product)
     res.json(product);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -96,7 +95,7 @@ const updateCart = async (req, res) => {
     await Cart.updateOne({ userId: req.user.id }, { $set: { cart: req.body.cart } });
     res.json({ updatedOne: true });
   } catch (err) {
-    console.log(err);
+    //console.log(err);
     res.status(500).json({ updatedOne: false, message: err.message });
   }
 };

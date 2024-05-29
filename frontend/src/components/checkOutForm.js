@@ -1,3 +1,10 @@
+/**
+ * This component renders a checkout form for selected items, displaying the summary of selected items,
+ * their quantities, prices, and subtotal. It also calculates and displays the total price of the selected
+ * items. Upon submission, it sends a POST request to the server to add the order, updates the cart state
+ * by removing the checked-out items, and resets the selected items state.
+ */
+
 import { useEffect, useState } from "react";
 import summary from '../images/cart_summary.png';
 
@@ -64,7 +71,7 @@ function CheckOutForm(props){
                 });
 
         const body = await response.text()
-        console.log(body)   
+        //console.log(body)   
         
 
         const updateCartResponse = await fetch(`http://localhost:3001/updateCart/`, {
@@ -80,7 +87,7 @@ function CheckOutForm(props){
         });
 
         const cartChangeResponse = await updateCartResponse.text()
-        console.log(cartChangeResponse)
+        //console.log(cartChangeResponse)
         
         updatePushCart = pushCart.filter(item => !selectedList.some(selected => selected.productId === item.productId))
         setCart(updatePushCart);
