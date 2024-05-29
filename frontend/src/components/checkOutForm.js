@@ -110,9 +110,9 @@ function CheckOutForm(props){
                         <div key= {item.productId} className=" flex flex-col px-4 py-2">
                             <div className="flex justify-between "> 
                             <h2 className=" inline-block font-medium">{item.name}</h2>
-                            <p className="inline-block">PHP {item.price}</p>
+                            <p className="inline-block">PHP {new Intl.NumberFormat().format(item.price)}</p>
                             <p>Qty: {item.qty}</p></div>
-                            <p className="font-medium">Subtotal: PHP {handlePrice(item.price, item.qty)}</p>
+                            <p className="font-medium">Subtotal: PHP {new Intl.NumberFormat().format(handlePrice(item.price, item.qty))}</p>
                         </div>
                         
                     )
@@ -123,7 +123,7 @@ function CheckOutForm(props){
            
             <div className="border-t w-3/4 flex flex-col max-h-fit" >
                 <div className="flex justify-between">
-                    <h3 className="font-black text-lg mt-4">TOTAL</h3> <h3 className="font-black text-lg mt-4">PHP {totalPrice}</h3>
+                    <h3 className="font-black text-lg mt-4">TOTAL</h3> <h3 className="font-black text-lg mt-4">PHP {new Intl.NumberFormat().format(totalPrice)}</h3>
                 </div>
                 <form onSubmit={handleCheckout}>
                     <button className = " w-full rounded-full py-4 text-sm hover:shadow-lg hover:bg-green-800 my-4 text-fttWhite bg-fttGreen" disabled={selectedList.length === 0} type="submit">Proceed to checkout</button>

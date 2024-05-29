@@ -141,7 +141,7 @@ function Home (props){
 
 
     return(
-        <div className='bg-fttWhite font-Roboto text-fttGreen shadow-md min-h-screen' >
+        <div className='bg-fttWhite font-Roboto text-fttGreen shadow-md  min-h-screen' >
             {/* FLOATING CART WIIIIIII */}
             <button className= 'hover:bg-green-900  hover:shadow-3xl p-4 bottom-4 right-6 bg-fttGreen/75 fixed rounded-full shadow-lg'>
                 <Link className="link" to={`cart/`}>
@@ -206,7 +206,7 @@ function Home (props){
                             <Link  to={`/product/${prod._id}`}>
                             <img className= "w-full h-56 object-cover mb-2 rounded transition ease-in-out delay-100 hover:-translate-y-1 hover:scale-110 duration-400" src = {prod.imageURL}></img>
                             <p className='font-medium text-2xl'> {prod.name}</p>
-                            <p className='font-bold text-2xl '> PHP {prod.price}</p>
+                            <p className='font-bold text-2xl '> PHP {new Intl.NumberFormat().format(prod.price)}</p>
                             <p className='inline-block float-left'> {handleType(prod.type)}</p>
                             </Link>
                             { prod.status === 1 ?

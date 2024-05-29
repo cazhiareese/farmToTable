@@ -128,7 +128,7 @@ function ProductDetails (){
                     <div><img className='object-cover mb-2 rounded-md h-96 w-96 float-left' src = {product.imageURL}></img></div>
                         <div className = 'flex pl-10 justify-center flex-col' >
                         <h1 className='text-2xl font-semibold'>{product.name}</h1>
-                        <p className='text-3xl font-semibold'> PHP {product.price}</p>
+                        <p className='text-3xl font-semibold'> PHP {new Intl.NumberFormat().format(product.price)}</p>
                         {product.status === 1 ? <button className="transition ease-in-out duration-300 hover:bg-green-800 hover:shadow-lg  bg-fttGreen py-2 my-8 px-6 rounded-full flex items-center" onClick={()=> addToCart({productId : product._id})}>
                         <img className= "w-6 mr-2 inline-block" src={cart}></img><p className='text-fttWhite inline-block'>Add To Cart</p></button> : null }
                         <p className='inline-block font-medium'><img className= "w-6 inline-block mr-2" src={stock}></img> Stock: {product.stock}</p>

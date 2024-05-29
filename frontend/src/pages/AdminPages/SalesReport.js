@@ -51,16 +51,16 @@ export default function SalesReport (){
                 </div>
             </div>
 
-            <h4 className='ml-16 font-bold text-2xl mb-4' >Total Sales: {totalSales}</h4>
+            <h4 className='ml-16 font-bold text-2xl mb-4' >Total Sales: PHP {new Intl.NumberFormat().format(totalSales)}</h4>
             <div className="border-slate-400 border-t mb-10 pt-6 flex flex-col items-center" >
                 {
                     salesReport.map((prod) => {
                         return(
                             <div className='leading-snug border border-gray-300  shadow-md rounded-2xl w-1/2 p-4 mb-2 pl-12' key={prod.productId}>
-                                <h5 className=' font-medium'>Income generated: PHP {prod.totalSales}</h5>
+                                <h5 className=' font-medium'>Income generated: PHP {new Intl.NumberFormat().format(prod.totalSales)}</h5>
                                 <img  className="float-left w-20 mr-4 h-20 object-cover rounded" src={prod.imageURL} />
                                 <h1 className=' font-medium'>{prod.name}</h1>
-                                <p>PHP {prod.price}</p>
+                                <p>PHP {new Intl.NumberFormat().format(prod.price)}</p>
                                 <p>Items sold: {prod.totalQty}</p>
                                 
                             </div>

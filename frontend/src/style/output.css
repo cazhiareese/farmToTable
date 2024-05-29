@@ -555,6 +555,10 @@ video {
   position: absolute;
 }
 
+.relative{
+  position: relative;
+}
+
 .bottom-0{
   bottom: 0px;
 }
@@ -577,6 +581,14 @@ video {
 
 .top-40{
   top: 10rem;
+}
+
+.top-0{
+  top: 0px;
+}
+
+.right-0{
+  right: 0px;
 }
 
 .float-right{
@@ -815,6 +827,10 @@ video {
   display: flex;
 }
 
+.inline-flex{
+  display: inline-flex;
+}
+
 .grid{
   display: grid;
 }
@@ -837,6 +853,10 @@ video {
 
 .h-28{
   height: 7rem;
+}
+
+.h-3{
+  height: 0.75rem;
 }
 
 .h-4{
@@ -885,6 +905,10 @@ video {
   height: 100vh;
 }
 
+.h-2{
+  height: 0.5rem;
+}
+
 .max-h-fit{
   max-height: -webkit-fit-content;
   max-height: -moz-fit-content;
@@ -931,16 +955,16 @@ video {
   width: 7rem;
 }
 
+.w-3{
+  width: 0.75rem;
+}
+
 .w-3\/4{
   width: 75%;
 }
 
 .w-4\/5{
   width: 80%;
-}
-
-.w-40{
-  width: 10rem;
 }
 
 .w-5{
@@ -991,16 +1015,19 @@ video {
   width: 0.5rem;
 }
 
-.w-32{
-  width: 8rem;
+@keyframes ping{
+  75%, 100%{
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-ping{
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 .flex-col{
   flex-direction: column;
-}
-
-.flex-wrap{
-  flex-wrap: wrap;
 }
 
 .items-center{
@@ -1037,10 +1064,6 @@ video {
 
 .self-start{
   align-self: flex-start;
-}
-
-.self-end{
-  align-self: flex-end;
 }
 
 .overflow-hidden{
@@ -1174,24 +1197,14 @@ video {
   background-color: rgb(255 253 249 / var(--tw-bg-opacity));
 }
 
-.bg-slate-400{
+.bg-sky-400{
   --tw-bg-opacity: 1;
-  background-color: rgb(148 163 184 / var(--tw-bg-opacity));
+  background-color: rgb(56 189 248 / var(--tw-bg-opacity));
 }
 
-.bg-slate-600{
+.bg-sky-500{
   --tw-bg-opacity: 1;
-  background-color: rgb(71 85 105 / var(--tw-bg-opacity));
-}
-
-.bg-pink-400{
-  --tw-bg-opacity: 1;
-  background-color: rgb(244 114 182 / var(--tw-bg-opacity));
-}
-
-.bg-orange-200{
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 215 170 / var(--tw-bg-opacity));
+  background-color: rgb(14 165 233 / var(--tw-bg-opacity));
 }
 
 .fill-fttGreen{
@@ -1464,6 +1477,10 @@ video {
 
 .accent-fttGreen{
   accent-color: #074528;
+}
+
+.opacity-75{
+  opacity: 0.75;
 }
 
 .shadow{

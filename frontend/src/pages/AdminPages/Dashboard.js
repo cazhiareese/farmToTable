@@ -108,7 +108,7 @@ export default function Dashboard (){
                     </div>
 
                     <div className='bg-fttGreen text-fttWhite w-full h-full shadow flex m-1 flex-col items-center justify-center rounded-xl'>
-                    <Link to='/admin/sales-report'><h1 className='font-bold text-3xl'>PHP {totalSales}</h1>
+                    <Link to='/admin/sales-report'><h1 className='font-bold text-3xl'>PHP {new Intl.NumberFormat().format(totalSales)}</h1>
                         <h3 className='block text-lg'>Total Sales</h3></Link>
                     </div>
                 </div>

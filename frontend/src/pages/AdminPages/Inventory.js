@@ -130,7 +130,7 @@ export default function Inventory(){
                             <h4 className='font-medium text-2xl'> {prod.name}</h4>
                             <h6  className='font-xs text-light '> {handleType(prod.type)}</h6>
                             {prod.status === 1 ? <h3 className='font-sm text-light' > {prod.stock} in stock</h3> : null }
-                            <h3  className='font-md  '> PHP {prod.price}</h3>
+                            <h3  className='font-md  '> PHP {new Intl.NumberFormat().format(prod.price)}</h3>
                             <h6  className='font-xs text-light '> {handleStatus(prod.status)}</h6>
                             <div className='flex justify-end'> 
                            
