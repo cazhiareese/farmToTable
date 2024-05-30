@@ -113,16 +113,6 @@ After installing it, restart the terminal and run *nvm install stable* to instal
     node -v //21.7.2
     npm -v //10.5.0
 
-https://www.mongodb.com/try/download/tools
-
-MongoDB Shell (for mongosh)
-
-    sudo apt install /path/to/file/mongodb-mongosh_2.2.6_amd64.deb
-    
-MongoDB Command Line Database Tools (for mongodump and mongorestore)
-
-    sudo apt install /path/to/file/mongodb-database-tools-ubuntu2204-x86_64-100.9.4.deb
-
 3. Navigate to the project directory and install dependencies:
 
        cd /path/farmToTable/backend
@@ -132,7 +122,20 @@ MongoDB Command Line Database Tools (for mongodump and mongorestore)
        npm install
 
 4. Database Setup
+
+   https://www.mongodb.com/try/download/tools
+
+- **MongoDB Shell (for mongosh)**
+
+      sudo apt install /path/to/file/mongodb-mongosh_2.2.6_amd64.deb
+    
+- **MongoDB Command Line Database Tools (for mongodump and mongorestore)**
+
+      sudo apt install /path/to/file/mongodb-database-tools-ubuntu2204-x86_64-100.9.4.deb
+  
    - Ensure MongoDB is running and you have access to MongoDB Atlas or a local MongoDB instance.
+   - Obtain the MongoDB dump file from the project repository/administrator maintaining the database.
+   - Obtain the MongoDB Atlas credentials (username and password) from the project administrator.
    - Restore the MongoDB dump file by replacing `<username>`, `<password>`, and `/path/to/dumpfile` with your MongoDB Atlas credentials and the path to your dump file
 
          mongorestore --uri="mongodb+srv://<username>:<password>@farm.kzqurki.mongodb.net/ftt" --drop /path/to/dumpfile
