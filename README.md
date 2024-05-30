@@ -77,14 +77,13 @@ Combalicer, Lawrence S.
 
 
 ## Usage Guidelines
-
-- Windows Subsystem for Linux and Visual Studio Code are recommended to be used  
-
-- 3 Terminals are needed to run the program and server (backend, frontend, MongoDB)    
-
-For Windows Users, remove the following in the **package.json** file in the *frontend* folder so it can load normally
-
-      WATCHPACK_POLLING=true 
+- 3 Terminals are needed to run the program and server (backend, frontend, MongoDB)
+- Ensure that you have a .GITIGNORE file before pushing to the repository
+  
+      node_modules/*
+  
+- **For Windows Users**
+  - Windows Subsystem for Linux and Visual Studio Code are recommended to be used     
       
 - Administrator login for the website
 
@@ -119,6 +118,10 @@ https://www.mongodb.com/try/download/tools
 MongoDB Shell (for mongosh)
 
     sudo apt install /path/to/file/mongodb-mongosh_2.2.6_amd64.deb
+    
+MongoDB Command Line Database Tools (for mongodump and mongorestore)
+
+    sudo apt install /path/to/file/mongodb-database-tools-ubuntu2204-x86_64-100.9.4.deb
 
 3. Navigate to the project directory and install dependencies:
 
@@ -128,11 +131,13 @@ MongoDB Shell (for mongosh)
        cd /path/farmToTable/frontend
        npm install
 
-4. Set-up MongoDB
+4. Database Setup
+   - Ensure MongoDB is running and you have access to MongoDB Atlas or a local MongoDB instance.
+   - Restore the MongoDB dump file by replacing `<username>`, `<password>`, and `/path/to/dumpfile` with your MongoDB Atlas credentials and the path to your dump file
 
-       mongosh mongodb+srv://username:password@farm.kzqurki.mongodb.net/ftt
+         mongorestore --uri="mongodb+srv://<username>:<password>@farm.kzqurki.mongodb.net/ftt" --drop /path/to/dumpfile
 
-5. Start the development server:
+6. Start the development server:
 
        cd /path/farmToTable/backend
        npm start
@@ -142,7 +147,7 @@ MongoDB Shell (for mongosh)
 
 ## Contributing
 
-1. Fork/Clone the repository
+1. Clone the repository
 
 2. Create a new branch
 
