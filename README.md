@@ -88,7 +88,7 @@ Combalicer, Lawrence S.
 - Administrator login for the website
 
       ftt@gmail.com
-      banana11
+      Password123
 
 - Sign up for a new account to see the customer view
 
@@ -136,9 +136,15 @@ After installing it, restart the terminal and run *nvm install stable* to instal
    - Ensure MongoDB is running and you have access to MongoDB Atlas or a local MongoDB instance.
    - Obtain the MongoDB dump file from the project repository/administrator maintaining the database.
    - Obtain the MongoDB Atlas credentials (username and password) from the project administrator.
-   - Restore the MongoDB dump file by replacing `<username>`, `<password>`, and `/path/to/dumpfile` with your MongoDB Atlas credentials and the path to your dump file
+   - Restore the MongoDB dump file by replacing `<username>`, `<password>`, and `/path/to/dumpfile` with your MongoDB Atlas credentials and the path to your dump file  
 
-         mongorestore --uri="mongodb+srv://<username>:<password>@farm.kzqurki.mongodb.net/ftt" --drop /path/to/dumpfile
+         mongorestore --db ftt2 --uri="mongodb+srv://<username>:<password>@cluster0.wgvnhyn.mongodb.net/ftt2?retryWrites=true&w=majority&appName=Cluster0" --drop /path/to/dumpfile
+
+    - Use the following credentials to restore the database state
+
+          user2
+          lAhOqFgutMy0Gkmh
+      
 
 6. Start the development server:
 
