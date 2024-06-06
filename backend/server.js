@@ -21,7 +21,7 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 
-const dbURI = 'mongodb+srv://cazhia:E13UKHwTNcHF3PzJ@farm.kzqurki.mongodb.net/ftt?retryWrites=true&w=majority&appName=farm';
+const dbURI = 'mongodb+srv://user2:lAhOqFgutMy0Gkmh@cluster0.wgvnhyn.mongodb.net/ftt2?retryWrites=true&w=majority&appName=Cluster0';
 const app = express();
 app.use(cors());
 app.use(express.json());
